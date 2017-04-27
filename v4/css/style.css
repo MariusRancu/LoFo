@@ -272,3 +272,14 @@ a{
     padding-top: 10px;
     text-align: center;
 }
+
+.form select{
+    padding: 5px 5px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    border: 2px solid #5e2323;
+    text-align: right;
+    position: relative;
+    float: right;
+}
+}
