@@ -27,7 +27,7 @@ body{
     color: white;
     float: left;
     font-size: 17px;
-    width: 580px;
+    width: 5600px;
     height: 40px;
     padding-left: 10px;
     vertical-align: baseline;
@@ -46,7 +46,7 @@ body{
 }
 
 .menu_items a:hover{
-    background-color: sandybrown;
+    background-color: #5e2323;
     height: 30px;
     display: inline-block;
     position: relative;
