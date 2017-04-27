@@ -9,9 +9,9 @@
     <div class="header_menu">
         <div class="menu_content">
             <div class="menu_items">
-                <a href="index.html" class="activ">HOME</a> |
+                <a href="index.html">HOME</a> |
                 <a href="signup.html">SIGN UP</a> |
-                <a href="report.html">REPORT</a> |
+                <a href="report.html" class="activ">REPORT</a> |
                 <a href="my_profile.html">MY PROFILE</a> |
                 <a href="admin_panel.html">ADMIN PANEL</a> |
                 <a href="contact_us.html">CONTACT US</a>
@@ -36,12 +36,23 @@
             </div>
         </div>
     </div>
-    <div class="container_home">
-        <div class="home_pierdut">
-            <span><a href="obiect_pierdut.html">Am pierdut un obiect</a></span>
-        </div>
-        <div class="home_gasit">
-            <span><a href="obiect_gasit.html">Am gasit un obiect</a></span>
+    <div class="container">
+        <div class="form">
+            <h1>Report Member</h1>
+            <span>Username profile: </span> <input type="text" placeholder="Enter the member's profile/ID/Object that you want to report" name="uname" size="60" required>
+            <br><br>
+            <span>Reason: </span>
+            <select name="cars">
+                <option value="scam">Scam</option>
+                <option value="vulgar-language">Vulgar Language</option>
+                <option value="not-return">Not willing to return lost object</option>
+                <option value="no-answer">Doesn't answer</option>
+                <option value="bot">Bot</option>
+            </select>
+            <br><br>
+            <span>Describe report: </span><input type="text" placeholder="Use a few words to describe the report reason" name="uname" size="60" height="20" required>
+        <br><br>
+            <input type="submit" value="Report Member">
         </div>
     </div>
 </body>

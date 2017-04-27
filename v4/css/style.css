@@ -55,6 +55,16 @@ body{
     padding-right: 10px;
 }
 
+.activ{
+    background-color: #5e2323;
+    height: 30px;
+    display: inline-block;
+    position: relative;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .login_items{
     background-color: black;
     width: 400px;
@@ -85,8 +95,17 @@ body{
     height: 220px;
     margin: auto;
 }
+
+.container_home{
+    background: url(../img/container.png);
+    width: 1200px;
+    height: 513px;
+    margin: auto;
+    margin-top: 20px;
+}
+
 .container{
-    background: url(/img/container.png);
+    background-color: #d4d4d4;
     width: 1200px;
     height: 513px;
     margin: auto;
@@ -119,7 +138,7 @@ body{
 }
 
 .login_items input[type=submit] {
-    width: 100px;
+    width: 90px;
     height: 28px;
     padding:5px 15px; 
     color: white;
@@ -213,4 +232,42 @@ a{
     text-transform: uppercase;
     position: relative;
     left: 100px;
+}
+
+.form{
+    width: 560px;
+    margin: auto;
+    
+}
+
+.form input[type=text] {
+    padding: 5px 5px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    border: 2px solid #5e2323;
+    text-align: right;
+    position: relative;
+    float: right;
+}
+
+.form input[type=submit] {
+    width: 400px;
+    height: 30px;
+    padding:5px 15px; 
+    color: white;
+    background:#5e2323; 
+    border:0 none;
+    cursor:pointer;
+    margin-left: 100px;
+}
+
+.form span{
+    position: relative;
+    top: 7px;
+}
+
+.form h1{
+    color: gray;
+    padding-top: 10px;
+    text-align: center;
 }
