@@ -1,0 +1,161 @@
+/* header */
+.full-header {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10px;
+	color : #ddd;
+	background-image:url(http://localhost/ueb/LoFo/header.png);
+	width:800px;
+	height:261px;
+	align: center;
+	padding : 00px;
+	border-radius: 15px;
+}
+
+/* body */
+body
+{
+	background-image: url(http://localhost/ueb/LoFo/images/bg.png);
+}
+
+
+/* meniu */
+
+@font-face {
+	font-family: 'Exo 2 Semi Bold Italic';
+	src: url('Exo2-SemiBoldItalic.otf');
+}
+
+nav {
+      position: relative;
+      background: #10478b;
+      width: 65%; 
+      margin: 0 auto;
+      border-radius: 10px;
+}
+
+.meniu ul a:link {
+	
+	text-decoration: none;
+	color: white;
+}
+.meniu ul li ul li a:link {
+	
+	text-decoration: none;
+	color: black;
+}
+.meniu ul  li a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.meniu ul li ul li a:visited {
+	color: black;
+}
+
+.meniu ul {
+	list-style-type: none;
+	position: relative;
+	z-index: 9;
+
+}
+
+.meniu ul li {
+  font-family: 'Comic Sans MS', Arial, Tahoma;
+  font-weight: bold;
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  font-size: 15px;
+  border-radius: 10px;
+  
+
+}
+
+.meniu ul li ul {
+  display: none;
+
+}
+
+.meniu ul li:hover {
+  background-color: #272727;
+
+}
+
+.meniu ul li:hover ul {
+  display: block;
+  margin-top: 10px;
+  width: 200px;
+  position: absolute;
+  z-index: 99;
+
+}
+
+.meniu ul li:hover ul li {
+  display: block;
+  background-color: #bfbfbf;
+  border: 2px solid #022170;
+  border-radius: 5px;  
+}
+
+.meniu ul li ul li:hover {
+	background: #4f9db0;
+	border: 2px solid #022170;
+}
+
+/* content */
+.continut {
+padding-top:  30px;
+
+}
+
+.continut section{
+	border: 2px solid #a1a1a1;
+    padding: 10px 40px; 
+    background: #d1d1d1;
+    width: 65%;
+    border-radius: 25px;
+    margin:auto;
+    font-style: bold;
+    text-align: center;
+}
+
+.continut section table {
+	margin:auto;
+	border: 5px dotted #454545;
+	table-layout: auto;
+	
+}
+
+.continut section h2 {
+	font-family: Tahoma;
+	font-size: 1em;
+}
+
+.continut h1 {
+	font-family: Verdana;
+	font-size: 35px;
+	text-align: center;
+}
+
+.continut section section ul {
+	list-style: decimal;
+	-moz-column-count: 4;
+    -moz-column-gap: 50px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 50px;
+    column-count: 4;
+    column-gap: 50px;
+}
+.continut section section {
+	background-color: #dddddd;
+	border: 5px dotted #454545;
+}
+
+.continut section section p {
+	font-size: 15px;
+}
+
+.continut section section img {
+	width: 90%;
+	height: 90%;
+}
