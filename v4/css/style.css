@@ -105,7 +105,11 @@ body{
 }
 
 .container{
+<<<<<<< HEAD
     background-color: #d4d4d4;
+=======
+    background: url(../img/container.png);
+>>>>>>> origin/master
     width: 1200px;
     height: 513px;
     margin: auto;
