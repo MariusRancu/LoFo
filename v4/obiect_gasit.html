@@ -10,7 +10,7 @@
         <div class="menu_content">
             <div class="menu_items">
                 <a href="index.html">HOME</a> |
-                <a href="signup.html" class="activ">SIGN UP</a> |
+                <a href="signup.html">SIGN UP</a> |
                 <a href="report.html">REPORT</a> |
                 <a href="my_profile.html">MY PROFILE</a> |
                 <a href="admin_panel.html">ADMIN PANEL</a> |
@@ -38,27 +38,45 @@
     </div>
     <div class="container">
         <div class="form">
-            <h1>Sign UP</h1>
-                    <span>Username: </span> <input type="text" placeholder="Enter your desired username" name="uname" size="55" required>
+            <h1>Obiect Gasit</h1>
+            <span>Object Name: </span> <input type="text" placeholder="Enter the name of the found object" name="uname" size="55" required>
             <br><br>
-                    <span>Password: </span><input type="text" placeholder="Enter your desired password" name="uname" size="55" required>
+            <span>Category: </span> <select name="reasons">
+                <option value="">Please select the category of the object</option>
+                <option value="value01">Phone</option>
+                <option value="value02">Accesories</option>
+                <option value="value03">Electronics</option>
+                <option value="value04">Papers</option>
+                <option value="value05">Keys</option>
+            </select>
             <br><br>
-                    <span>Repeat Password: </span><input type="text" placeholder="Enter you desired password, again" name="uname" size="55" required>
+            <span>Producer: </span><input type="text" placeholder="Enter the object's producer (if it has any)" name="uname" size="55" required>
             <br><br>
-                    <span>First Name: </span><input type="text" placeholder="Enter your first name" name="uname" size="55" required>
+            <span>Model: </span><input type="text" placeholder="Enter the object's model (if it has any)" name="uname" size="55" required>
             <br><br>
-                    <span>Last Name: </span><input type="text" placeholder="Enter your last name" name="uname" size="55" required>
+            <span>Color: </span><input type="text" placeholder="Enter your object's color" name="uname" size="55" required>
             <br><br>
-                    <span>E-mail: </span><input type="text" placeholder="Enter your e-mail address" name="uname" size="55" required>
+            <span>Picture: </span><input type="text" placeholder="<HERE SHOULD BE AN UPLOAD FUNCTION>" name="uname" size="55" required>
             <br><br>
-                    <span>Address: </span><input type="text" placeholder="Enter your home address" name="uname" size="55" required>
+            <span>Found Location: </span>
+            <select name="reasons">
+                <option value="">Please select the location where you found the object</option>
+                <option value="value01">Copou</option>
+                <option value="value02">Tatarasi</option>
+                <option value="value03">Alexandru</option>
+                <option value="value04">Baza III</option>
+                <option value="value05">Nicolina</option>
+            </select>
             <br><br>
-                    <span>Phone No: </span><input type="text" placeholder="Enter your phone no. -- it will not be made public" name="uname" size="55" required>
+            <span>Found Date: </span><input type="date" placeholder="Enter your phone no. -- it will not be made public" name="uname" size="55" required>
+            <!--
             <br><br>
                     <span>CNP: </span><input type="text" placeholder="Enter your CNP -- it will not be made public" name="uname" size="55" required>
+-->
             <br><br><br>
-            <input type="submit" value="Sign UP">
-    </div></div>
+            <input type="submit" value="Let me help!">
+        </div>
+    </div>
 </body>
 
 </html>
