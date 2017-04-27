@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Lost and Found</title>
+        <title>Lost and Found - deprecated</title>
         <meta name="author" content="Râncu Marius & Nedelcu Răzvan">
         <meta charset="UTF-8">
         <meta name="description" content="Proiect: Lost and Found">
