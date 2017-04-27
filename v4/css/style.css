@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body{
+    background-color: #535353;
+        margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Roboto';
+}
+
+.header_menu{
+    width: 100%;
+    height: 40px;
+    background-position: relative;
+    padding: 0px;
+    background-color: black;
+}
+
+.menu_content{
+    width: 1200px;
+    height: 0px;
+    margin: auto;
+    background-color: red;
+    background-position: relative;
+}
+
+.menu_items{
+    background-color: black;
+    color: white;
+    float: left;
+    font-size: 17px;
+    width: 580px;
+    height: 40px;
+    padding-left: 10px;
+    vertical-align: baseline;
+    font: inherit;
+}
+
+.menu_items a{
+    font-size: bold;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.menu_items a:hover{
+    background-color: sandybrown;
+    height: 30px;
+    display: inline-block;
+    position: relative;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.login_items{
+    background-color: black;
+    width: 400px;
+    height: 33px;
+    float: right;
+    display: inline-block;
+    position: relative;
+    padding-top: 7px;
+}
+
+.login_items input[type=text] {
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid red;
+
+}
+
+.banner_bg{
+    background-color:  #a3a3a3;
+    width: 100%;
+    height: 220px;
+}
+
+.banner_itself{
+/*    background-color: red;*/
+    width: 1200px;
+    height: 220px;
+    margin: auto;
+}
+.container{
+    background: url(/img/container.png);
+    width: 1200px;
+    height: 513px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.login{
+    background-color: white;
+    position: relative;
+    float: right;
+    top: 125px;
+    right: 20px;
+}
+
+.login_items{
+    background-color: white;
+    width: 300px;
+    height: 70px;
+    float: right;
+    display: inline-block;
+    position: relative;
+    padding-left: 10px;
+}
+
+.login_items input[type=text] {
+    padding: 5px 5px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    border: 2px solid #5e2323;
+}
+
+.login_items input[type=submit] {
+    width: 100px;
+    height: 28px;
+    padding:5px 15px; 
+    color: white;
+    background:#5e2323; 
+    border:0 none;
+    cursor:pointer;
+    margin-left: 10px;
+}
+
+.login_items span{
+    font-weight: bold;
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+}
+
+.logo{
+    width: 300px;
+    height: 200px;
+    
+}
+.slogan{
+/*    background-color: white;*/
+    width: 380px;
+    height: 150px;
+    position: relative;
+    float: left;
+    left: 90px;
+    top: 20px;
+}
+
+.big_text{
+    color: gray;
+    font-size: 80px;
+    font-family: Arial;
+    color: black;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+}
+
+.little_text{
+    color: gray;
+    font-size: 18px;
+    color: black;
+    position: relative;
+    text-align: center;
+
+}
+
+.home_pierdut{
+    width: 700px;
+    height: 60px;
+/*    background-color: black;*/
+    position: relative;
+    top: 150px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.home_pierdut:hover{
+    background-color: black;
+}
+
+.home_pierdut span{
+    color: white;
+    font-size: 50px;
+    text-transform: uppercase;
+    position: relative;
+    left: 100px;
+}
+
+.home_gasit{
+    width: 700px;
+    height: 60px;
+    position: relative;
+    float: right;
+    top: 238px;
+}
+
+.home_gasit:hover{
+    background-color: black;
+}
+
+.home_gasit span{
+    color: white;
+    font-size: 50px;
+    text-transform: uppercase;
+    position: relative;
+    left: 100px;
+}
