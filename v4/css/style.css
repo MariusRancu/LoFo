@@ -86,7 +86,7 @@ body{
     margin: auto;
 }
 .container{
-    background: url(../img/container.png);
+    background: url(/img/container.png);
     width: 1200px;
     height: 513px;
     margin: auto;
