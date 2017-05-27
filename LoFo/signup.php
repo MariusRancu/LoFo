@@ -183,9 +183,7 @@ function signup(){
 		var ajax = ajaxObj("POST", "signup.php");
         ajax.onreadystatechange = function() {
 	        if(ajaxReturn(ajax) == true) {
-	            
 					status.innerHTML = ajax.responseText;
-				 
 	        }
         }
         ajax.send("username=" + username + "&nume=" + nume + "&prenume=" + prenume + "&email=" + email + "&adresa=" + adresa + "&parola=" + p1 + "&telefon=" + telefon);
