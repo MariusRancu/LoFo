@@ -38,10 +38,10 @@
     </div>
     <div class="container_home">
         <div class="home_pierdut">
-            <span><a href="obiect_pierdut.html">Am pierdut un obiect</a></span>
+            <span><a href="obiect_pierdut.php">Am pierdut un obiect</a></span>
         </div>
         <div class="home_gasit">
-            <span><a href="obiect_gasit.html">Am gasit un obiect</a></span>
+            <span><a href="obiect_gasit.php">Am gasit un obiect</a></span>
         </div>
     </div>
 </body>
