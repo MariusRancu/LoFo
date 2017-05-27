@@ -65,24 +65,6 @@ body{
     padding-right: 10px;
 }
 
-.login_items{
-    background-color: black;
-    width: 400px;
-    height: 33px;
-    float: right;
-    display: inline-block;
-    position: relative;
-    padding-top: 7px;
-}
-
-.login_items input[type=text] {
-    padding: 5px 5px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 2px solid red;
-
-}
-
 .banner_bg{
     background-color:  #a3a3a3;
     width: 100%;
@@ -128,9 +110,17 @@ body{
     display: inline-block;
     position: relative;
     padding-left: 10px;
+    padding-top: 7px;
 }
 
 .login_items input[type=text] {
+    padding: 5px 5px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    border: 2px solid #5e2323;
+}
+
+.login_items input[type=password] {
     padding: 5px 5px;
     margin: 2px 0;
     box-sizing: border-box;
