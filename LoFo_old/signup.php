@@ -232,18 +232,6 @@ function signup(){
 </head>
 <body>
 <header>
-    <?php 
-
-    echo "<br><table align='center' cellspacing='0' cellpadding='0' width='800' class='outer-border center'>\n<tr>\n";
-    echo "<td>\n";
-    echo "<table class='full-header' align='center' cellpadding='0' cellspacing='0' width='900'>\n<tr>\n";
-    echo "<td style='padding-bottom:10px; padding-right:10px; padding-left:600px;padding-top:150px;'>";
-    /*include "login.php";*/
-    echo "</td>";
-    echo "</tr>\n</table>\n";
-    echo "</td>\n</tr>\n</table>\n";
-
-    ?>
     </header>
     <br><br>
 <nav class="meniu"><center>

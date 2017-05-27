@@ -240,6 +240,16 @@ a{
     float: right;
 }
 
+.form input[type=password] {
+    padding: 5px 5px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    border: 2px solid #5e2323;
+    text-align: right;
+    position: relative;
+    float: right;
+}
+
 .form input[type=date] {
     padding: 5px 5px;
     margin: 2px 0;

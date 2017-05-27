@@ -185,6 +185,8 @@ function signup(){
 	        if(ajaxReturn(ajax) == true) {
 	            
 					status.innerHTML = ajax.responseText;
+                    alert("Your account has been created. You may login now!");
+                    window.location = "index.php";
 				 
 	        }
         }
@@ -200,7 +202,7 @@ function signup(){
     <div class="header_menu">
         <div class="menu_content">
             <div class="menu_items">
-                <a href="index.html">HOME</a> |
+                <a href="index.php">HOME</a> |
                 <a href="signup.php" class="activ">SIGN UP</a> |
                 <a href="report.html">REPORT</a> |
                 <a href="my_profile.html">MY PROFILE</a> |
@@ -233,15 +235,15 @@ function signup(){
             <form name="signupform" id="signupform" onsubmit="return false;">
                         <span>Username: </span> 
                         <input type="text" id="username" maxlength="16" onblur="checkusername()" placeholder="Enter your desired username" name="uname" size="55" required>
-                        <span id="unamestatus"></span><hr>
-                <br><br>
+                <span id="unamestatus" style="float: right;top: 0px;bottom: 0px;"></span>
+                <br><br><br>
                         <span>Password: </span>
                         <input id="p1" type="password" onfocus="emptyElement('status')" placeholder="Enter your desired password" name="uname" size="55" required>
                 <br><br>
                         <span>Repeat Password: </span>
                         <input id="p2" type="password" onblur="checkpassword()" placeholder="Enter you desired password, again" name="uname" size="55" required>
-                        <span id="password_status"></span>
-                <br><br>
+                        <span id="password_status"style="float: right;top: 0px;bottom: 0px;"></span>
+                <br><br><br>
                         <span>First Name: </span>
                         <input id="firstname" type="text" onfocus="emptyElement('status')" placeholder="Enter your first name" name="uname" size="55" required>
                 <br><br>
