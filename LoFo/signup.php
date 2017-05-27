@@ -183,11 +183,13 @@ function signup(){
 		var ajax = ajaxObj("POST", "signup.php");
         ajax.onreadystatechange = function() {
 	        if(ajaxReturn(ajax) == true) {
-	            
 					status.innerHTML = ajax.responseText;
+<<<<<<< HEAD
                     alert("Your account has been created. You may login now!");
                     window.location = "index.php";
 				 
+=======
+>>>>>>> origin/master
 	        }
         }
         ajax.send("username=" + username + "&nume=" + nume + "&prenume=" + prenume + "&email=" + email + "&adresa=" + adresa + "&parola=" + p1 + "&telefon=" + telefon);
