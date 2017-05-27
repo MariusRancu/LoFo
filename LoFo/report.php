@@ -1,3 +1,12 @@
+<?php
+include_once("php_includes/check_login_status.php");
+if($user_ok == false)
+    {
+        header("location: signup.php");
+    exit();
+    }
+ ?>
+ 
 <html>
 
 <head>

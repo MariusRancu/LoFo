@@ -1,3 +1,12 @@
+<?php
+include_once("php_includes/check_login_status.php");
+if($user_ok == false)
+    {
+        header("location: signup.php");
+    exit();
+    }
+ ?>
+ 
 <html>
 
 <head>
@@ -38,7 +47,7 @@
     </div>
     <div class="container">
         <div class="form">
-            <h1>Obiect Gasit</h1>
+            <h1>Obiect Pierdut</h1>
             <span>Object Name: </span> <input type="text" placeholder="Enter the name of the found object" name="uname" size="55" required>
             <br><br>
             <span>Category: </span> <select name="reasons">
@@ -56,8 +65,10 @@
             <br><br>
             <span>Color: </span><input type="text" placeholder="Enter your object's color" name="uname" size="55" required>
             <br><br>
+<!--
             <span>Picture: </span><input type="text" placeholder="<HERE SHOULD BE AN UPLOAD FUNCTION>" name="uname" size="55" required>
             <br><br>
+-->
             <span>Found Location: </span>
             <select name="reasons">
                 <option value="">Please select the location where you found the object</option>
@@ -74,10 +85,9 @@
                     <span>CNP: </span><input type="text" placeholder="Enter your CNP -- it will not be made public" name="uname" size="55" required>
 -->
             <br><br><br>
-            <input type="submit" value="Let me help!">
+            <input type="submit" value="God, help me!">
         </div>
     </div>
-
 </body>
 
 </html>
