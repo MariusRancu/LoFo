@@ -110,7 +110,7 @@ if(isset($_POST["username"])){
 		
 		$sql = mysqli_prepare($db_con, "INSERT INTO users (username, last_name, first_name, email, password, address, phone_number, role)       
 		        VALUES(?,?,?,?,?,?,?,?)");
-	mysqli_stmt_bind_param($sql,'sssssssi', $username, $nume, $prenume, $email, $parola, $adresa, $telefon, $role);
+	mysqli_stmt_bind_param($sql,'sssssssi', $username, $nume, $prenume, $email, $pass_hash, $adresa, $telefon, $role);
 	mysqli_stmt_execute($sql);
 	$sql -> close(); 
 		
