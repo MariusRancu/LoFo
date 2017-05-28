@@ -11,9 +11,9 @@
             <div class="menu_items">
                 <a href="index.php" class="activ">HOME</a> |
                 <a href="signup.php">SIGN UP</a> |
-                <a href="report.html">REPORT</a> |
-                <a href="my_profile.html">MY PROFILE</a> |
-                <a href="admin_panel.html">ADMIN PANEL</a> |
+                <a href="report.php">REPORT</a> |
+                <a href="my_profile.php">MY PROFILE</a> |
+                <a href="admin_panel.php">ADMIN PANEL</a> |
                 <a href="contact_us.html">CONTACT US</a>
             </div>
 

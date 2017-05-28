@@ -1,3 +1,12 @@
+<?php
+include_once("php_includes/check_login_status.php");
+if($user_ok == false)
+    {
+        header("location: signup.php");
+    exit();
+    }
+ ?>
+
 <html>
 
 <head>
@@ -12,8 +21,8 @@
                 <a href="index.php">HOME</a> |
                 <a href="signup.php">SIGN UP</a> |
                 <a href="report.html">REPORT</a> |
-                <a href="my_profile.html" >MY PROFILE</a> |
-                <a href="admin_panel.html" class="activ">ADMIN PANEL</a> |
+                <a href="my_profile.php" >MY PROFILE</a> |
+                <a href="admin_panel.php" class="activ">ADMIN PANEL</a> |
                 <a href="contact_us.html">CONTACT US</a>
             </div>
 
