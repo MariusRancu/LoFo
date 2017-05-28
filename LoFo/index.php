@@ -97,7 +97,12 @@ if(isset($_POST["u"])){
                 <div class="little_text">Lost & Found V4.0.1 BETA</div>
             </div>
             <?php if($user_ok == true) : ?>
-                <p class="login_items">Welcome</p>
+            <div class="login">
+                <div class="login_items">
+                    <p class="login_items">Welcome, <?php echo $log_username; ?></p>
+                    <a href="logout.php">Logout</a>
+                </div>
+            </div>
             <?php else : ?>
                 <div class="login">
                     <div class="login_items">
