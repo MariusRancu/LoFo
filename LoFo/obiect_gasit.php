@@ -20,10 +20,10 @@ if($user_ok == false)
             <div class="menu_items">
                 <a href="index.php">HOME</a> |
                 <a href="signup.php">SIGN UP</a> |
-                <a href="report.html">REPORT</a> |
-                <a href="my_profile.html">MY PROFILE</a> |
-                <a href="admin_panel.html">ADMIN PANEL</a> |
-                <a href="contact_us.html">CONTACT US</a>
+                <a href="report.php">REPORT</a> |
+                <a href="my_profile.php">MY PROFILE</a> |
+                <a href="admin_panel.php">ADMIN PANEL</a> |
+                <a href="contact_us.php">CONTACT US</a>
             </div>
 
         </div>
@@ -34,15 +34,24 @@ if($user_ok == false)
                 <div class="big_text">L O F O</div>
                 <div class="little_text">Lost & Found V4.0.1 BETA</div>
             </div>
+             <?php if($user_ok == true) : ?>
             <div class="login">
                 <div class="login_items">
-                    <input type="text" placeholder="Enter Username" name="uname" size="18" required>
-                    <input type="checkbox" checked="checked"><span>Remember me?</span>
-                    <input type="text" placeholder="Enter Password" name="uname" size="18" required>
-                    <input type="submit" value="Submit">
-
+                    <p class="login_items">Welcome, <?php echo $log_username; ?></p>
+                    <a href="logout.php">Logout</a>
                 </div>
             </div>
+            <?php else : ?>
+                <div class="login">
+                    <div class="login_items">
+                        <input type="text" placeholder="Enter Username" id="username" size="18" required/>
+                        <input type="checkbox" checked="checked" id="remember"><span>Remember me?</span>
+                        <input type="password" placeholder="Enter Password" id="password" size="18" required/>
+                        <input type="submit" id="loginbtn" onclick="login()"></submit> 
+                        <p id="status"></p>
+                    </div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="container">
