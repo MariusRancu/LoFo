@@ -9,6 +9,7 @@ $user_ok = false;
 if(isset($_SESSION["username"]) && isset($_SESSION["password"])) {
 	// Verify the user
 	$user_ok = true;
+
 } else if(isset($_COOKIE["user"]) && isset($_COOKIE["pass"])){
    
 	// Verify the user

@@ -3,7 +3,7 @@ session_start();
 // If users is logged in, redirect to homepage
 
 if(isset($_SESSION["username"])){
-	header("location:home.php");
+	header("location:index.php");
     exit();
 }
 ?><?php
