@@ -46,8 +46,6 @@ if(isset($_POST["u"])){
     <title>Lost and Found - Marius Râncu şi Nedelcu Răzvan</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <script src="js/main.js"></script>
-    <script src="js/ajax.js"></script>
     <script>
     function emptyElement(x){
         _(x).innerHTML = "";
@@ -80,12 +78,12 @@ if(isset($_POST["u"])){
     <div class="header_menu">
         <div class="menu_content">
             <div class="menu_items">
-                <a href="index.php" class="activ">HOME</a> |
+                <a href="index.php">HOME</a> |
                 <a href="signup.php">SIGN UP</a> |
-                <a href="report.php">REPORT</a> |
-                <a href="my_profile.php">MY PROFILE</a> |
-                <a href="admin_panel.php">ADMIN PANEL</a> |
-                <a href="contact_us.php">CONTACT US</a>
+                <a href="report.html">REPORT</a> |
+                <a href="my_profile.html">MY PROFILE</a> |
+                <a href="admin_panel.html">ADMIN PANEL</a> |
+                <a href="contact_us.html" class="activ">CONTACT US</a>
             </div>
 
         </div>
@@ -114,15 +112,28 @@ if(isset($_POST["u"])){
                     </div>
             </div>
             <?php endif; ?>
-            
         </div>
     </div>
-    <div class="container_home">
-        <div class="home_pierdut">
-            <span><a href="obiect_pierdut.php">Am pierdut un obiect</a></span>
-        </div>
-        <div class="home_gasit">
-            <span><a href="obiect_gasit.php">Am gasit un obiect</a></span>
+    <div class="container">
+        <div class="form">
+            <h1>Contact US</h1>
+            <span>Your e-mail: </span> <input type="text" placeholder="Enter your correct e-mail address, so we can contact you back" name="uname" size="55" required>
+            <br><br>
+            <span>Title: </span> <input type="text" placeholder="Enter the e-mail title" name="uname" size="55" required>
+            <br><br>
+            
+            <span>Domain: </span>
+            <select name="domains">
+                <option value="">Why are you contacting us?</option>
+                <option value="scam">Advertising</option>
+                <option value="vulgar-language">Support</option>
+                <option value="not-return">Partnership</option>
+                <option value="no-answer">Bug Report</option>
+            </select>
+            <br><br>
+            <span>Content: </span><textarea rows="10" cols="57" placeholder="Enter the content of the e-mail that you want to send."></textarea>
+        <br><br><br>
+            <input type="submit" value="Contact US">
         </div>
     </div>
 </body>
