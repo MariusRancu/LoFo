@@ -234,27 +234,28 @@ function signup(){
 function emptyElement(x){
         _(x).innerHTML = "";
     }
-    function login(){
-        var u = _("username").value;
-        var p = _("password").value;
-        var remember = _("remember").value;
-        if(u == "" || p == ""){
-            _("status").innerHTML = "Fill out all of the form data";
-        } else {
-            _("status").innerHTML = 'please wait ...';
-            var ajax = ajaxObj("POST", "index.php");
-            ajax.onreadystatechange = function() {
-                if(ajaxReturn(ajax) == true) {
-                    if(ajax.responseText == "login_failed"){
-                        _("status").innerHTML = "Combinație username parolă incorectă !";
-                    } else {
-                        window.location = "index.php";
-                    }
+
+function login(){
+    var u = _("uname").value;
+    var p = _("password").value;
+    var remember = _("remember").value;
+    if(u == "" || p == ""){
+        _("status").innerHTML = "Fill out all of the form data";
+    } else {
+        _("status").innerHTML = 'please wait ...';
+        var ajax = ajaxObj("POST", "index.php");
+        ajax.onreadystatechange = function() {
+            if(ajaxReturn(ajax) == true) {
+                if(ajax.responseText == "login_failed"){
+                    _("status").innerHTML = "Combinație username parolă incorectă !";
+                } else {
+                    window.location = "index.php";
                 }
             }
-            ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
         }
+        ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
     }
+}
 
 </script>
 </head>
@@ -289,7 +290,7 @@ function emptyElement(x){
             <?php else : ?>
                 <div class="login">
                     <div class="login_items">
-                        <input type="text" placeholder="Enter Username" id="username" size="18" required/>
+                        <input type="text" placeholder="Enter Username" id="uname" size="18" required/>
                         <input type="checkbox" checked="checked" id="remember"><span>Remember me?</span>
                         <input type="password" placeholder="Enter Password" id="password" size="18" required/>
                         <input type="submit" id="loginbtn" onclick="login()"></submit> 
@@ -312,7 +313,7 @@ function emptyElement(x){
                 <br><br>
                         <span>Repeat Password: </span>
                         <input id="p2" type="password" onblur="checkpassword()" placeholder="Enter you desired password, again" name="uname" size="55" required>
-                        <span id="password_status"style="float: right;top: 0px;bottom: 0px;"></span>
+                        <span id="password_status" style="float: right;top: 0px;bottom: 0px;"></span>
                 <br><br><br>
                         <span>First Name: </span>
                         <input id="firstname" type="text" onfocus="emptyElement('status')" placeholder="Enter your first name" name="uname" size="55" required>
