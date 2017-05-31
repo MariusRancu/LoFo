@@ -22,7 +22,9 @@ if($user_ok == false)
                 <a href="signup.php">SIGN UP</a> |
                 <a href="report.php" class="activ">REPORT</a> |
                 <a href="my_profile.php" >MY PROFILE</a> |
+                <?php if($user_role == true) : ?>
                 <a href="admin_panel.php">ADMIN PANEL</a> |
+                <?php endif; ?>
                 <a href="contact_us.php">CONTACT US</a>
             </div>
 
@@ -71,7 +73,7 @@ if($user_ok == false)
             <br><br>
             <span>Describe report: </span><input type="text" placeholder="Use a few words to describe the report reason" name="uname" size="55" height="20" required>
         <br><br>
-            <input type="submit" value="Report Member">
+            <button id="signupbtn" onclick="signup()">Sign Up</button>
         </div>
     </div>
 </body>

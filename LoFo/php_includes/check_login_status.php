@@ -16,6 +16,7 @@ function evalLoggedUser($conx,$u,$p){
 
 $user_ok = false;
 $log_username = "";
+$user_role = "";
 
 if(isset($_SESSION["username"]) && isset($_SESSION["password"])) {
 	// Verify the user
@@ -27,5 +28,12 @@ if(isset($_SESSION["username"]) && isset($_SESSION["password"])) {
 	$log_password = $_COOKIE["pass"];
 	$user_ok = evalLoggedUser($db_con, $log_username, $log_password);
 	
+}
+
+if($user_ok == true){
+	$sql = "SELECT role FROM users WHERE username='$log_username'";
+    $query = mysqli_query($db_con, $sql);
+    $row = mysqli_fetch_row($query);
+	$user_role = $row[0];
 }
 ?>

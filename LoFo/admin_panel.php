@@ -1,8 +1,8 @@
 <?php
 include_once("php_includes/check_login_status.php");
-if($user_ok == false)
+if($user_ok == false || $user_role == 0)
     {
-        header("location: signup.php");
+        header("location: contact_us.php");
     exit();
     }
  ?>

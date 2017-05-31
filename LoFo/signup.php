@@ -268,7 +268,9 @@ function login(){
                 <a href="signup.php" class="activ">SIGN UP</a> |
                 <a href="report.php">REPORT</a> |
                 <a href="my_profile.php" >MY PROFILE</a> |
+                <?php if($user_role == true) : ?>
                 <a href="admin_panel.php">ADMIN PANEL</a> |
+                <?php endif; ?>
                 <a href="contact_us.php">CONTACT US</a>
             </div>
 

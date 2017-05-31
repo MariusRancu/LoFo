@@ -80,7 +80,9 @@ if(isset($_POST["u"])){
                 <a href="signup.php">SIGN UP</a> |
                 <a href="report.php">REPORT</a> |
                 <a href="my_profile.php" class="activ">MY PROFILE</a> |
+                <?php if($user_role == true) : ?>
                 <a href="admin_panel.php">ADMIN PANEL</a> |
+                <?php endif; ?>
                 <a href="contact_us.php">CONTACT US</a>
             </div>
 
