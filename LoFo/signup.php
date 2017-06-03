@@ -165,99 +165,99 @@ if(isset($_POST["username"])){
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <script src="js/main.js"></script>
-<script src="js/ajax.js"></script>
-<script>
+    <script src="js/ajax.js"></script>
+    <script>
 
 
-function emptyElement(x){
-	_(x).innerHTML = "";
-}
-
-function checkusername(){
-	var username = _("username").value;
-	if(username != ""){
-		var ajax = ajaxObj("POST", "signup.php");
-        ajax.onreadystatechange = function() {
-	        if(ajaxReturn(ajax) == true) {
-	            _("unamestatus").innerHTML = ajax.responseText;
-	        }
-        }
-        ajax.send("usernamecheck=" + username);
-	}
-}
-
-function checkpassword(){
-	var password1 = _("p1").value;
-	var password2 = _("p2").value;
-	var ajax = ajaxObj("POST", "signup.php");
-	
-	if(password1 != "" && password2 != ""){
-	ajax.onreadystatechange = function() {
-	        if(ajaxReturn(ajax) == true) {
-	            _("password_status").innerHTML = ajax.responseText;
-	        }
-        }
-		ajax.send("pass_check1=" + password1 + "&pass_check2=" + password2);
-}
-}
-
-function signup(){
-	var username = _("username").value;
-	var nume = _("lastname").value;
-	var prenume = _("firstname").value;
-	var email = _("email").value;
-	var p1 = _("p1").value;
-	var p2 = _("p2").value;
-	var adresa = _("address").value;
-	var telefon = _("phone").value;
-	var status = _("status");
-	
-	if(username == "" || nume == "" ||  prenume == "" ||  email == "" ||  adresa == "" || p1 == "" || p2 == "" || telefon == ""){
-		status.innerHTML = "Completati toate campurile !";
-	} else if(p1 != p2){
-		status.innerHTML = "Parolele nu se potrivesc ";
-	} else {
-		
-		var ajax = ajaxObj("POST", "signup.php");
-        ajax.onreadystatechange = function() {
-	        if(ajaxReturn(ajax) == true) {
-					status.innerHTML = ajax.responseText;
-                    alert("Your account has been created. You may login now!");
-                    window.location = "index.php";
-				 
-	        }
-        }
-        ajax.send("username=" + username + "&nume=" + nume + "&prenume=" + prenume + "&email=" + email + "&adresa=" + adresa + "&parola=" + p1 + "&telefon=" + telefon);
-	}
-}
-
-function emptyElement(x){
+    function emptyElement(x){
         _(x).innerHTML = "";
     }
 
-function login(){
-    var u = _("uname").value;
-    var p = _("password").value;
-    var remember = _("remember").value;
-    if(u == "" || p == ""){
-        _("status").innerHTML = "Fill out all of the form data";
-    } else {
-        _("status").innerHTML = 'please wait ...';
-        var ajax = ajaxObj("POST", "index.php");
-        ajax.onreadystatechange = function() {
-            if(ajaxReturn(ajax) == true) {
-                if(ajax.responseText == "login_failed"){
-                    _("status").innerHTML = "Combinație username parolă incorectă !";
-                } else {
-                    window.location = "index.php";
+    function checkusername(){
+        var username = _("username").value;
+        if(username != ""){
+            var ajax = ajaxObj("POST", "signup.php");
+            ajax.onreadystatechange = function() {
+                if(ajaxReturn(ajax) == true) {
+                    _("unamestatus").innerHTML = ajax.responseText;
                 }
             }
+            ajax.send("usernamecheck=" + username);
         }
-        ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
     }
-}
 
-</script>
+    function checkpassword(){
+        var password1 = _("p1").value;
+        var password2 = _("p2").value;
+        var ajax = ajaxObj("POST", "signup.php");
+        
+        if(password1 != "" && password2 != ""){
+        ajax.onreadystatechange = function() {
+                if(ajaxReturn(ajax) == true) {
+                    _("password_status").innerHTML = ajax.responseText;
+                }
+            }
+            ajax.send("pass_check1=" + password1 + "&pass_check2=" + password2);
+    }
+    }
+
+    function signup(){
+        var username = _("username").value;
+        var nume = _("lastname").value;
+        var prenume = _("firstname").value;
+        var email = _("email").value;
+        var p1 = _("p1").value;
+        var p2 = _("p2").value;
+        var adresa = _("address").value;
+        var telefon = _("phone").value;
+        var status = _("status");
+        
+        if(username == "" || nume == "" ||  prenume == "" ||  email == "" ||  adresa == "" || p1 == "" || p2 == "" || telefon == ""){
+            status.innerHTML = "Completati toate campurile !";
+        } else if(p1 != p2){
+            status.innerHTML = "Parolele nu se potrivesc ";
+        } else {
+            
+            var ajax = ajaxObj("POST", "signup.php");
+            ajax.onreadystatechange = function() {
+                if(ajaxReturn(ajax) == true) {
+                        status.innerHTML = ajax.responseText;
+                        alert("Your account has been created. You may login now!");
+                        window.location = "index.php";
+                    
+                }
+            }
+            ajax.send("username=" + username + "&nume=" + nume + "&prenume=" + prenume + "&email=" + email + "&adresa=" + adresa + "&parola=" + p1 + "&telefon=" + telefon);
+        }
+    }
+
+    function emptyElement(x){
+            _(x).innerHTML = "";
+        }
+
+    function login(){
+        var u = _("uname").value;
+        var p = _("password").value;
+        var remember = _("remember").value;
+        if(u == "" || p == ""){
+            _("status").innerHTML = "Fill out all of the form data";
+        } else {
+            _("status").innerHTML = 'please wait ...';
+            var ajax = ajaxObj("POST", "index.php");
+            ajax.onreadystatechange = function() {
+                if(ajaxReturn(ajax) == true) {
+                    if(ajax.responseText == "login_failed"){
+                        _("status").innerHTML = "Combinație username parolă incorectă !";
+                    } else {
+                        window.location = "index.php";
+                    }
+                }
+            }
+            ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
+        }
+    }
+
+    </script>
 </head>
 
 <body>
