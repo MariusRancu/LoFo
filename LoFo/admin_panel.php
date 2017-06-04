@@ -35,12 +35,13 @@ if($user_ok == false || $user_role == 0)
                 <div class="little_text">Lost & Found V4.0.1 BETA</div>
             </div>
              <?php if($user_ok == true) : ?>
-            <div class="login">
-                <div class="login_items">
-                    <p class="login_items">Welcome, <?php echo $log_username; ?></p>
-                    <a href="logout.php">Logout</a>
+                <div class="login">
+                    <div class="login_items">
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
+
+                    </div>
                 </div>
-            </div>
             <?php else : ?>
                 <div class="login">
                     <div class="login_items">

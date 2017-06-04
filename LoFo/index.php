@@ -40,93 +40,95 @@ if(isset($_POST["u"])){
 }
 ?>
 
-<html>
+    <html>
 
-<head>
-    <title>Lost and Found - Marius Râncu şi Nedelcu Răzvan</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <head>
+        <title>Lost and Found - Marius Râncu şi Nedelcu Răzvan</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <script src="js/main.js"></script>
-    <script src="js/ajax.js"></script>
-    <script>
-    function emptyElement(x){
-        _(x).innerHTML = "";
-    }
-    function login(){
-        var u = _("username").value;
-        var p = _("password").value;
-        var remember = _("remember").value;
-        if(u == "" || p == ""){
-            _("status").innerHTML = "Fill out all of the form data";
-        } else {
-            _("status").innerHTML = 'please wait ...';
-            var ajax = ajaxObj("POST", "index.php");
-            ajax.onreadystatechange = function() {
-                if(ajaxReturn(ajax) == true) {
-                    if(ajax.responseText == "login_failed"){
-                        _("status").innerHTML = "Combinație username parolă incorectă !";
-                    } else {
-                        window.location = "index.php";
+        <script src="js/main.js"></script>
+        <script src="js/ajax.js"></script>
+        <script>
+            function emptyElement(x) {
+                _(x).innerHTML = "";
+            }
+
+            function login() {
+                var u = _("username").value;
+                var p = _("password").value;
+                var remember = _("remember").value;
+                if (u == "" || p == "") {
+                    _("status").innerHTML = "Fill out all of the form data";
+                } else {
+                    _("status").innerHTML = 'please wait ...';
+                    var ajax = ajaxObj("POST", "index.php");
+                    ajax.onreadystatechange = function() {
+                        if (ajaxReturn(ajax) == true) {
+                            if (ajax.responseText == "login_failed") {
+                                _("status").innerHTML = "Combinație username parolă incorectă !";
+                            } else {
+                                window.location = "index.php";
+                            }
+                        }
                     }
+                    ajax.send("&u=" + u + "&p=" + p + "&remember=" + remember);
                 }
             }
-            ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
-        }
-    }
-    </script>
-</head>
+        </script>
+    </head>
 
-<body>
-    <div class="header_menu">
-        <div class="menu_content">
-            <div class="menu_items">
-                <a href="index.php" class="activ">HOME</a> |
-                <a href="signup.php">SIGN UP</a> |
-                <a href="report.php">REPORT</a> |
-                <a href="my_profile.php">MY PROFILE</a> |
-                <?php if($user_role == true) : ?>
-                <a href="admin_panel.php">ADMIN PANEL</a> |
-                <?php endif; ?>
-                <a href="contact_us.php">CONTACT US</a>
-            </div>
-
-        </div>
-    </div>
-    <div class="banner_bg">
-        <div class="banner_itself">
-            <div class="slogan">
-                <div class="big_text">L O F O</div>
-                <div class="little_text">Lost & Found V4.0.1 BETA</div>
-            </div>
-            <?php if($user_ok == true) : ?>
-            <div class="login">
-                <div class="login_items">
-                    <p class="login_items">Welcome, <?php echo $log_username; ?></p>
-                    <a href="logout.php">Logout</a>
+    <body>
+        <div class="header_menu">
+            <div class="menu_content">
+                <div class="menu_items">
+                    <a href="index.php" class="activ">HOME</a> |
+                    <a href="signup.php">SIGN UP</a> |
+                    <a href="report.php">REPORT</a> |
+                    <a href="my_profile.php">MY PROFILE</a> |
+                    <?php if($user_role == true) : ?>
+                    <a href="admin_panel.php">ADMIN PANEL</a> |
+                    <?php endif; ?>
+                    <a href="contact_us.php">CONTACT US</a>
                 </div>
+
             </div>
-            <?php else : ?>
+        </div>
+        <div class="banner_bg">
+            <div class="banner_itself">
+                <div class="slogan">
+                    <div class="big_text">L O F O</div>
+                    <div class="little_text">Lost & Found V4.0.1 BETA</div>
+                </div>
+                <?php if($user_ok == true) : ?>
+                <div class="login">
+                    <div class="login_items">
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
+
+                    </div>
+                </div>
+                <?php else : ?>
                 <div class="login">
                     <div class="login_items">
                         <input type="text" placeholder="Enter Username" id="username" size="18" required/>
                         <input type="checkbox" checked="checked" id="remember"><span>Remember me?</span>
                         <input type="password" placeholder="Enter Password" id="password" size="18" required/>
-                        <input type="submit" id="loginbtn" onclick="login()"></submit> 
+                        <input type="submit" id="loginbtn" onclick="login()"></submit>
                         <p id="status"></p>
                     </div>
-            </div>
-            <?php endif; ?>
-            
-        </div>
-    </div>
-    <div class="container_home">
-        <div class="home_pierdut">
-            <span><a href="obiect_pierdut.php">Am pierdut un obiect</a></span>
-        </div>
-        <div class="home_gasit">
-            <span><a href="obiect_gasit.php">Am gasit un obiect</a></span>
-        </div>
-    </div>
-</body>
+                </div>
+                <?php endif; ?>
 
-</html>
+            </div>
+        </div>
+        <div class="container_home">
+            <div class="home_pierdut">
+                <span><a href="obiect_pierdut.php">Am pierdut un obiect</a></span>
+            </div>
+            <div class="home_gasit">
+                <span><a href="obiect_gasit.php">Am gasit un obiect</a></span>
+            </div>
+        </div>
+    </body>
+
+    </html>

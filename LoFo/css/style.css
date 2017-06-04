@@ -110,7 +110,7 @@ body{
     display: inline-block;
     position: relative;
     padding-left: 10px;
-    padding-top: 7px;
+    padding-top: 4px;
 }
 
 .login_items input[type=text] {
@@ -143,6 +143,10 @@ body{
     font-size: 14px;
     position: relative;
     bottom: 2px;
+}
+
+.login_items a{
+    color: brown;
 }
 
 .logo{
@@ -301,4 +305,77 @@ a{
     text-align: right;
     position: relative;
     float: right;
+}
+
+.search_form{
+    margin: auto;
+    width: 80%;
+    
+}
+
+.search_form h1{
+    color: gray;
+    padding-top: 10px;
+    text-align: center;
+}
+.search_container{
+    background-color: yellow;
+    border-style: solid;
+    border-width: 2px;
+    height: 300px;
+}
+
+.search_img{
+    float: left;
+    width: 300px;
+    height: 300px;
+    border-right: solid 2px;
+}
+
+.search_right{
+    position: relative;
+    left: 10px;
+}
+
+.ob_field{
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.ob_contact{
+    color: black;
+    font-weight: bold;
+}
+
+.ob_contact_username{
+    padding:5px 15px; 
+    color: white;
+    background:#5e2323; 
+    position: relative;
+    bottom: 10px;
+}
+
+.ob_contact_pm{
+    padding:5px 15px; 
+    color: white;
+    background:#5e2323; 
+    position: relative;
+    bottom: 10px;
+}
+
+.ob_contact input[type=submit] {
+    width: 200px;
+    height: 30px;
+    padding:5px 15px; 
+    color: white;
+    background:#5e2323; 
+    border:0 none;
+    cursor: pointer;
+}
+
+.search_ob_contact{
+    position: relative;
+    float: right;
+    right: 20px;
 }
