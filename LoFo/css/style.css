@@ -6,6 +6,11 @@ body{
     font-family: 'Roboto';
 }
 
+.form a{
+    color: brown;
+}
+
+
 .header_menu{
     width: 100%;
     height: 40px;
@@ -378,4 +383,78 @@ a{
     position: relative;
     float: right;
     right: 20px;
+}
+
+.admin_container{
+    background-color: yellow;
+    margin: auto;
+    width: 80%;
+    height: 400px;
+}
+
+.admin_button_one{
+    background-color: rosybrown;
+    float: left;
+    width: 50%;
+    height: 200px;
+    margin: auto;
+    border-style: solid;
+    border: 1px;
+    
+}
+
+.admin_button_two{
+    background-color: burlywood;
+    float: right;
+    width: 50%;
+    height: 200px;
+    margin: auto;
+}
+
+.admin_button_three{
+    background-color: saddlebrown;
+    float: right;
+    width: 50%;
+    height: 200px;
+    margin-top: 200px;
+    margin: auto;
+}
+
+.admin_button_four{
+    background-color: sandybrown;
+    float: left;
+    width: 50%;
+    height: 200px;
+    margin-top: 200px;
+    margin: auto;
+}
+
+.admin_upside{
+/*    background-color: red;*/
+    position: relative;
+    float: left;
+    font-size: 30px;
+    text-transform: uppercase;
+    margin: 10px;
+    font-weight: bold;
+    color: lightgray;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.admin_downside{
+    position: absolute;
+    font-size: 100px;
+    margin: 10px;
+    margin-top: 90px;
+    color: lightgray;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.admin_downside_s{
+    position: absolute;
+    font-size: 60px;
+    margin: 10px;
+    margin-top: 120px;
+    color: lightgray;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
