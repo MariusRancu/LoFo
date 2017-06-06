@@ -60,28 +60,80 @@ if($user_ok == false)
         <div class="container">
             <div class="search_form">
                 <h1>Results for your search: //INSERT_SEARCH_HERE// </h1>
-                <div class="search_container">
-                    <img src="https://i1.wp.com/blogdecasa.ro/wp-content/uploads/2016/04/Tigaie-Tefal-Character-30-cm.jpg" class="search_img">
-                    <div class="search_right">
-                        <div class="search_ob_details">
-                            <br><span class="ob_field">Object Name:</span>
-                            <br><span class="ob_field">Category:</span>
-                            <br><span class="ob_field">Producer:</span>
-                            <br><span class="ob_field">Model:</span>
-                            <br><span class="ob_field">Color:</span>
-                            <br><span class="ob_field">Found location:</span>
-                            <br><span class="ob_field">Found Date:</span>
+                <?php
+include_once("php_includes/db_con.php");
+
+$name = $_GET['name'];
+$category = $_GET['category']; 
+$producer = $_GET['producer']; 
+$model = $_GET['model'];
+$color = $_GET['color'];
+$location = $_GET['location'];
+$date = $_GET['date'];
+$username = $_SESSION["username"];
+$source = $_GET['source'];
+
+//Preluare informatii obiect
+if($source == 'found'){
+     $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+     
+     $sql1 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+     mysqli_stmt_bind_param($sql1, 'ssssssss', $username, $category, $numeOb, $producer, $model, $color, $location, $data);
+     
+     mysqli_stmt_execute($sql1);
+}
+
+if($source == 'lost'){
+    $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+}
+	 mysqli_stmt_bind_param($sql, 'ssss', $category, $name, $color, $location);
+     mysqli_stmt_execute($sql);
+
+     $sql->store_result();
+     $nr_rezultate = $sql->num_rows;
+
+     $sql2 = mysqli_prepare($db_con,"SELECT last_name, first_name, email, phone_number FROM users WHERE username = ?");
+     mysqli_stmt_bind_param($sql2,'s',$username);
+     mysqli_stmt_execute($sql2);
+     $sql2->bind_result($last_name, $first_ane, $email, $phone);
+     $sql2->fetch();
+
+     if($nr_rezultate > 0){
+        $sql->bind_result($d_username, $d_category, $d_name, $d_producer, $d_model, $color, $d_pic, $d_loc, $d_date);
+        
+        while ($sql->fetch()) {
+            echo"
+            
+            <div class=\"search_container\">
+                        
+                        <img src=\"https://i1.wp.com/blogdecasa.ro/wp-content/uploads/2016/04/Tigaie-Tefal-Character-30-cm.jpg\" class=\"search_img\">
+                        <div class=\"search_right\">
+                            <div class=\"search_ob_details\">
+                                <br><span class=\"ob_field\">Object Name:</span><span class=\"ob_field\"> ". $d_name ."</span>
+                                <br><span class=\"ob_field\">Category:</span><span class=\"ob_field\"> ". $d_category ."</span>
+                                <br><span class=\"ob_field\">Producer:</span><span class=\"ob_field\"> ". $d_producer ."</span>
+                                <br><span class=\"ob_field\">Model:</span><span class=\"ob_field\"> ". $d_model ."</span>
+                                <br><span class=\"ob_field\">Color:</span><span class=\"ob_field\"> ". $color ."</span>
+                                <br><span class=\"ob_field\">Found location:</span><span class=\"ob_field\"> ". $d_loc ."</span>
+                                <br><span class=\"ob_field\">Found Date:</span><span class=\"ob_field\"> ". $d_date ."</span>
+                            </div>
+                            <span>
+                            <div class=\"search_ob_contact\">
+                                <br>
+                                    <div class=\"ob_contact\">
+                                    <span id=\"spoiler\" style=\"display:none\">".$phone."</span>
+                                    <input type=\"submit\" title=\"Click to show/hide content\" type=\"button\" onclick=\"if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}\" value=\"Show phone number\"></input>
+                                    </div>
+                                <br>
+                                    <div class=\"ob_contact_username\">Send: ".$d_username." a private message</div>
                         </div>
-                        <span>
-                <div class="search_ob_contact">
-                    <br>
-                        <div class="ob_contact">
-                        <span id="spoiler" style="display:none"> +4074xxxxxxx</span>
-                        <input type="submit" title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}" value="Show phone number"></input>
-                        </div>
-                    <br>
-                        <div class="ob_contact_username">Send: Andrei Matei a private message</div>
-                    </div>
+            ";
+        } 
+        }else 
+            echo "Nu a fost gasit nici un obiect";
+        $sql->close();
+?>
+                
 
                     </span>
                 </div>

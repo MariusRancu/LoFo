@@ -23,6 +23,16 @@ $color = $_POST['color'];
 $locatie = $_POST['location'];
 $data = $_POST['date'];
 $user = $_SESSION["username"];
+
+    $sql1 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+     mysqli_stmt_execute($sql1);
+
+     $sql1->store_result();
+     $nr_rezultate = $sql1->num_rows;
+
+     if($nr_rezultate > 0){
+         echo 'Object found';
+     }
         
     $sql = mysqli_prepare($db_con,"INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 	mysqli_stmt_bind_param($sql,'ssssssss', $user, $categorie, $numeOb, $producer, $model, $color, $locatie, $data);
@@ -31,12 +41,12 @@ $user = $_SESSION["username"];
 
     if(mysqli_stmt_affected_rows($sql) == 1){
         
-		 echo 'Obiect adaugat'; 
+		 echo 'Object added'; 
          mysqli_stmt_close($sql);  
          exit(); 
 	} else {
         
-        echo 'Obiectul nu a putut fi adaugat';
+        echo 'Object could not be added';
         mysqli_stmt_close($sql);
         exit();
     }
@@ -75,7 +85,9 @@ $user = $_SESSION["username"];
                 var ajax = ajaxObj("POST", "obiect_pierdut.php");
                 ajax.onreadystatechange = function() {
                     if(ajaxReturn(ajax) == true) {
-                    
+                        if(ajax.responseText == "Object found"){
+                            document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + date + "&source=lost";
+                        }
                             status.innerHTML = ajax.responseText;
                         
                     }

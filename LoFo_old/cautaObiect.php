@@ -44,7 +44,7 @@ if($user_ok == false)
 
 </head>
 <body>
-    <form name="objectform" id="objectform" onsubmit="return false;">
+    <form name="objectform" id="objectform" onsubmit="cauta(); return false;">
         
     <div>Nume obiect: </div>
     <input id="numeObiect" type="text" onblur="emptyElement('status')" maxlength="16">
