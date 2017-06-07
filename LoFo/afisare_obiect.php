@@ -76,16 +76,27 @@ $source = $_GET['source'];
 //Preluare informatii obiect
 if($source == 'found'){
      $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
-     
-     $sql1 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-     mysqli_stmt_bind_param($sql1, 'ssssssss', $username, $category, $numeOb, $producer, $model, $color, $location, $data);
+
+     $sql1 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`) VALUES(?, ?, ?, ?, ?, ?, ?)");
+     mysqli_stmt_bind_param($sql1, 'sssssss', $username, $category, $name, $producer, $model, $color, $location);
      
      mysqli_stmt_execute($sql1);
+
+     if(mysqli_stmt_affected_rows($sql1) == 1){
+        
+		 echo 'Object added'; 
+         mysqli_stmt_close($sql1);  
+	}
+    else{
+        echo 'Object not added';
+        mysqli_stmt_close($sql1);  
+    }
 }
 
 if($source == 'lost'){
     $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
 }
+
 	 mysqli_stmt_bind_param($sql, 'ssss', $category, $name, $color, $location);
      mysqli_stmt_execute($sql);
 

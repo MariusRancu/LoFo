@@ -34,7 +34,7 @@ $user = $_SESSION["username"];
          echo 'Object found';
      }
         
-    $sql = mysqli_prepare($db_con,"INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+    $sql = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 	mysqli_stmt_bind_param($sql,'ssssssss', $user, $categorie, $numeOb, $producer, $model, $color, $locatie, $data);
     
     mysqli_stmt_execute($sql);
