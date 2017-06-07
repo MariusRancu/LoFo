@@ -94,7 +94,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  echo $row['described_report'] ?></td>
     <td><?php  echo $row['reported_by'] ?></td>
     <td><?php  echo $row['report_time'] ?></td>
-      <td><a href="update2.php?id=<?php echo $row['id']; ?>" alt="Fondat" style="color: green;margin: auto;">&#10004;</a> <a href="delete.php?id=<?php echo $row['id']; ?>" alt="Nefondat" style="color: red;" onclick="return confirm('Esti sigur ca vrei sa-l stergi?')">&#10006;</a></font></td>
+      <td><a href="update.php?id=<?php echo $row['report_id']; ?>" alt="Fondat" style="color: green;margin: auto;">&#10004;</a> <a href="delete.php?id=<?php echo $row['report_id']; ?>" alt="Nefondat" style="color: red;" onclick="return confirm('Esti sigur ca vrei sa-l stergi?')">&#10006;</a></font></td>
   </tr>
 <?php
 }
