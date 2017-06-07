@@ -104,7 +104,7 @@ if(isset($_POST["u"])){
                     <div class="login_items">
                         <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
-
+<!--<a href="test.php">go to refer</a>-->
                     </div>
                 </div>
                 <?php else : ?>

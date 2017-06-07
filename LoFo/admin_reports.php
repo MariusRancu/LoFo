@@ -70,26 +70,37 @@ $rowcount=mysqli_num_rows($result);
         </div>
         <div class="container">
             <div class="form">
-                <h1>Hello,
-                    <a href="./my_profile.php">
-                        <?php echo $log_username; ?>
-                    </a>!</h1>
+                <h1>There are <?php echo "$rowcount"; ?> unsolved reports!</h1>
             </div>
             <div class="admin_container">
-                <div class="admin_button_one">
-                    <div class="admin_upside">Pending lost objects</div>
-                    <div class="admin_downside">1533</div>
-                </div>
-
-                <a href="./admin_reports.php"><div class="admin_button_two">
-                                    <div class="admin_upside">Unsolved reports</div>
-                    <div class="admin_downside"><?php echo "$rowcount"; ?></div></div></a>
-                <div class="admin_button_three">
-                                    <div class="admin_upside">Registered members</div>
-                    <div class="admin_downside">199</div></div>
-                <div class="admin_button_four">
-                                    <div class="admin_upside">Website Statistics</div>
-                    <div class="admin_downside_s"> 122 / 22 / 99</div></div>
+<table border="3">
+  <tr>
+    <th>Id</th>
+    <th>Reported</th>
+    <th>Reason</th>
+    <th>Describe</th>
+    <th>Reporter</th>
+    <th>Date</th>
+    <th>Do</th>
+  </tr>
+<?php
+while($row = mysqli_fetch_array($result))
+{
+?>
+  <tr>
+    <td><?php  echo $row['report_id'] ?></td>
+    <td><?php  echo $row['reported_username'] ?></td>
+    <td><?php  echo $row['reason'] ?></td>
+    <td><?php  echo $row['described_report'] ?></td>
+    <td><?php  echo $row['reported_by'] ?></td>
+    <td><?php  echo $row['report_time'] ?></td>
+      <td><a href="update2.php?id=<?php echo $row['id']; ?>" alt="Fondat" style="color: green;margin: auto;">&#10004;</a> <a href="delete.php?id=<?php echo $row['id']; ?>" alt="Nefondat" style="color: red;" onclick="return confirm('Esti sigur ca vrei sa-l stergi?')">&#10006;</a></font></td>
+  </tr>
+<?php
+}
+mysqli_close($db_con);
+?>
+</table>
             </div>
         </div>
     </body>

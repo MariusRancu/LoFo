@@ -6,37 +6,35 @@ if($user_ok == false)
         exit();
     }
  ?>
-    <?php
+ <?php
 
 // Apel Ajax
-if(isset($_POST["object_name"])){
+if(isset($_POST["reported_username"])){
     // Conecatere la BD
 	include_once("php_includes/db_con.php");
     
     //Inserare obiect in tabel
-$numeOb = $_POST['object_name'];
-$categorie = $_POST['category'];
-$producer =$_POST['producer'];
-$model = $_POST['model'];
-$color = $_POST['color'];
-//$poza = $_POST['poza'];
-$locatie = $_POST['location'];
-$data = $_POST['date'];
-$user = $_SESSION["username"];
+$reported_username = $_POST['reported_username']; //$numeOb
+$reason = $_POST['reason']; //$categorie
+$described_report =$_POST['described_report']; //$producer
+$reported_by = $_SESSION["username"];
+$report_time = date("Y/m/d"); // whatever
+    
+    
         
-    $sql = mysqli_prepare($db_con,"INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-	mysqli_stmt_bind_param($sql,'ssssssss', $user, $categorie, $numeOb, $producer, $model, $color, $locatie, $data);
+    $sql = mysqli_prepare($db_con,"INSERT INTO reported_by (`reported_username`, `reason`, `described_report`, `reported_by`, `report_time`) VALUES(?, ?, ?, ?, ?)");
+	mysqli_stmt_bind_param($sql,'sssss', $reported_username, $reason, $described_report, $reported_by, $report_time);
     
     mysqli_stmt_execute($sql);
 
     if(mysqli_stmt_affected_rows($sql) == 1){
         
-		 echo 'Obiect adaugat'; 
+		 echo 'Report trimis'; 
          mysqli_stmt_close($sql);  
          exit(); 
 	} else {
         
-        echo 'Obiectul nu a putut fi adaugat';
+        echo 'Reportul n-a putut fi trimis';
         mysqli_stmt_close($sql);
         exit();
     }
@@ -58,21 +56,18 @@ $user = $_SESSION["username"];
                 }
 
                 function adauga() {
-                    var nume = _("object_name").value;
-                    var cat = _("category").value;
-                    var prod = _("producer").value;
-                    var mod = _("model").value;
-                    var cul = _("color").value;
-                    //var pz = _("poza").value;
-                    var loc = _("location").value;
-                    var dt = _("date").value;
+                    var reported_username = _("reported_username").value;
+                    var reason = _("reason").value;
+                    var described_report = _("described_report").value;
+//                    var reported_by = _("reported_by").value;
+//                    var reported_time = _("report_time").value;
                     var status = _("status");
 
-                    if (nume == "" || cat == "" || loc == "") {
+                    if (reported_username == "" || reason == "" || described_report == "") {
                         status.innerHTML = "Completati campurile obligatorii ! ";
                     } else {
 
-                        var ajax = ajaxObj("POST", "obiect_pierdut.php");
+                        var ajax = ajaxObj("POST", "report.php");
                         ajax.onreadystatechange = function() {
                             if (ajaxReturn(ajax) == true) {
 
@@ -80,7 +75,7 @@ $user = $_SESSION["username"];
 
                             }
                         }
-                        ajax.send("object_name=" + nume + "&category=" + cat + "&producer=" + prod + "&location=" + loc + "&model=" + mod + "&color=" + cul + "&date=" + dt);
+                        ajax.send("reported_username=" + reported_username + "&reason=" + reason + "&described_report=" + described_report);
                     }
                 }
             </script>
@@ -130,12 +125,12 @@ $user = $_SESSION["username"];
                 </div>
             </div>
             <div class="container">
-                <div class="form">
+                <form class="form" onsubmit="return false;">
                     <h1>Report Member</h1>
-                    <span>Username profile: </span> <input type="text" placeholder="Enter the member's profile/ID/Object that you want to report" name="uname" size="55" required>
+                    <span>Username profile: </span> <input type="text" id="reported_username" placeholder="Enter the member's profile/ID/Object that you want to report" name="uname" size="55" required>
                     <br><br>
                     <span>Reason: </span>
-                    <select name="reasons">
+                    <select id="reason">
                 <option value="">Please pick a reason for which you report this member</option>
                 <option value="scam">Scam</option>
                 <option value="vulgar-language">Vulgar Language</option>
@@ -144,10 +139,11 @@ $user = $_SESSION["username"];
                 <option value="bot">Bot</option>
             </select>
                     <br><br>
-                    <span>Describe report: </span><input type="text" placeholder="Use a few words to describe the report reason" name="uname" size="55" height="20" required>
+                    <span>Describe report: </span><input type="text" id="described_report" placeholder="Use a few words to describe the report reason" name="uname" size="55" height="20" required>
                     <br><br>
-                    <button id="signupbtn" onclick="signup()">Sign Up</button>
-                </div>
+                    <button id="button" onclick="adauga()">Send</button>
+                    <span id="status"></span>
+                </form>
             </div>
         </body>
 
