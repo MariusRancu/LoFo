@@ -13,7 +13,7 @@ if(isset($_POST["u"])){
         exit();
 	} else {
 	// END FORM DATA ERROR HANDLING
-		$sql = "SELECT username, password FROM users WHERE username='$u'";
+		$sql = "SELECT username, pass FROM users WHERE username='$u'";
         $query = mysqli_query($db_con, $sql);
         $row = mysqli_fetch_row($query);
 		$db_username = $row[0];
@@ -146,7 +146,7 @@ if(isset($_POST["username"])){
 	    // Criptare parola si inserare cont in tabel
 		$pass_hash = md5($parola);
 		
-		$sql = mysqli_prepare($db_con, "INSERT INTO users (username, last_name, first_name, email, password, address, phone_number, role)       
+		$sql = mysqli_prepare($db_con, "INSERT INTO users (username, last_name, first_name, email, pass, address, phone_number, role)       
 		        VALUES(?,?,?,?,?,?,?,?)");
 	mysqli_stmt_bind_param($sql,'sssssssi', $username, $nume, $prenume, $email, $pass_hash, $adresa, $telefon, $role);
 	mysqli_stmt_execute($sql);

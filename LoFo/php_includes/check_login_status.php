@@ -6,7 +6,7 @@ include_once("db_con.php");
 // Initialize some vars
 
 function evalLoggedUser($conx,$u,$p){
-	$sql = "SELECT username FROM users WHERE username='$u' AND password='$p'LIMIT 1";
+	$sql = "SELECT username FROM users WHERE username='$u' AND pass='$p'LIMIT 1";
     $query = mysqli_query($conx, $sql);
     $numrows = mysqli_num_rows($query);
 	if($numrows > 0){

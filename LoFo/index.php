@@ -13,7 +13,7 @@ if(isset($_POST["u"])){
         exit();
 	} else {
 	// END FORM DATA ERROR HANDLING
-		$sql = "SELECT username, password FROM users WHERE username='$u'";
+		$sql = "SELECT username, pass FROM users WHERE username='$u'";
         $query = mysqli_query($db_con, $sql);
         $row = mysqli_fetch_row($query);
 		$db_username = $row[0];

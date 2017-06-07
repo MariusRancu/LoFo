@@ -1,8 +1,17 @@
  <?php
 include_once("php_includes/check_login_status.php");
+include_once("php_includes/db_con.php");
+
+$sql2 = mysqli_prepare($db_con, "SELECT last_name, first_name, email, address, phone_number FROM users WHERE username = ?");
+
+mysqli_stmt_bind_param($sql2, 's', $log_username);
+mysqli_stmt_execute($sql2);
+
+$sql2->bind_result($last_name, $first_name, $f_email, $f_address, $f_phone);
+$sql2->fetch();
+mysqli_stmt_close($sql2);
 // Apel ajax
 if(isset($_POST["u"])){
-	include_once("php_includes/db_con.php");
 	// GATHER THE POSTED DATA INTO LOCAL VARIABLES AND SANITIZE
 	$u = $_POST['u'];
 	$p = md5($_POST['p']);
@@ -10,16 +19,18 @@ if(isset($_POST["u"])){
 	// FORM DATA ERROR HANDLING
 	if($u == "" || $p == ""){
 		echo "login_failed";
+
         exit();
 	} else {
 	// END FORM DATA ERROR HANDLING
-		$sql = "SELECT username, password FROM users WHERE username='$u'";
+		$sql = "SELECT username, pass FROM users WHERE username='$u'";
         $query = mysqli_query($db_con, $sql);
         $row = mysqli_fetch_row($query);
 		$db_username = $row[0];
         $db_pass_str = $row[1];
 		if($p != $db_pass_str){
 			echo "login_failed";
+            mysqli_stmt_close($query);
             exit();
 		} else {
 			// CREATE THEIR SESSIONS AND COOKIES
@@ -32,7 +43,7 @@ if(isset($_POST["u"])){
     		 setcookie("pass", $db_pass_str, strtotime( '+30 days' ), "/", "", "", TRUE); 
 			
 			}
-			
+			mysqli_stmt_close($query);
 		    exit();
 		}
 	}
@@ -40,7 +51,6 @@ if(isset($_POST["u"])){
 }
 ?>
 <?php
-
     if(isset($_POST["pass_check1"]) && $_POST["pass_check2"]){
 		$pass1 = $_POST["pass_check1"];
 		$pass2 = $_POST["pass_check2"];
@@ -50,34 +60,58 @@ if(isset($_POST["u"])){
 			echo '<strong style="color:#F00;">Parola prea ușoară !</strong>';
 		}else {
             $pass_hash = md5($pass1);
-            $sql = mysqli_prepare($db_con, "UPDATE users SET password=? WHERE username = ?");
-            mysqli_stmt_bind_param($sql, 'ss', $pass_hash, $log_username);
+            $sql4 = mysqli_prepare($db_con, "UPDATE users SET pass=? WHERE username = ?");
+            mysqli_stmt_bind_param($sql4, 'ss', $pass_hash, $log_username);
 
-            mysqli_stmt_execute($sql);
+            mysqli_stmt_execute($sql4);
 
-            if(mysqli_stmt_affected_rows($sql1) == 1){
+            if(mysqli_stmt_affected_rows($sql4) == 1){
         
             echo 'Password changed';
-            mysqli_stmt_close($sql1);
+            mysqli_stmt_close($sql4);
             }
             else{
                 echo 'Paswword not changed';
-                mysqli_stmt_close($sql1);  
+                mysqli_stmt_close($sql4);  
             }
             }
             exit();
 }
 ?>
+
 <?php 
-    if(isset($_POST["email"]) && $_POST["addr"] && $_POST["phone"]){
+    if(isset($_POST["email"]) && isset($_POST["addr"]) && isset($_POST["phone"])){
         $email = $_POST["email"];
         $addr = $_POST["addr"];
         $phone = $_POST["phone"];
-        
-        $sql = mysqli_prepare($db_con, "UPDATE users SET email=?, address=?, phone_number=? WHERE username = ?");
-            mysqli_stmt_bind_param($sql, 'ssss',$log_username);
 
-            mysqli_stmt_execute($sql);
+        if($email == ""){
+            $email == $f_email;
+        }
+
+        if($addr == ""){
+            $addr = $f_addr;
+        }
+
+        if($phone == ""){
+            $phone = $f_phone;
+        }
+
+        $sql1 = mysqli_prepare($db_con, "UPDATE users SET email=?, address=?, phone_number=? WHERE username = ?");
+            mysqli_stmt_bind_param($sql1, 'ssss', $email, $addr, $phone, $log_username);
+            mysqli_stmt_execute($sql1);
+
+            if(mysqli_stmt_affected_rows($sql1) == 1){
+                echo 'Values updated';
+                mysqli_stmt_close($sql1);
+                exit();
+            }
+            else{
+                echo 'Values could not be changed';
+                mysqli_stmt_close($sql1);
+                exit();
+            }
+      exit();      
     }
 ?>
 
@@ -131,22 +165,22 @@ if(isset($_POST["u"])){
     }
 
     function updateInfo(){
-        var email = _("email");
-        var addr = _("address");
-        var phone = _("phone");
+        var email = _("email").value;
+        var addr = _("address").value;
+        var phone = _("phone").value;
 
         var ajax = ajaxObj("POST", "my_profile.php");
 
-        if(email != "" && addr != "" && phone != ""){
+        if(email != "" || address != "" || phone != ""){
             ajax.onreadystatechange = function(){
                 if(ajaxReturn(ajax) == true){
-                    _("pass_status").innerHTML = ajax.responseText;
+                    _("info_status").innerHTML = ajax.responseText;
                 }
             }
             ajax.send("email=" + email + "&addr=" + addr + "&phone=" + phone);
-        }
+        }      
+    }
 
-}
     </script>
 </head>
 
@@ -193,33 +227,36 @@ if(isset($_POST["u"])){
         </div>
     </div>
     <div class="container">
-        <div class="form" onsubmit="return false;">
+        <form class="form" onsubmit="return false;">
             <h1>My Profile</h1>
-            <span>Hello, $username! </span>
+            <span>Hello, <?php echo $log_username ?></span>
             <br><br>
             <hr>
-            <span>New Password: </span><input id="p1"type="text" placeholder="Enter your new desired password" name="uname" size="55" required>
+            <span>New Password: </span><input id="p1"type="password" placeholder="Enter your new desired password" name="uname" size="55">
             <br><br>
-            <span>Repeat Password: </span><input id="p2"type="text" placeholder="Enter you new desired password, again" name="uname" size="55" required>
+            <span>Repeat Password: </span><input id="p2"type="password" placeholder="Enter you new desired password, again" name="uname" size="55">
              <span id="pass_status"></span>
             <br><br>
             <input type="submit" onclick="changePass()" value="Change Password">
+        </form>
+        <form class="form" onsubmit="return false;">
             <br>
             <hr>
-            <span>First Name: </span><input type="text" placeholder="Andrew" name="uname" size="55" disabled>
+            <span>First Name: </span><input type="text" placeholder=<?php echo $first_name ?> name="uname" size="55" disabled>
             <br><br>
-            <span>Last Name: </span><input type="text" placeholder="Michael" name="uname" size="55" disabled>
+            <span>Last Name: </span><input type="text" placeholder=<?php echo $last_name ?> name="uname" size="55" disabled>
             <br><br>
 
             <br><br>
-            <span>E-mail: </span><input id="email" type="text" placeholder="Enter your e-mail address" name="uname" size="55" required>
+            <span>E-mail: </span><input id="email" type="text" placeholder=<?php echo $f_email ?> name="uname" size="55">
             <br><br>
-            <span>Address: </span><input id="address" type="text" placeholder="Enter your home address" name="uname" size="55" required>
+            <span>Address: </span><input id="address" type="text" placeholder=<?php echo $f_address ?> name="uname" size="55">
             <br><br>
-            <span>Phone No: </span><input id="phone" type="text" placeholder="Enter your phone no. -- it will not be made public" name="uname" size="55" required>
+            <span>Phone No: </span><input id="phone" type="text" placeholder=<?php echo $f_phone ?> name="uname" size="55">
+            <span id="info_status"></span>
             <br><br>
             <input type="submit" onclick="updateInfo()" value="Update my profile">
-        </div>
+        </form>
     </div>
 </body>
 

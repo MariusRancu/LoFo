@@ -122,7 +122,7 @@ if($source == 'lost'){
      $sql2 = mysqli_prepare($db_con,"SELECT last_name, first_name, email, phone_number FROM users WHERE username = ?");
      mysqli_stmt_bind_param($sql2,'s',$username);
      mysqli_stmt_execute($sql2);
-     $sql2->bind_result($last_name, $first_ane, $email, $phone);
+     $sql2->bind_result($last_name, $first_name, $email, $phone);
      $sql2->fetch();
 
      if($nr_rezultate > 0){
