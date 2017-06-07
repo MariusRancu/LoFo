@@ -68,6 +68,18 @@ if(isset($_POST["u"])){
             exit();
 }
 ?>
+<?php 
+    if(isset($_POST["email"]) && $_POST["addr"] && $_POST["phone"]){
+        $email = $_POST["email"];
+        $addr = $_POST["addr"];
+        $phone = $_POST["phone"];
+        
+        $sql = mysqli_prepare($db_con, "UPDATE users SET email=?, address=?, phone_number=? WHERE username = ?");
+            mysqli_stmt_bind_param($sql, 'ssss',$log_username);
+
+            mysqli_stmt_execute($sql);
+    }
+?>
 
 <html>
 
@@ -117,6 +129,24 @@ if(isset($_POST["u"])){
             ajax.send("pass_check1=" + p1 + "&pass_check2=" + p2);
         }
     }
+
+    function updateInfo(){
+        var email = _("email");
+        var addr = _("address");
+        var phone = _("phone");
+
+        var ajax = ajaxObj("POST", "my_profile.php");
+
+        if(email != "" && addr != "" && phone != ""){
+            ajax.onreadystatechange = function(){
+                if(ajaxReturn(ajax) == true){
+                    _("pass_status").innerHTML = ajax.responseText;
+                }
+            }
+            ajax.send("email=" + email + "&addr=" + addr + "&phone=" + phone);
+        }
+
+}
     </script>
 </head>
 
@@ -180,16 +210,15 @@ if(isset($_POST["u"])){
             <br><br>
             <span>Last Name: </span><input type="text" placeholder="Michael" name="uname" size="55" disabled>
             <br><br>
-            <span>CNP: </span><input type="text" placeholder="1121294123536" name="uname" size="55" disabled>
 
             <br><br>
-            <span>E-mail: </span><input type="text" placeholder="Enter your e-mail address" name="uname" size="55" required>
+            <span>E-mail: </span><input id="email" type="text" placeholder="Enter your e-mail address" name="uname" size="55" required>
             <br><br>
-            <span>Address: </span><input type="text" placeholder="Enter your home address" name="uname" size="55" required>
+            <span>Address: </span><input id="address" type="text" placeholder="Enter your home address" name="uname" size="55" required>
             <br><br>
-            <span>Phone No: </span><input type="text" placeholder="Enter your phone no. -- it will not be made public" name="uname" size="55" required>
+            <span>Phone No: </span><input id="phone" type="text" placeholder="Enter your phone no. -- it will not be made public" name="uname" size="55" required>
             <br><br>
-            <input type="submit" value="Update my profile">
+            <input type="submit" onclick="updateInfo()" value="Update my profile">
         </div>
     </div>
 </body>
