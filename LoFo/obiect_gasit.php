@@ -34,8 +34,8 @@ if($user_ok == false)
         if(name == "" || cat == ""|| loc == ""){
             status.innerHTML = "Complete required fields ! ";
         }  else {
-                    document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + date + "&source=found";
-                }
+            document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + date + "&source=found";
+        }
 }
 
     

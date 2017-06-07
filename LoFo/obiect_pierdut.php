@@ -6,54 +6,6 @@ if($user_ok == false)
         exit();
     }
  ?>
- <?php
-
-// Apel Ajax
-if(isset($_POST["object_name"])){
-    // Conecatere la BD
-	include_once("php_includes/db_con.php");
-    
-    //Inserare obiect in tabel
-$numeOb = $_POST['object_name'];
-$categorie = $_POST['category'];
-$producer =$_POST['producer'];
-$model = $_POST['model'];
-$color = $_POST['color'];
-//$poza = $_POST['poza'];
-$locatie = $_POST['location'];
-$data = $_POST['date'];
-$user = $_SESSION["username"];
-
-    $sql1 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
-     mysqli_stmt_execute($sql1);
-
-     $sql1->store_result();
-     $nr_rezultate = $sql1->num_rows;
-
-     if($nr_rezultate > 0){
-         echo 'Object found';
-     }
-        
-    $sql = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-	mysqli_stmt_bind_param($sql,'ssssssss', $user, $categorie, $numeOb, $producer, $model, $color, $locatie, $data);
-    
-    mysqli_stmt_execute($sql);
-
-    if(mysqli_stmt_affected_rows($sql) == 1){
-        
-		 echo 'Object added'; 
-         mysqli_stmt_close($sql);  
-         exit(); 
-	} else {
-        
-        echo 'Object could not be added';
-        mysqli_stmt_close($sql);
-        exit();
-    }
-
-    }
-   
-?>
  
 <html>
 
@@ -68,31 +20,20 @@ $user = $_SESSION["username"];
     }
     
         function adauga(){
-            var nume = _("object_name").value;
+            var name = _("object_name").value;
             var cat= _("category").value;
             var prod = _("producer").value;
             var mod = _("model").value;
-            var cul = _("color").value;
+            var col = _("color").value;
             //var pz = _("poza").value;
             var loc = _("location").value;
             var dt = _("date").value;
             var status = _("status");
             
-            if(nume == "" || cat == "" || loc == ""){
+            if(cat == "" || loc == ""){
                 status.innerHTML = "Completati campurile obligatorii ! ";
             }  else {
-                
-                var ajax = ajaxObj("POST", "obiect_pierdut.php");
-                ajax.onreadystatechange = function() {
-                    if(ajaxReturn(ajax) == true) {
-                        if(ajax.responseText == "Object found"){
-                            document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + date + "&source=lost";
-                        }
-                            status.innerHTML = ajax.responseText;
-                        
-                    }
-                }
-                ajax.send("object_name=" + nume + "&category=" + cat + "&producer=" + prod + "&location=" + loc + "&model=" + mod + "&color=" + cul + "&date=" + dt);
+                document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + date + "&source=lost";
             }
     }
 </script>
@@ -142,7 +83,8 @@ $user = $_SESSION["username"];
         </div>
     </div>
     <div class="container">
-        <form class="form" onsubmit="return false;">
+        <form onsubmit="return false;">
+         <div class="form" >
             <h1>Obiect Pierdut</h1>
             <span>Object Name: </span> <input type="text" id="object_name" placeholder="Enter the name of the found object" size="55" required>
             <br><br>
@@ -174,16 +116,13 @@ $user = $_SESSION["username"];
                 <option value="Baza III">Baza III</option>
                 <option value="Nicolina">Nicolina</option>
             </select>
-            <br><br>
-            <span>Found Date: </span><input id="date" type="date" placeholder="Enter your phone no. -- it will not be made public" size="55" required>
-            <!--
-            <br><br>
-                    <span>CNP: </span><input type="text" placeholder="Enter your CNP -- it will not be made public" name="uname" size="55" required>
--->
-            <br><br><br>
-            <button id="button" onclick="adauga()">Send</button>
-            <span id="status"></span>
+                <br><br>
+                <span>Found Date: </span><input id="date" type="date" placeholder="Enter your phone no. -- it will not be made public" size="55" required>
+                <br><br><br>
+                <button onclick="adauga()">Send</button>
+            </div>
         </form>
+        <span id="status"></span>
     </div>
 </body>
 

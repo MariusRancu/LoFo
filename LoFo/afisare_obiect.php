@@ -84,8 +84,8 @@ if($source == 'found'){
 
      if(mysqli_stmt_affected_rows($sql1) == 1){
         
-		 echo 'Object added'; 
-         mysqli_stmt_close($sql1);  
+		 echo 'Object added';
+         mysqli_stmt_close($sql1);
 	}
     else{
         echo 'Object not added';
@@ -95,6 +95,22 @@ if($source == 'found'){
 
 if($source == 'lost'){
     $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+
+    $sql3 = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`) VALUES(?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($sql3, 'sssssss', $username, $category, $name, $producer, $model, $color, $location);
+        
+        mysqli_stmt_execute($sql3);
+
+        if(mysqli_stmt_affected_rows($sql3) == 1){
+            
+            echo 'Object added'; 
+            mysqli_stmt_close($sql3);  
+        } else {
+            
+            echo 'Object could not be added';
+            mysqli_stmt_close($sql3);
+            exit();
+        }
 }
 
 	 mysqli_stmt_bind_param($sql, 'ssss', $category, $name, $color, $location);
