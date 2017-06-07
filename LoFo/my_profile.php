@@ -1,4 +1,4 @@
-<?php
+ <?php
 include_once("php_includes/check_login_status.php");
 // Apel ajax
 if(isset($_POST["u"])){
@@ -39,16 +39,48 @@ if(isset($_POST["u"])){
 	exit();
 }
 ?>
+<?php
+
+    if(isset($_POST["pass_check1"]) && $_POST["pass_check2"]){
+		$pass1 = $_POST["pass_check1"];
+		$pass2 = $_POST["pass_check2"];
+		if($pass1 != $pass2){
+			 echo '<strong style="color:#F00;">Parolele nu coincid !</strong>';
+		}else if (strlen($_POST["pass_check1"]) < 5){
+			echo '<strong style="color:#F00;">Parola prea ușoară !</strong>';
+		}else {
+            $pass_hash = md5($pass1);
+            $sql = mysqli_prepare($db_con, "UPDATE users SET password=? WHERE username = ?");
+            mysqli_stmt_bind_param($sql, 'ss', $pass_hash, $log_username);
+
+            mysqli_stmt_execute($sql);
+
+            if(mysqli_stmt_affected_rows($sql1) == 1){
+        
+            echo 'Password changed';
+            mysqli_stmt_close($sql1);
+            }
+            else{
+                echo 'Paswword not changed';
+                mysqli_stmt_close($sql1);  
+            }
+            }
+            exit();
+}
+?>
 
 <html>
 
 <head>
     <title>Lost and Found - Marius Râncu şi Nedelcu Răzvan</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/main.js"></script>
+    <script src="js/ajax.js"></script>
     <script>
     function emptyElement(x){
         _(x).innerHTML = "";
     }
+
     function login(){
         var u = _("username").value;
         var p = _("password").value;
@@ -68,6 +100,21 @@ if(isset($_POST["u"])){
                 }
             }
             ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
+        }
+    }
+
+    function changePass(){
+        var p1 = _("p1").value;
+        var p2 = _("p2").value;
+        var ajax = ajaxObj("POST", "my_profile.php");
+
+        if(p1 != "" && p2 != ""){
+            ajax.onreadystatechange = function(){
+                if(ajaxReturn(ajax) == true){
+                    _("pass_status").innerHTML = ajax.responseText;
+                }
+            }
+            ajax.send("pass_check1=" + p1 + "&pass_check2=" + p2);
         }
     }
     </script>
@@ -116,16 +163,17 @@ if(isset($_POST["u"])){
         </div>
     </div>
     <div class="container">
-        <div class="form">
+        <div class="form" onsubmit="return false;">
             <h1>My Profile</h1>
             <span>Hello, $username! </span>
             <br><br>
             <hr>
-            <span>New Password: </span><input type="text" placeholder="Enter your new desired password" name="uname" size="55" required>
+            <span>New Password: </span><input id="p1"type="text" placeholder="Enter your new desired password" name="uname" size="55" required>
             <br><br>
-            <span>Repeat Password: </span><input type="text" placeholder="Enter you new desired password, again" name="uname" size="55" required>
+            <span>Repeat Password: </span><input id="p2"type="text" placeholder="Enter you new desired password, again" name="uname" size="55" required>
+             <span id="pass_status"></span>
             <br><br>
-            <input type="submit" value="Change Password">
+            <input type="submit" onclick="changePass()" value="Change Password">
             <br>
             <hr>
             <span>First Name: </span><input type="text" placeholder="Andrew" name="uname" size="55" disabled>
