@@ -8,7 +8,7 @@ if($user_ok == false || $user_role == 0)
 
 if(isset($_POST["acceptId"])){
     $accId =  $_POST["acceptId"];    
-    $sql = mysqli_prepare($db_con, "UPDATE objects SET is_verified=1 WHERE id=?");
+    $sql = mysqli_prepare($db_con, "UPDATE found_objects SET is_verified=1 WHERE id=?");
     mysqli_stmt_bind_param($sql,'i', $accId);
     mysqli_stmt_execute($sql);
 
@@ -19,7 +19,7 @@ if(isset($_POST["acceptId"])){
 
 if(isset($_POST["refuseId"])){
     $refuseId =  $_POST["refuseId"];    
-    $sql = mysqli_prepare($db_con, "UPDATE objects SET is_verified=2 WHERE id=?");
+    $sql = mysqli_prepare($db_con, "UPDATE found_objects SET is_verified=2 WHERE id=?");
     mysqli_stmt_bind_param($sql,'i', $refuseId);
     mysqli_stmt_execute($sql);
 
@@ -35,7 +35,7 @@ if (mysqli_connect_errno())
     die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-if (!$result = mysqli_query($db_con,"SELECT * FROM objects WHERE is_verified = 0 ORDER BY data ASC"))
+if (!$result = mysqli_query($db_con,"SELECT * FROM found_objects WHERE is_verified = 0 ORDER BY data ASC"))
 {
     die("Error: " . mysqli_error($db_con));
 }
@@ -52,7 +52,7 @@ $rowcount=mysqli_num_rows($result);
         <script src="js/ajax.js"></script>
         <script>
             function accept(id){
-                var ajax = ajaxObj("POST", "pending_lost.php");
+                var ajax = ajaxObj("POST", "pending_found.php");
                 ajax.onreadystatechange = function() {
                     if(ajaxReturn(ajax) == true) {
                         location.reload();
@@ -63,7 +63,7 @@ $rowcount=mysqli_num_rows($result);
         }
 
         function refuse(id){
-                var ajax = ajaxObj("POST", "pending_lost.php");
+                var ajax = ajaxObj("POST", "pending_found.php");
                 ajax.onreadystatechange = function() {
                     if(ajaxReturn(ajax) == true) {
                         location.reload();
@@ -109,7 +109,7 @@ $rowcount=mysqli_num_rows($result);
                 <h1>There are <?php echo "$rowcount"; ?> unsolved reports!</h1>
             </div>
             <div class="admin_container">
-<h2>Lost objects </h2>            
+<h2>Found objects </h2>            
 <table border="3">
   <tr>
     <th>User</th>

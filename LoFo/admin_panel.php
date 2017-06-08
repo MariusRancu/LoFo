@@ -47,7 +47,6 @@ $rowcount=mysqli_num_rows($result);
                     <div class="big_text">L O F O</div>
                     <div class="little_text">Lost & Found V4.0.1 BETA</div>
                 </div>
-                <?php if($user_ok == true) : ?>
                 <div class="login">
                     <div class="login_items">
                         <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
@@ -55,17 +54,6 @@ $rowcount=mysqli_num_rows($result);
 
                     </div>
                 </div>
-                <?php else : ?>
-                <div class="login">
-                    <div class="login_items">
-                        <input type="text" placeholder="Enter Username" id="username" size="18" required/>
-                        <input type="checkbox" checked="checked" id="remember"><span>Remember me?</span>
-                        <input type="password" placeholder="Enter Password" id="password" size="18" required/>
-                        <input type="submit" id="loginbtn" onclick="login()"></submit>
-                        <p id="status"></p>
-                    </div>
-                </div>
-                <?php endif; ?>
             </div>
         </div>
         <div class="container">
@@ -77,19 +65,24 @@ $rowcount=mysqli_num_rows($result);
             </div>
             <div class="admin_container">
                 <div class="admin_button_one">
+                <a href="./pending_lost.php">
                     <div class="admin_upside">Pending lost objects</div>
                     <div class="admin_downside">1533</div>
                 </div>
+                </a>
 
                 <a href="./admin_reports.php"><div class="admin_button_two">
-                                    <div class="admin_upside">Unsolved reports</div>
-                    <div class="admin_downside"><?php echo "$rowcount"; ?></div></div></a>
+                <div class="admin_upside">Unsolved reports</div>
+                <div class="admin_downside"><?php echo "$rowcount"; ?></div></div></a>
                 <div class="admin_button_three">
-                                    <div class="admin_upside">Registered members</div>
-                    <div class="admin_downside">199</div></div>
-                <div class="admin_button_four">
-                                    <div class="admin_upside">Website Statistics</div>
-                    <div class="admin_downside_s"> 122 / 22 / 99</div></div>
+                <div class="admin_upside">Registered members</div>
+                <div class="admin_downside">199</div></div>
+                <a href="./pending_found.php">
+                    <div class="admin_button_four">
+                        <div class="admin_upside">Pending found objects</div>
+                        <div class="admin_downside_s"> 122 / 22 / 99</div>
+                    </div>
+                </a>
             </div>
         </div>
     </body>

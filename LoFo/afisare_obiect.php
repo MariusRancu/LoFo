@@ -18,9 +18,9 @@ if($user_ok == false)
         <div class="header_menu">
             <div class="menu_content">
                 <div class="menu_items">
-                    <a href="index.php">HOME</a> |
+                    <a href="index.php" class="activ">HOME</a> |
                     <a href="signup.php">SIGN UP</a> |
-                    <a href="report.php" class="activ">REPORT</a> |
+                    <a href="report.php">REPORT</a> |
                     <a href="my_profile.php">MY PROFILE</a> |
                     <?php if($user_role == true) : ?>
                     <a href="admin_panel.php">ADMIN PANEL</a> |
@@ -77,7 +77,7 @@ if($user_ok == false)
         $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
 
         //Verify if object is already added
-        $sql2 = mysqli_prepare($db_con, "SELECT * FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+        $sql2 = mysqli_prepare($db_con, "SELECT * FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
         mysqli_stmt_bind_param($sql2, 'ssss', $category, $name, $color, $location);
         mysqli_stmt_execute($sql2);
         $sql2->store_result();
@@ -98,7 +98,7 @@ if($user_ok == false)
     }
 
     if($source == 'lost'){
-        $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+        $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
 
         //Verify if object is already added
         $sql2 = mysqli_prepare($db_con, "SELECT * FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
