@@ -60,58 +60,81 @@ if($user_ok == false)
         <div class="container">
             <div class="search_form">
                 <h1>Results for your search: //INSERT_SEARCH_HERE// </h1>
-                <?php
-include_once("php_includes/db_con.php");
+<?php
+    include_once("php_includes/db_con.php");
 
-$name = $_GET['name'];
-$category = $_GET['category']; 
-$producer = $_GET['producer']; 
-$model = $_GET['model'];
-$color = $_GET['color'];
-$location = $_GET['location'];
-$date = $_GET['date'];
-$username = $_SESSION["username"];
-$source = $_GET['source'];
+    $name = $_GET['name'];
+    $category = $_GET['category']; 
+    $producer = $_GET['producer']; 
+    $model = $_GET['model'];
+    $color = $_GET['color'];
+    $location = $_GET['location'];
+    $date = $_GET['date'];
+    $username = $_SESSION["username"];
+    $source = $_GET['source'];
 
-//Preluare informatii obiect
-if($source == 'found'){
-     $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+    //Prepare query depending on the page that sends the data
+    if($source == 'found'){
+        $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
 
-     $sql1 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`) VALUES(?, ?, ?, ?, ?, ?, ?)");
-     mysqli_stmt_bind_param($sql1, 'sssssss', $username, $category, $name, $producer, $model, $color, $location);
-     
-     mysqli_stmt_execute($sql1);
+        //Verify if object is already added
+        $sql2 = mysqli_prepare($db_con, "SELECT * FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+        mysqli_stmt_bind_param($sql2, 'ssss', $category, $name, $color, $location);
+        mysqli_stmt_execute($sql2);
+        $sql2->store_result();
+        $nr_rezultate = $sql2->num_rows;
+        mysqli_stmt_close($sql2);
 
-     if(mysqli_stmt_affected_rows($sql1) == 1){
-        
-		 echo 'Object added';
-         mysqli_stmt_close($sql1);
-	}
-    else{
-        echo 'Object not added';
-        mysqli_stmt_close($sql1);  
-    }
-}
+        $nr_rezultate = $sql2->num_rows;
+        mysqli_stmt_close($sql2);
 
-if($source == 'lost'){
-    $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
-
-    $sql3 = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`) VALUES(?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($sql3, 'sssssss', $username, $category, $name, $producer, $model, $color, $location);
-        
-        mysqli_stmt_execute($sql3);
-
-        if(mysqli_stmt_affected_rows($sql3) == 1){
+        if($nr_rezultate == 0){
+            $sql1 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($sql1, 'ssssssss', $username, $category, $name, $producer, $model, $color, $location, $date);
             
-            echo 'Object added'; 
-            mysqli_stmt_close($sql3);  
-        } else {
-            
-            echo 'Object could not be added';
-            mysqli_stmt_close($sql3);
-            exit();
+            mysqli_stmt_execute($sql1);
+
+            if(mysqli_stmt_affected_rows($sql1) == 1){
+                
+                echo 'Object added';
+                mysqli_stmt_close($sql1);
+            }
+            else{
+                echo 'Object not added';
+                mysqli_stmt_close($sql1);  
+            }
         }
-}
+        
+    }
+
+    if($source == 'lost'){
+        $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+
+        //Verify if object is already added
+        $sql2 = mysqli_prepare($db_con, "SELECT * FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+        mysqli_stmt_bind_param($sql2, 'ssss', $category, $name, $color, $location);
+        mysqli_stmt_execute($sql2);
+        $sql2->store_result();
+        $nr_rezultate = $sql2->num_rows;
+        mysqli_stmt_close($sql2);
+
+        if($nr_rezultate == 0){
+            $sql3 = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($sql3, 'ssssssss', $username, $category, $name, $producer, $model, $color, $location, $date);
+            
+            mysqli_stmt_execute($sql3);
+
+            if(mysqli_stmt_affected_rows($sql3) == 1){
+                
+                echo 'Object added'; 
+                mysqli_stmt_close($sql3);  
+            } else {
+                echo 'Object could not be added';
+                mysqli_stmt_close($sql3);
+                exit();
+            }
+        }
+    }
 
 	 mysqli_stmt_bind_param($sql, 'ssss', $category, $name, $color, $location);
      mysqli_stmt_execute($sql);

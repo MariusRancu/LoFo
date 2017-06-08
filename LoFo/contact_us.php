@@ -1,43 +1,6 @@
 <?php
 include_once("php_includes/check_login_status.php");
-// Apel ajax
-if(isset($_POST["u"])){
-	include_once("php_includes/db_con.php");
-	// GATHER THE POSTED DATA INTO LOCAL VARIABLES AND SANITIZE
-	$u = $_POST['u'];
-	$p = md5($_POST['p']);
-	$remember = $_POST['remember'];
-	// FORM DATA ERROR HANDLING
-	if($u == "" || $p == ""){
-		echo "login_failed";
-        exit();
-	} else {
-	// END FORM DATA ERROR HANDLING
-		$sql = "SELECT username, password FROM users WHERE username='$u'";
-        $query = mysqli_query($db_con, $sql);
-        $row = mysqli_fetch_row($query);
-		$db_username = $row[0];
-        $db_pass_str = $row[1];
-		if($p != $db_pass_str){
-			echo "login_failed";
-            exit();
-		} else {
-			// CREATE THEIR SESSIONS AND COOKIES
-			$_SESSION['username'] = $db_username;
-			$_SESSION['password'] = $db_pass_str;
-			
-			if(isset($_post['remember'])){
-				
-			 setcookie("user", $db_username, strtotime( '+30 days' ), "/", "", "", TRUE);
-    		 setcookie("pass", $db_pass_str, strtotime( '+30 days' ), "/", "", "", TRUE); 
-			
-			}
-			
-		    exit();
-		}
-	}
-	exit();
-}
+include_once("php_includes/login.php");
 ?>
 
 <html>
@@ -80,9 +43,11 @@ if(isset($_POST["u"])){
                 <a href="index.php">HOME</a> |
                 <a href="signup.php">SIGN UP</a> |
                 <a href="report.php">REPORT</a> |
-                <a href="my_profile.php" >MY PROFILE</a> |
+                <?php if($user_ok == true) : ?>
+                    <a href="my_profile.php">MY PROFILE</a> |
+                <?php endif; ?>
                 <?php if($user_role == true) : ?>
-                <a href="admin_panel.php">ADMIN PANEL</a> |
+                    <a href="admin_panel.php">ADMIN PANEL</a> |
                 <?php endif; ?>
                 <a href="contact_us.php" class="activ">CONTACT US</a>
             </div>

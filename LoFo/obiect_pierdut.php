@@ -33,7 +33,7 @@ if($user_ok == false)
             if(cat == "" || loc == ""){
                 status.innerHTML = "Completati campurile obligatorii ! ";
             }  else {
-                document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + date + "&source=lost";
+                document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + dt + "&source=lost";
             }
     }
 </script>
