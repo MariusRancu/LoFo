@@ -6,7 +6,7 @@ if($user_ok == false || $user_role == 0)
     exit();
     }
 // Check connection
-	include_once("php_includes/db_con.php");
+include_once("php_includes/db_con.php");
 if (mysqli_connect_errno())
 {
     die("Failed to connect to MySQL: " . mysqli_connect_error());

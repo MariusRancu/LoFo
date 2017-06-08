@@ -18,7 +18,7 @@ $reported_username = $_POST['reported_username']; //$numeOb
 $reason = $_POST['reason']; //$categorie
 $described_report =$_POST['described_report']; //$producer
 $reported_by = $_SESSION["username"];
-$report_time = date("Y/m/d"); // whatever
+$report_time = date("Y/m/d"); // date
     
     
         

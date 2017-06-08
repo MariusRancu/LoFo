@@ -59,7 +59,6 @@ if($user_ok == false)
         </div>
         <div class="container">
             <div class="search_form">
-                <h1>Results for your search: //INSERT_SEARCH_HERE// </h1>
 <?php
     include_once("php_includes/db_con.php");
 
@@ -93,16 +92,7 @@ if($user_ok == false)
             mysqli_stmt_bind_param($sql1, 'ssssssss', $username, $category, $name, $producer, $model, $color, $location, $date);
             
             mysqli_stmt_execute($sql1);
-
-            if(mysqli_stmt_affected_rows($sql1) == 1){
-                
-                echo 'Object added';
-                mysqli_stmt_close($sql1);
-            }
-            else{
-                echo 'Object not added';
-                mysqli_stmt_close($sql1);  
-            }
+            mysqli_stmt_close($sql1);
         }
         
     }
@@ -124,15 +114,7 @@ if($user_ok == false)
             
             mysqli_stmt_execute($sql3);
 
-            if(mysqli_stmt_affected_rows($sql3) == 1){
-                
-                echo 'Object added'; 
-                mysqli_stmt_close($sql3);  
-            } else {
-                echo 'Object could not be added';
-                mysqli_stmt_close($sql3);
-                exit();
-            }
+            mysqli_stmt_close($sql3);
         }
     }
 
