@@ -1,6 +1,5 @@
 <?php
 include_once("php_includes/check_login_status.php");
-// Apel ajax
 include_once("php_includes/login.php");
 ?>
     <html>

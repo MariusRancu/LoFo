@@ -9,6 +9,7 @@ function evalLoggedUser($conx,$u,$p){
 	$sql = "SELECT username FROM users WHERE username='$u' AND pass='$p'LIMIT 1";
     $query = mysqli_query($conx, $sql);
     $numrows = mysqli_num_rows($query);
+
 	if($numrows > 0){
 		return true;
 	}
@@ -17,6 +18,7 @@ function evalLoggedUser($conx,$u,$p){
 $user_ok = false;
 $log_username = "";
 $user_role = "";
+$log_user_id = "";
 
 if(isset($_SESSION["username"]) && isset($_SESSION["password"])) {
 	// Verify the user
@@ -31,9 +33,10 @@ if(isset($_SESSION["username"]) && isset($_SESSION["password"])) {
 }
 
 if($user_ok == true){
-	$sql = "SELECT role FROM users WHERE username='$log_username'";
+	$sql = "SELECT user_id, role FROM users WHERE username='$log_username'";
     $query = mysqli_query($db_con, $sql);
     $row = mysqli_fetch_row($query);
-	$user_role = $row[0];
+	$log_user_id = $row[0];
+	$user_role = $row[1];
 }
 ?>

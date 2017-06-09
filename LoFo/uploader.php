@@ -11,7 +11,7 @@ if (isset($_POST['submit']))
 	$file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
 	$file_ext = substr($filename, strripos($filename, '.')); // get file name
 	$filesize = $_FILES["file"]["size"];
-	$allowed_file_types = array('.jpg');	
+	$allowed_file_types = array('.jpg', '.png');
 
 	if (in_array($file_ext,$allowed_file_types) && ($filesize < 20000000))
 	{	
