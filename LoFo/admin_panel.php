@@ -6,17 +6,27 @@ if($user_ok == false || $user_role == 0)
     exit();
     }
 // Check connection
-	include_once("php_includes/db_con.php");
+include_once("php_includes/db_con.php");
 if (mysqli_connect_errno())
 {
     die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-if (!$result = mysqli_query($db_con,"SELECT * FROM reported_by WHERE SOLVED IS NULL ORDER BY report_time ASC"))
+if (!$reports = mysqli_query($db_con,"SELECT * FROM reported_by WHERE SOLVED IS NULL"))
 {
     die("Error: " . mysqli_error($db_con));
 }
-$rowcount=mysqli_num_rows($result);
+
+$lost_objects = mysqli_query($db_con,"SELECT * FROM objects WHERE is_verified = 0");
+$found_objects = mysqli_query($db_con,"SELECT * FROM found_objects WHERE is_verified = 0");
+$reg_users = mysqli_query($db_con,"SELECT * FROM users");
+
+$rowcount=mysqli_num_rows($reports);
+$lost_pending_count = mysqli_num_rows($lost_objects);
+$found_pending_count = mysqli_num_rows($found_objects);
+$reg_users_count = mysqli_num_rows($reg_users);
+
+
 ?>
 
 
@@ -64,23 +74,32 @@ $rowcount=mysqli_num_rows($result);
                     </a>!</h1>
             </div>
             <div class="admin_container">
-                <div class="admin_button_one">
+                
                 <a href="./pending_lost.php">
-                    <div class="admin_upside">Pending lost objects</div>
-                    <div class="admin_downside">1533</div>
-                </div>
+                    <div class="admin_button_one">
+                        <div class="admin_upside">Pending lost objects</div>
+                        <div class="admin_downside"><?php echo "$lost_pending_count"; ?></div>
+                    </div>
                 </a>
 
-                <a href="./admin_reports.php"><div class="admin_button_two">
-                <div class="admin_upside">Unsolved reports</div>
-                <div class="admin_downside"><?php echo "$rowcount"; ?></div></div></a>
-                <div class="admin_button_three">
-                <div class="admin_upside">Registered members</div>
-                <div class="admin_downside">199</div></div>
+                <a href="./admin_reports.php">
+                    <div class="admin_button_two">
+                        <div class="admin_upside">Unsolved reports</div>
+                        <div class="admin_downside"><?php echo "$rowcount"; ?></div>
+                    </div>
+                </a>
+
+                <a href="./registered_users.php">
+                    <div class="admin_button_three">
+                        <div class="admin_upside">Registered members</div>
+                        <div class="admin_downside"><?php echo "$reg_users_count"; ?></div>
+                    </div>
+                </a>
+
                 <a href="./pending_found.php">
                     <div class="admin_button_four">
                         <div class="admin_upside">Pending found objects</div>
-                        <div class="admin_downside_s"> 122 / 22 / 99</div>
+                        <div class="admin_downside_s"><?php echo "$found_pending_count"; ?></div>
                     </div>
                 </a>
             </div>
