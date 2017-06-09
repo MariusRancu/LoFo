@@ -1,6 +1,7 @@
 <?php
 include_once("php_includes/check_login_status.php");
 include_once("php_includes/login.php");
+include_once("php_includes/db_con.php");
 
 if(isset($_SESSION["username"])){
 	header("location:index.php");
@@ -9,8 +10,6 @@ if(isset($_SESSION["username"])){
 ?><?php
 
 if(isset($_POST["usernamecheck"])){
-	include_once("php_includes/db_con.php");
-	
 	$sql = mysqli_prepare($db_con,"SELECT username FROM users WHERE username=? LIMIT 1");
 	mysqli_stmt_bind_param($sql,'s',$username);
 	
@@ -37,7 +36,32 @@ if(isset($_POST["usernamecheck"])){
 	    exit();
     }
 }
-?><?php
+
+    if(isset($_POST["email_check"])){
+        $email_check = $_POST["email_check"];
+
+        $sql = mysqli_prepare($db_con, "SELECT email FROM users WHERE email=? LIMIT 1");
+       
+        mysqli_stmt_bind_param($sql, 's', $email_check);
+        mysqli_stmt_execute($sql);
+        mysqli_stmt_store_result($sql);
+       
+        $email_count = mysqli_stmt_num_rows($sql);
+       
+        mysqli_stmt_close($sql);
+
+        if($email_count != 0){
+            echo '<strong style="color:#F00;">The email is already in use by another user</strong>';
+        }else{
+            if(filter_var($email_check, FILTER_VALIDATE_EMAIL)){
+                echo '<strong style="color:#009900;">Email adress accepted</strong>';;
+            }
+            else{
+                echo '<strong style="color:#F00;">Wrong email format</strong>';
+            }
+        }
+        exit();
+    }
 
     if(isset($_POST["pass_check1"]) && $_POST["pass_check2"]){
 		$pass1 = $_POST["pass_check1"];
@@ -129,8 +153,6 @@ if(isset($_POST["username"])){
     <script src="js/main.js"></script>
     <script src="js/ajax.js"></script>
     <script>
-
-
     function emptyElement(x){
         _(x).innerHTML = "";
     }
@@ -148,19 +170,58 @@ if(isset($_POST["username"])){
         }
     }
 
+    function emptyElement(x){
+        _(x).innerHTML = "";
+    }
+
+    function login(){
+        var u = _("username").value;
+        var p = _("password").value;
+        var remember = _("remember").value;
+        if(u == "" || p == ""){
+            _("status").innerHTML = "Fill out all of the form data";
+        } else {
+            _("status").innerHTML = 'please wait ...';
+            var ajax = ajaxObj("POST", "signup.php");
+            ajax.onreadystatechange = function() {
+                if(ajaxReturn(ajax) == true) {
+                    if(ajax.responseText == "login_failed"){
+                        _("status").innerHTML = "Combinație username parolă incorectă !";
+                    } else {
+                    }
+                }
+            }
+            ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
+        }
+    }
+
     function checkpassword(){
         var password1 = _("p1").value;
         var password2 = _("p2").value;
-        var ajax = ajaxObj("POST", "signup.php");
         
         if(password1 != "" && password2 != ""){
-        ajax.onreadystatechange = function() {
+            var ajax = ajaxObj("POST", "signup.php");
+            ajax.onreadystatechange = function() {
                 if(ajaxReturn(ajax) == true) {
                     _("password_status").innerHTML = ajax.responseText;
                 }
             }
             ajax.send("pass_check1=" + password1 + "&pass_check2=" + password2);
+        }
     }
+
+    function emailCheck(){
+        var email = _("email").value;
+        var ajax = ajaxObj("POST", "signup.php");
+
+        if(email != ""){
+            ajax.onreadystatechange = function(){
+                if(ajaxReturn(ajax) == true){
+                    _("email_status").innerHTML = ajax.responseText;
+                }
+            }
+            ajax.send("email_check=" + email);
+        }
     }
 
     function signup(){
@@ -190,32 +251,6 @@ if(isset($_POST["username"])){
                 }
             }
             ajax.send("username=" + username + "&nume=" + nume + "&prenume=" + prenume + "&email=" + email + "&adresa=" + adresa + "&parola=" + p1 + "&telefon=" + telefon);
-        }
-    }
-
-    function emptyElement(x){
-            _(x).innerHTML = "";
-        }
-
-    function login(){
-        var u = _("uname").value;
-        var p = _("password").value;
-        var remember = _("remember").value;
-        if(u == "" || p == ""){
-            _("status").innerHTML = "Fill out all of the form data";
-        } else {
-            _("status").innerHTML = 'please wait ...';
-            var ajax = ajaxObj("POST", "index.php");
-            ajax.onreadystatechange = function() {
-                if(ajaxReturn(ajax) == true) {
-                    if(ajax.responseText == "login_failed"){
-                        _("status").innerHTML = "Combinație username parolă incorectă !";
-                    } else {
-                        window.location = "index.php";
-                    }
-                }
-            }
-            ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
         }
     }
 
@@ -257,7 +292,7 @@ if(isset($_POST["username"])){
             <?php else : ?>
                 <div class="login">
                     <div class="login_items">
-                        <input type="text" placeholder="Enter Username" id="uname" size="18" required/>
+                        <input type="text" placeholder="Enter Username" id="username" size="18" required/>
                         <input type="checkbox" checked="checked" id="remember"><span>Remember me?</span>
                         <input type="password" placeholder="Enter Password" id="password" size="18" required/>
                         <input type="submit" id="loginbtn" onclick="login()"></submit> 
@@ -289,7 +324,8 @@ if(isset($_POST["username"])){
                         <input input id="lastname" type="text" onfocus="emptyElement('status')" placeholder="Enter your last name" name="uname" size="55" required>
                 <br><br>
                         <span>E-mail: </span>
-                        <input input id="email" type="text" onfocus="emptyElement('status')" placeholder="Enter your e-mail address" name="uname" size="55" required>
+                        <input id="email" onblur="emailCheck()" type="text" placeholder="Enter your e-mail address" size="55" required>
+                        <span id="email_status"></span>
                 <br><br>
                         <span>Address: </span>
                         <input id="address" type="text" onfocus="emptyElement('status')" placeholder="Enter your home address" name="uname" size="55" required>
