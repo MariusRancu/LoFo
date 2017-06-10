@@ -62,7 +62,6 @@ if(isset($_POST['title'], $_POST['recip'], $_POST['message']))
                                 {
 ?>
         <div class="message">The message has successfully been sent.<br />
-            <a href="list_pm.php">List of my Personal messages</a></div>
         <?php
                                         $form = false;
                                 }
