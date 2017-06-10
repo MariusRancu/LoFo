@@ -154,6 +154,7 @@ mysqli_stmt_close($sql2);
 </head>
 
 <body>
+<div class="header_menu">
     <div class="menu_content">
             <div class="menu_items">
                 <a href="index.php">HOME</a> |
@@ -178,7 +179,15 @@ mysqli_stmt_close($sql2);
                 <div class="login">
                     <div class="login_items">
                         <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
-                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
+                            <span class="mini_menu">
+                            <br>
+                            &#9830; <a href="">My messages</a>
+                            <br>
+                            &#9830; <a href="">My lost objects</a>
+                            <br>
+                                &#9830; <a href="">My found objects</a>
+                            </span>
+                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 0x;">Logout</a></span>
 
                     </div>
                 </div>

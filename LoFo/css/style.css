@@ -94,7 +94,7 @@ body{
 .container{
     background-color: #d4d4d4;
     width: 1200px;
-    height: 513px;
+    height: 600px;
     margin: auto;
     margin-top: 20px;
 }
@@ -116,6 +116,10 @@ body{
     position: relative;
     padding-left: 10px;
     padding-top: 4px;
+}
+
+.mini_menu a{
+    font-size: 12px;
 }
 
 .login_items input[type=text] {
