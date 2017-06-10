@@ -62,28 +62,31 @@ if($user_ok == false)
 <?php
     include_once("php_includes/db_con.php");
 
-    $name = $_GET['name'];
-    $category = $_GET['category']; 
-    $producer = $_GET['producer']; 
-    $model = $_GET['model'];
-    $color = $_GET['color'];
-    $location = $_GET['location'];
-    $date = $_GET['date'];
+    $name = $_POST['name'];
+    $category = $_POST['category']; 
+    $producer = $_POST['producer']; 
+    $model = $_POST['model'];
+    $color = $_POST['color'];
+    $location = $_POST['location'];
+    $date = $_POST['date'];
     $username = $_SESSION["username"];
-    $source = $_GET['source'];
+
+    $filename = $_FILES["file"]["name"];
+	$file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
+	$file_ext = substr($filename, strripos($filename, '.')); // get file name
+	$filesize = $_FILES["file"]["size"];
+	$allowed_file_types = array('.jpg', '.png');	
+
 
     //Prepare query depending on the page that sends the data
-    if($source == 'found'){
-        $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+    if(isset($_POST['foundSubmit'])){
+        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
 
         //Verify if object is already added
         $sql2 = mysqli_prepare($db_con, "SELECT * FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
         mysqli_stmt_bind_param($sql2, 'ssss', $category, $name, $color, $location);
         mysqli_stmt_execute($sql2);
         $sql2->store_result();
-        $nr_rezultate = $sql2->num_rows;
-        mysqli_stmt_close($sql2);
-
         $nr_rezultate = $sql2->num_rows;
         mysqli_stmt_close($sql2);
 
@@ -95,10 +98,58 @@ if($user_ok == false)
             mysqli_stmt_close($sql1);
         }
         
+        if($nr_rezultate == 0){
+            if (in_array($file_ext,$allowed_file_types) && ($filesize < 200000000))
+	        {	
+                // Rename file
+                $newfilename = md5($file_basename) . $file_ext;
+                if (file_exists("upload/" . $newfilename))
+                {
+                    // file already exists error
+                    echo "You have already uploaded this file.";
+                }
+                else
+                {		
+                    move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
+                    echo "File uploaded successfully.";
+
+                    $null = NULL;
+                    $sql3 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+                    mysqli_stmt_bind_param($sql3, 'ssssssss', $username, $category, $name, $producer, $model, $color, $location, $date);
+                    
+                    mysqli_stmt_execute($sql3);
+
+                    //$objId = $sql3->insert_id;
+
+                    mysqli_stmt_close($sql3);
+
+                    /*$sql1 = mysqli_prepare($db_con, "UPDATE found_objects SET `picture`=? WHERE id=?");
+                    mysqli_stmt_bind_param($sql1, 'bi', $null, $objId);
+                    $sql1->send_long_data(0, file_get_contents("upload/" . $newfilename));
+
+                    mysqli_stmt_execute($sql1);
+
+                    mysqli_stmt_close($sql1); */
+
+
+                }
+            }
+            elseif ($filesize > 2000000)
+            {	
+                // file size error
+                echo "The file you are trying to upload is too large.";
+            }
+            else
+            {
+                // file type error
+                echo "Only these file typs are allowed for upload: " . implode(', ',$allowed_file_types);
+                unlink($_FILES["file"]["tmp_name"]);
+            }  
+        }
     }
 
-    if($source == 'lost'){
-        $sql = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
+     if(isset($_POST['lostSubmit'])){
+        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
 
         //Verify if object is already added
         $sql2 = mysqli_prepare($db_con, "SELECT * FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
@@ -109,36 +160,75 @@ if($user_ok == false)
         mysqli_stmt_close($sql2);
 
         if($nr_rezultate == 0){
-            $sql3 = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-            mysqli_stmt_bind_param($sql3, 'ssssssss', $username, $category, $name, $producer, $model, $color, $location, $date);
-            
-            mysqli_stmt_execute($sql3);
+            if (in_array($file_ext,$allowed_file_types) && ($filesize < 200000000))
+	        {	
+                // Rename file
+                $newfilename = md5($file_basename) . $file_ext;
+                if (file_exists("upload/" . $newfilename))
+                {
+                    // file already exists error
+                    echo "You have already uploaded this file.";
+                }
+                else
+                {		
+                    move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
+                    echo "File uploaded successfully.";
+                    $null = NULL;
+                    $picture_location = "upload/" . $newfilename;
+                    $sql3 = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`, `picture_location`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    mysqli_stmt_bind_param($sql3, 'sssssssss', $username, $category, $name, $producer, $model, $color, $location, $date, $picture_location);
+                    
+                    mysqli_stmt_execute($sql3);
 
-            mysqli_stmt_close($sql3);
+                    //$objId = $sql3->insert_id;
+
+                    mysqli_stmt_close($sql3);
+
+                    /*$sql1 = mysqli_prepare($db_con, "UPDATE objects SET `picture`=? WHERE id=?");
+                    mysqli_stmt_bind_param($sql1, 'bi', $null, $objId);
+                    $sql1->send_long_data(0, file_get_contents("upload/" . $newfilename));
+
+                    mysqli_stmt_execute($sql1);
+                    mysqli_stmt_close($sql1);*/
+
+
+                }
+            }
+            elseif ($filesize > 2000000)
+            {	
+                // file size error
+                echo "The file you are trying to upload is too large.";
+            }
+            else
+            {
+                // file type error
+                echo "Only these file typs are allowed for upload: " . implode(', ',$allowed_file_types);
+                unlink($_FILES["file"]["tmp_name"]);
+            }  
         }
     }
 
-	 mysqli_stmt_bind_param($sql, 'ssss', $category, $name, $color, $location);
-     mysqli_stmt_execute($sql);
+	 mysqli_stmt_bind_param($sql5, 'ssss', $category, $name, $color, $location);
 
-     $sql->store_result();
-     $nr_rezultate = $sql->num_rows;
+     mysqli_stmt_execute($sql5);
+
+     $sql5->store_result();
+     $nr_rezultate = $sql5->num_rows;
 
      $sql2 = mysqli_prepare($db_con,"SELECT last_name, first_name, email, phone_number FROM users WHERE username = ?");
      mysqli_stmt_bind_param($sql2,'s',$username);
      mysqli_stmt_execute($sql2);
      $sql2->bind_result($last_name, $first_name, $email, $phone);
      $sql2->fetch();
+     mysqli_stmt_close($sql2);
 
      if($nr_rezultate > 0){
-        $sql->bind_result($d_username, $d_category, $d_name, $d_producer, $d_model, $color, $d_pic, $d_loc, $d_date);
+        $sql5->bind_result($d_username, $d_category, $d_name, $d_producer, $d_model, $color, $d_pic, $d_pic_location, $d_loc, $d_date);
         
-        while ($sql->fetch()) {
+        while ($sql5->fetch()) {
             echo"
-            
             <div class=\"search_container\">
-                        
-                        <img src=\"https://i1.wp.com/blogdecasa.ro/wp-content/uploads/2016/04/Tigaie-Tefal-Character-30-cm.jpg\" class=\"search_img\">
+                        <img src=". $d_pic_location ." height=\"150\" width=\"150\" />       
                         <div class=\"search_right\">
                             <div class=\"search_ob_details\">
                                 <br><span class=\"ob_field\">Object Name:</span><span class=\"ob_field\"> ". $d_name ."</span>
@@ -163,7 +253,7 @@ if($user_ok == false)
         } 
         }else 
             echo "Nu a fost gasit nici un obiect";
-        $sql->close();
+        $sql5->close();
 ?>
                 
 

@@ -19,24 +19,6 @@ if($user_ok == false)
   function emptyElement(x){
 	_(x).innerHTML = "";
 }
-  
-    function cauta(){
-        var name = _("name").value;
-        var cat= _("category").value;
-        var prod = _("producer").value;
-        var mod = _("model").value;
-        var col = _("color").value;
-        //var pz = _("picture").value;
-        var loc = _("location").value;
-        var status = _("status");
-        var date = _("date");
-        
-        if(name == "" || cat == ""|| loc == ""){
-            status.innerHTML = "Complete required fields ! ";
-        }  else {
-            document.location = "afisare_obiect.php?name=" + name + "&category=" + cat + "&producer=" + prod + "&model=" + mod + "&color=" + col + "&location=" + loc + "&date=" + date + "&source=found";
-        }
-}
 
     
 </script>
@@ -85,44 +67,48 @@ if($user_ok == false)
         </div>
     </div>
     <div class="container">
-        <form onsubmit="return false;">
-            <div class="form" >
-                <h1>Obiect Gasit</h1>
-                <span>Object Name: </span> <input id="name" type="text" placeholder="Enter the name of the found object" size="55" required>
+        <form action="afisare_obiect.php" enctype="multipart/form-data"  method="post">
+         <div class="form" >
+            <h1>Obiect Gasit</h1>
+            <span>Object Name: </span> <input type="text" id="name" name="name" placeholder="Enter the name of the found object" size="55" required>
+            <br><br>
+            <span>Category: </span> <select name="category">
+                <option value="">Please select the category of the object</option>
+                <option value="Phone">Phone</option>
+                <option value="Accesories">Accesories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Papers">Papers</option>
+                <option value="Keys">Keys</option>
+            </select>
+            <br><br>
+            <span>Producer: </span><input name="producer" type="text" placeholder="Enter the object's producer (if it has any)" size="55">
+            <br><br>
+            <span>Model: </span><input name="model" type="text" placeholder="Enter the object's model (if it has any)" size="55">
+            <br><br>
+            <span>Color: </span><input name="color" type="text" placeholder="Enter your object's color" size="55" required>
+            <br><br>
+<!--
+            <span>Picture: </span><input type="text" placeholder="<HERE SHOULD BE AN UPLOAD FUNCTION>" name="uname" size="55" required>
+            <br><br>
+-->
+            <input id="file" name="file" type="file" 
+            <span>Lost Location: </span>
+            <select name="location">
+                <option value="">Please select the location where you lost the object</option>
+                <option value="Copou">Copou</option>
+                <option value="Tatarasi">Tatarasi</option>
+                <option value="Alexandru">Alexandru</option>
+                <option value="Baza III">Baza III</option>
+                <option value="Nicolina">Nicolina</option>
+            </select>
                 <br><br>
-                <span>Category: </span> <select id="category">
-                    <option value="">Please select the category of the object</option>
-                    <option value="Phone">Phone</option>
-                    <option value="Accesories">Accesories</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Papers">Papers</option>
-                    <option value="Keys">Keys</option>
-                </select>
-                <br><br>
-                <span>Producer: </span><input id="producer" type="text" placeholder="Enter the object's producer (if it has any)" size="55">
-                <br><br>
-                <span>Model: </span><input id="model" type="text" placeholder="Enter the object's model (if it has any)" size="55">
-                <br><br>
-                <span>Color: </span><input id="color" type="text" placeholder="Enter your object's color" size="55">
-                <br><br>
-                <span>Picture: </span><input id="picture" type="text" placeholder="<HERE SHOULD BE AN UPLOAD FUNCTION>" size="55">
-                <br><br>
-                <span>Found Location: </span>
-                <select id="location">
-                    <option value="">Please select the location where you found the object</option>
-                    <option value="Copou">Copou</option>
-                    <option value="Tatarasi">Tatarasi</option>
-                    <option value="Alexandru">Alexandru</option>
-                    <option value="Baza III">Baza III</option>
-                    <option value="Nicolina">Nicolina</option>
-                </select>
-                <br><br>
-                <span>Found Date: </span><input id="date" type="date" placeholder="Enter your phone no. -- it will not be made public" size="55" required>
-                        
-                <br/><br/><br/>
-                <button  onclick="cauta()">Search</button>
-                <span id="status"></span>
+                <span>Found Date: </span><input name="date" type="date" placeholder="Enter your phone no. -- it will not be made public" size="55" required>
+                <br><br><br>
+                <button name="foundSubmit" type="submit" value="foundSubmit">Send</button>
             </div>
+        </form>
+        <span id="status"></span>
+    </div>
     </form>
     </div>
 </body>

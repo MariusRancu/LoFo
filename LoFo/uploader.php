@@ -1,7 +1,7 @@
 <?php
 // Conexiune pe baza de date
 
-//include_once("php_includes/db_con.php");
+include_once("php_includes/db_con.php");
 
 // Upload and Rename File
 
@@ -11,9 +11,9 @@ if (isset($_POST['submit']))
 	$file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
 	$file_ext = substr($filename, strripos($filename, '.')); // get file name
 	$filesize = $_FILES["file"]["size"];
-	$allowed_file_types = array('.jpg', '.png');
+	$allowed_file_types = array('.jpg', 'png');	
 
-	if (in_array($file_ext,$allowed_file_types) && ($filesize < 20000000))
+	if (in_array($file_ext,$allowed_file_types) && ($filesize < 200000000))
 	{	
 		// Rename file
 		$newfilename = md5($file_basename) . $file_ext;
@@ -26,9 +26,14 @@ if (isset($_POST['submit']))
 		{		
 			move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
 			echo "File uploaded successfully.";
-//            $query = mysqli_query("INSERT INTO images (data_type, title, file_name) VALUES ('$name', '$bandMember', '$newfilename')") ;
-//           $aName1 = mysqli_fetch_assoc($query);
-//            $name1 = $aName1['file_name'];
+//          null = NULL;
+
+			$sql1 = mysqli_prepare($db_con, "UPDATE objects SET  `picture`=? WHERE id=5");
+			mysqli_stmt_bind_param($sql1, 'b', $null);
+			$sql1->send_long_data(0, file_get_contents("upload/" . $newfilename));
+
+			mysqli_stmt_execute($sql1);
+			mysqli_stmt_close($sql1);
 		}
 	}
 	elseif (empty($file_basename))
@@ -36,7 +41,7 @@ if (isset($_POST['submit']))
 		// file selection error
 		echo "Please select a file to upload.";
 	} 
-	elseif ($filesize > 200000)
+	elseif ($filesize > 2000000)
 	{	
 		// file size error
 		echo "The file you are trying to upload is too large.";
