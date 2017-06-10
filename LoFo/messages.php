@@ -11,7 +11,7 @@ if($user_ok == false)
 // Apel Ajax
 if(isset($_POST["reported_username"])){
     // Conecatere la BD
-	include_once("php_includes/db_con.php");
+	include_once("php_includes/db_con_pm.php");
     
     //Inserare obiect in tabel
 $reported_username = $_POST['reported_username']; //$numeOb

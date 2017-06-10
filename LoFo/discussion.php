@@ -1,6 +1,6 @@
 <?php
 include_once("php_includes/check_login_status.php");
-include_once("php_includes/db_con.php");
+include_once("php_includes/db_con_pm.php");
 ?>
     <body>
 <?php

@@ -181,7 +181,7 @@ mysqli_stmt_close($sql2);
                         <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
                             <span class="mini_menu">
                             <br>
-                            &#9830; <a href="">My messages</a>
+                            &#9830; <a href="messages.php">My messages</a>
                             <br>
                             &#9830; <a href="">My lost objects</a>
                             <br>

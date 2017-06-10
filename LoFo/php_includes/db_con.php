@@ -9,11 +9,6 @@ $db_con = mysqli_connect("localhost","root","","twbd");
 //$db_pass = '';
 //$db_name = 'twbd';
 
-//conexiune pentru PM
-mysql_connect("localhost", "root", "") or die(mysql_error());
-mysql_select_db("twbd") or die(mysql_error());
-
-
 if (mysqli_connect_errno()) {
     echo mysqli_connect_error();
     exit();
