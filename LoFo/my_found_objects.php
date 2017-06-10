@@ -12,14 +12,14 @@ if (mysqli_connect_errno())
     die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-if (!$result = mysqli_query($db_con, 'SELECT * FROM objects WHERE username="'.$log_username.'" AND status=0 ORDER BY data ASC'))
+if (!$result = mysqli_query($db_con, 'SELECT * FROM found_objects WHERE username="'.$log_username.'" AND status=0 ORDER BY data ASC'))
 {
     die("Error: " . mysqli_error($db_con));
 }
 
 if(isset($_POST["acceptId"])){
     $accId =  $_POST["acceptId"];    
-    $sql = mysqli_prepare($db_con, "UPDATE objects SET status=1 WHERE id=?");
+    $sql = mysqli_prepare($db_con, "UPDATE found_objects SET status=1 WHERE id=?");
     mysqli_stmt_bind_param($sql,'i', $accId);
     mysqli_stmt_execute($sql);
 
@@ -38,7 +38,7 @@ if(isset($_POST["acceptId"])){
         <script src="js/ajax.js"></script>
         <script>
             function accept(id){
-                var ajax = ajaxObj("POST", "my_lost_objects.php");
+                var ajax = ajaxObj("POST", "my_found_objects.php");
                 ajax.onreadystatechange = function() {
                     if(ajaxReturn(ajax) == true) {
                         location.reload();
@@ -79,7 +79,7 @@ if(isset($_POST["acceptId"])){
         </div>
         <div class="container">
             <div class="admin_container">
-<h2>My lost objects </h2>            
+<h2>My found objects </h2>            
 <table border="3">
   <tr>
     <th>User</th>
@@ -106,7 +106,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  echo $row['location'] ?></td>
     <td><?php  echo $row['data'] ?></td>
     <td>
-        <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">I've found it</a>
+        <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">I've returned it</a>
     </td>
   </tr>
   <?php } 
