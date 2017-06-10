@@ -328,10 +328,10 @@ a{
     text-align: center;
 }
 .search_container{
-    background-color: yellow;
+/*    background-color: yellow;*/
     border-style: solid;
     border-width: 2px;
-    height: 300px;
+    height: 180px;
 }
 
 .search_img{
@@ -343,7 +343,17 @@ a{
 
 .search_right{
     position: relative;
+    left: 20px;
+    bottom: 15px;
+}
+
+.search_left{
+    position: relative;
     left: 10px;
+    top: 15px;
+    float: left;
+    height: 100%;
+
 }
 
 .ob_field{
@@ -386,7 +396,8 @@ a{
 .search_ob_contact{
     position: relative;
     float: right;
-    right: 20px;
+    right: 30px;
+    bottom: 100px;
 }
 
 .admin_container{

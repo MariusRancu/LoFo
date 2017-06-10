@@ -119,6 +119,7 @@ $rowcount=mysqli_num_rows($result);
     <th>Model</th>
     <th>Color</th>
     <th>Location</th>
+      <th>Picture</th>
     <th>Date</th>
     <th>Verify</th>
   </tr>
@@ -134,6 +135,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  echo $row['model'] ?></td>
     <td><?php  echo $row['color'] ?></td>
     <td><?php  echo $row['location'] ?></td>
+    <td><img src="./<?php  echo $row['picture_location'] ?>" width="60px"/></td>
     <td><?php  echo $row['data'] ?></td>
     <td>
         <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">&#10004;</a>

@@ -221,7 +221,9 @@ if($user_ok == false)
         while ($sql5->fetch()) {
             echo"
             <div class=\"search_container\">
-                        <img src=". $d_pic_location ." height=\"150\" width=\"150\" />       
+            <div class=\"search_left\">
+                        <img src=". $d_pic_location ." height=\"150\" />   
+                        </div>
                         <div class=\"search_right\">
                             <div class=\"search_ob_details\">
                                 <br><span class=\"ob_field\">Object Name:</span><span class=\"ob_field\"> ". $d_name ."</span>
