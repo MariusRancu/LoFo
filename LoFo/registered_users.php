@@ -90,7 +90,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  echo $row['address'] ?></td>
     <td><?php  echo $row['phone_number'] ?></td>
     <td><?php if($row['role'] == 0) echo "User"; else echo "Admin"; ?></td>
-    <td><?php if($row['role'] == 0) { ?><a href="up_admin.php?id=<?php echo $row['report_id']; ?>" alt="Admin" style="color: green;margin: auto;">&#9899;</a><?php } else { ?> <a href="up_user.php?id=<?php echo $row['report_id']; ?>" alt="Fondat" style="color: green;margin: auto;">&#9898;</a> <?Php } ?> </td>
+    <td><?php if($row['role'] == 0) { ?><a href="up_admin.php?id=<?php echo $row['user_id']; ?>" alt="Admin" style="color: green;margin: auto;">&#9899;</a><?php } else { ?> <a href="up_user.php?id=<?php echo $row['user_id']; ?>" alt="Fondat" style="color: green;margin: auto;">&#9898;</a> <?Php } ?> </td>
   </tr>
 <?php
 }
