@@ -43,9 +43,9 @@ include_once("php_includes/login.php");
         <div class="header_menu">
             <div class="menu_content">
                     <div class="menu_items">
-                        <a href="index.php">HOME</a> |
+                        <a href="index.php" class="activ">HOME</a> |
                         <?php if(isset($_SESSION['username'])){
-    echo '<a href="my_profile.php" class="activ">MY PROFILE</a> |';
+    echo '<a href="my_profile.php">MY PROFILE</a> |';
     if($user_role == true) : 
                 echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
     endif;

@@ -87,7 +87,7 @@ $report_time = date("Y/m/d"); // date
                     <div class="menu_items">
                         <a href="index.php">HOME</a> |
                         <?php if(isset($_SESSION['username'])){
-    echo '<a href="my_profile.php" class="activ">MY PROFILE</a> |';
+    echo '<a href="my_profile.php">MY PROFILE</a> |';
     if($user_role == true) : 
                 echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
     endif;

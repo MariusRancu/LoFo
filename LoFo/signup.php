@@ -263,12 +263,12 @@ if(isset($_POST["username"])){
                     <div class="menu_items">
                         <a href="index.php">HOME</a> |
                         <?php if(isset($_SESSION['username'])){
-    echo '<a href="my_profile.php" class="activ">MY PROFILE</a> |';
+    echo '<a href="my_profile.php">MY PROFILE</a> |';
     if($user_role == true) : 
                 echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
     endif;
     echo '<a href="report.php">REPORT</a> |';
-} else { echo '<a href="signup.php">SIGN UP</a> |'; }; ?>
+} else { echo '<a href="signup.php" class="activ">SIGN UP</a> |'; }; ?>
                         <a href="contact_us.php">CONTACT US</a>
                     </div>
 
