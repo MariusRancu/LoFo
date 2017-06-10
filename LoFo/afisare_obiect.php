@@ -89,14 +89,6 @@ if($user_ok == false)
         $sql2->store_result();
         $nr_rezultate = $sql2->num_rows;
         mysqli_stmt_close($sql2);
-
-        if($nr_rezultate == 0){
-            $sql1 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color` , `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-            mysqli_stmt_bind_param($sql1, 'ssssssss', $username, $category, $name, $producer, $model, $color, $location, $date);
-            
-            mysqli_stmt_execute($sql1);
-            mysqli_stmt_close($sql1);
-        }
         
         if($nr_rezultate == 0){
             if (in_array($file_ext,$allowed_file_types) && ($filesize < 200000000))
@@ -113,9 +105,10 @@ if($user_ok == false)
                     move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
                     echo "File uploaded successfully.";
 
-                    $null = NULL;
-                    $sql3 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-                    mysqli_stmt_bind_param($sql3, 'ssssssss', $username, $category, $name, $producer, $model, $color, $location, $date);
+                    //$null = NULL;
+                    $picture_location = "upload/" . $newfilename;
+                    $sql3 = mysqli_prepare($db_con, "INSERT INTO found_objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `picture_location`, `data`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    mysqli_stmt_bind_param($sql3, 'sssssssss', $username, $category, $name, $producer, $model, $color, $location, $picture_location, $date);
                     
                     mysqli_stmt_execute($sql3);
 
@@ -173,7 +166,7 @@ if($user_ok == false)
                 {		
                     move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
                     echo "File uploaded successfully.";
-                    $null = NULL;
+                    //$null = NULL;
                     $picture_location = "upload/" . $newfilename;
                     $sql3 = mysqli_prepare($db_con, "INSERT INTO objects (`username`, `category`, `obj_name`, `producer`, `model`, `color`, `location`, `data`, `picture_location`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     mysqli_stmt_bind_param($sql3, 'sssssssss', $username, $category, $name, $producer, $model, $color, $location, $date, $picture_location);
