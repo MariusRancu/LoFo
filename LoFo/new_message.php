@@ -6,14 +6,17 @@ if($user_ok == false)
         exit();
     }
  ?>
-    <?php
-//We check if the user is logged
-if(isset($_SESSION['username']))
-{    
+ <?php
+
 $form = true;
 $otitle = '';
 $orecip = '';
 $omessage = '';
+
+if(isset($_POST['useridToSend'])){
+    $orecip = $_POST['useridToSend'];
+}
+
 //We check if the form has been sent
 if(isset($_POST['title'], $_POST['recip'], $_POST['message']))
 {
@@ -154,17 +157,17 @@ if($form)
 }
  ?>
                     <span>Titlu </span><input type="text" value="<?php echo htmlentities($otitle, ENT_QUOTES, 'UTF-8'); ?>" id="title" name="title" size="55"  /><br><br>
-                    <span>Username: </span><input type="text" value="<?php echo htmlentities($orecip, ENT_QUOTES, 'UTF-8'); ?>" id="recip" name="recip"  size="55"  /><br><br>
+                    <span>Username: </span><input type="text" value="<?php
+                         if(isset($_POST['useridToSend'])){
+                            echo $_POST['useridToSend'];
+                        }else   
+                            echo htmlentities($orecip, ENT_QUOTES, 'UTF-8'); 
+                     ?>" id="recip" name="recip"  size="55"  /><br><br>
                    <span>Message: </span> <textarea cols="57" rows="5" id="message" name="message"><?php echo htmlentities($omessage, ENT_QUOTES, 'UTF-8'); ?></textarea>
                     <input type="submit" value="Send" />
                 </form>
             </div>
         <<?php
-}
-}
-else
-{
-        echo '<div class="message-eroare">You must be logged to access this page.</div>';
 }
 ?>
 </body>

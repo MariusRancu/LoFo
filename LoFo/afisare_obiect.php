@@ -12,6 +12,19 @@ if($user_ok == false)
     <head>
         <title>Lost and Found - Marius Râncu şi Nedelcu Răzvan</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="js/main.js"></script>
+        <script src="js/ajax.js"></script>
+        <script>
+            function sendMessage(objId){
+                    var ajax = ajaxObj("POST", "new_message.php");
+                    ajax.onreadystatechange = function() {
+                        if(ajaxReturn(ajax) == true) {
+                            window.location="new_message.php";
+                        }
+                    }
+                    ajax.send("useridToSend=" + objId);
+        }
+        </script>
     </head>
 
     <body>
@@ -81,7 +94,7 @@ if($user_ok == false)
 
     //Prepare query depending on the page that sends the data
     if(isset($_POST['foundSubmit'])){
-        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1 AND status = 0");
+        $sql5 = mysqli_prepare($db_con, "SELECT id, username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1 AND status = 0");
 
         //Verify if object is already added
         $sql2 = mysqli_prepare($db_con, "SELECT * FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
@@ -143,7 +156,7 @@ if($user_ok == false)
     }
 
      if(isset($_POST['lostSubmit'])){
-        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1 AND status=0");
+        $sql5 = mysqli_prepare($db_con, "SELECT id, username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1 AND status=0");
 
         //Verify if object is already added
         $sql2 = mysqli_prepare($db_con, "SELECT * FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
@@ -217,7 +230,7 @@ if($user_ok == false)
      mysqli_stmt_close($sql2);
 
      if($nr_rezultate > 0){
-        $sql5->bind_result($d_username, $d_category, $d_name, $d_producer, $d_model, $color, $d_pic, $d_pic_location, $d_loc, $d_date);
+        $sql5->bind_result($d_id, $d_username, $d_category, $d_name, $d_producer, $d_model, $color, $d_pic, $d_pic_location, $d_loc, $d_date);
         
         while ($sql5->fetch()) {
             echo"
@@ -243,7 +256,7 @@ if($user_ok == false)
                                     <input type=\"submit\" title=\"Click to show/hide content\" type=\"button\" onclick=\"if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}\" value=\"Show phone number\"></input>
                                     </div>
                                 <br>
-                                    <div class=\"ob_contact_username\">Send: ".$d_username." a private message</div>
+                                    <button class=\"ob_contact_username\" onclick=\"sendMessage($d_id)\">Send: ".$d_username." a private message</button>
                         </div>
             ";
         } 
