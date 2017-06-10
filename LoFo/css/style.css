@@ -94,7 +94,7 @@ body{
 .container{
     background-color: #d4d4d4;
     width: 1200px;
-    height: auto;
+    height: 600px;
     margin: auto;
     margin-top: 20px;
 }
@@ -282,6 +282,7 @@ a{
     border:0 none;
     cursor:pointer;
     margin-left: 100px;
+    margin-bottom: 10px;
 }
 
 .form span{
