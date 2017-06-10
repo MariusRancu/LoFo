@@ -128,7 +128,7 @@
 <figure typeof="sa:Image">
             <img src="./rt_files/sql.png" width="630" height="275">
             <figcaption>
-              <i>Informaţii standard referitoare la.</i>
+              <i>Informaţii standard referitoare la mySQL.</i>
             </figcaption>
           </figure>
 
@@ -162,10 +162,10 @@
         
         <p>
         </p><ul>
-        <li>Tabela <b>found_objects</b>: va conține următoarele atribute: <code>username<sup>(PK)</sup></code>, <code></code>, <code>prenume</code>, <code>email</code>, <code>parola</code>, <code>adresa</code>, <code>nr_telefon</code>, <code>CNP</code> asociate fiecărui utilizator care se înregistrează.</li>
-        <li>Tabela <b>objects</b>: va conține următoarele atribute: <code>id_obiect<sup>(PK)</sup></code>, <code>categorie</code>, <code>producator</code>, <code>model</code>, <code>culoare</code>, <code>revendicat</code>, <code>poza</code>, <code>data</code>, <code>loc_gasire</code>, <code>nume_obiect</code>.</li>
-        <li>Tabela <b>pm</b>: va conține atributele:<code>id_anunt<sub>(FK)</sub></code>, <code>id_frauda<sup>(PK)</sup></code>, <code>dovada</code>, <code>comentariu</code> .</li>
-        <li>Tabela <b>reported_by</b>: va conține atributele: <code>id_recenzie<sup>(PK)</sup></code>, <code>id_anunt<sub>(FK)</sub></code>, <code>rating</code>, <code>comentariu</code> .</li>
+        <li>Tabela <b>found_objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>obj_name</code>, <code>producer</code>, <code>model</code>, <code>color</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept găsit de un username.</li>
+        <li>Tabela <b>objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>obj_name</code>, <code>producer</code>, <code>model</code>, <code>color</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept pierdut de un username.</li>
+        <li>Tabela <b>pm</b>: va conține atributele: <code>msg_id<sup>(PK, A_I)</sup></code>, <code>id</code>, <code>id2</code>, <code>title</code>, <code>user1</code>, <code>user2</code>, <code>message</code>, <code>timestamp</code>, <code>user1read</code>, <code>user2read</code> ascociate fiecărui mesaj trimis de useri prin intermediul sistemului de mesaje.</li>
+        <li>Tabela <b>reported_by</b>: va conține atributele: <code>report_id<sup>(PK, A_I)</sup></code>, <code>reported_username</code>, <code>reason</code>, <code>described_report</code>, <code>reported_by</code>, <code>report_time</code>, <code>solved</code> asociate fiecărui report trimis de câtre un user.</li>
 		<li>Tabela <b>users</b>: va conține atributele: <code>username<sub>(FK)</sub></code>, <code>id_obiect<sub>(FK)</sub></code>, <code>id_anunt<sup>(PK)</sup></code> care va face legătura între toate cele 4 tabele menţionate mai sus.</li>
 		</ul>
 
