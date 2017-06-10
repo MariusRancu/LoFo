@@ -183,12 +183,11 @@ mysqli_stmt_close($sql2);
                             <br>
                             &#9830; <a href="messages.php">My messages</a>
                             <br>
-                            &#9830; <a href="">My lost objects</a>
+                            &#9830; <a href="my_lost_objects.php">My lost objects</a>
                             <br>
-                                &#9830; <a href="">My found objects</a>
+                            &#9830; <a href="my_found_objects.php">My found objects</a>
                             </span>
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 0x;">Logout</a></span>
-
                         </div>
                     </div>
                     <?php else : ?>
