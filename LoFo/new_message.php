@@ -32,9 +32,9 @@ if(isset($_POST['title'], $_POST['recip'], $_POST['message']))
         if($_POST['title']!='' and $_POST['recip']!='' and $_POST['message']!='')
         {
                 //We protect the variables
-                $title = mysql_real_escape_string($otitle);
-                $recip = mysql_real_escape_string($orecip);
-                $message = mysql_real_escape_string(nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8')));
+                $title = $db_con->real_escape_string($otitle);
+                $recip =  $db_con->real_escape_string($orecip);
+                $message =  $db_con->real_escape_string((nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8'))));
                 //We check if the recipient exists
                 if (!$result = mysqli_query($db_con,'select count(user_id) as recip, user_id as recipid, (select count(*) from pm) as npm from users where username="'.$recip.'"'))
 {
@@ -54,7 +54,7 @@ if(isset($_POST['title'], $_POST['recip'], $_POST['message']))
                         {
                                 $id = $npm_q+1;
                                 //We send the message
-                            $insert = mysql_query('INSERT INTO pm (id, id2, title, user1, user2, message, timestamp, user1read, user2read) VALUES ("'.$id.'", "1", "'.$title.'", "'.$log_user_id.'", "'.$recipid_q.'", "'.$message.'", "'.time().'", "yes", "no")');
+                            $insert = mysqli_query($db_con, 'INSERT INTO pm (id, id2, title, user1, user2, message, timestamp, user1read, user2read) VALUES ("'.$id.'", "1", "'.$title.'", "'.$log_user_id.'", "'.$recipid_q.'", "'.$message.'", "'.time().'", "yes", "no")');
                                 if($insert)
                                 {
 ?>
