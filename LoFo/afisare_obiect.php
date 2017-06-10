@@ -81,7 +81,7 @@ if($user_ok == false)
 
     //Prepare query depending on the page that sends the data
     if(isset($_POST['foundSubmit'])){
-        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
+        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1 AND status = 0");
 
         //Verify if object is already added
         $sql2 = mysqli_prepare($db_con, "SELECT * FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
@@ -143,7 +143,7 @@ if($user_ok == false)
     }
 
      if(isset($_POST['lostSubmit'])){
-        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1");
+        $sql5 = mysqli_prepare($db_con, "SELECT username, category, obj_name, producer, model, color, picture, picture_location, location, data FROM found_objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ? AND is_verified=1 AND status=0");
 
         //Verify if object is already added
         $sql2 = mysqli_prepare($db_con, "SELECT * FROM objects WHERE category = ? AND obj_name = ? AND color = ? AND location = ?");
