@@ -78,14 +78,17 @@ $rowcount=mysqli_num_rows($result);
     <body>
         <div class="header_menu">
             <div class="menu_content">
-                <div class="menu_items">
-                    <a href="index.php">HOME</a> |
-                    <a href="signup.php">SIGN UP</a> |
-                    <a href="report.php">REPORT</a> |
-                    <a href="my_profile.php">MY PROFILE</a> |
-                    <a href="admin_panel.php" class="activ">ADMIN PANEL</a> |
-                    <a href="contact_us.php">CONTACT US</a>
-                </div>
+                    <div class="menu_items">
+                        <a href="index.php">HOME</a> |
+                        <?php if(isset($_SESSION['username'])){
+    echo '<a href="my_profile.php">MY PROFILE</a> |';
+    if($user_role == true) : 
+                echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
+    endif;
+    echo '<a href="report.php">REPORT</a> |';
+} else { echo '<a href="signup.php">SIGN UP</a> |'; }; ?>
+                        <a href="contact_us.php">CONTACT US</a>
+                    </div>
 
             </div>
         </div>
@@ -119,6 +122,7 @@ $rowcount=mysqli_num_rows($result);
     <th>Model</th>
     <th>Color</th>
     <th>Location</th>
+      <th>Picture</th>
     <th>Date</th>
     <th>Verify</th>
   </tr>
@@ -134,6 +138,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  echo $row['model'] ?></td>
     <td><?php  echo $row['color'] ?></td>
     <td><?php  echo $row['location'] ?></td>
+    <td><img src="./<?php  echo $row['picture_location'] ?>" width="60px"/></td>
     <td><?php  echo $row['data'] ?></td>
     <td>
         <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">&#10004;</a>

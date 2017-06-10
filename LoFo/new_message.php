@@ -32,9 +32,9 @@ if(isset($_POST['title'], $_POST['recip'], $_POST['message']))
         if($_POST['title']!='' and $_POST['recip']!='' and $_POST['message']!='')
         {
                 //We protect the variables
-                $title = $db_con->real_escape_string($otitle);
-                $recip =  $db_con->real_escape_string($orecip);
-                $message =  $db_con->real_escape_string((nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8'))));
+                $title = mysql_real_escape_string($otitle);
+                $recip = mysql_real_escape_string($orecip);
+                $message = mysql_real_escape_string(nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8')));
                 //We check if the recipient exists
                 if (!$result = mysqli_query($db_con,'select count(user_id) as recip, user_id as recipid, (select count(*) from pm) as npm from users where username="'.$recip.'"'))
 {
@@ -54,7 +54,7 @@ if(isset($_POST['title'], $_POST['recip'], $_POST['message']))
                         {
                                 $id = $npm_q+1;
                                 //We send the message
-                            $insert = mysqli_query($db_con, 'INSERT INTO pm (id, id2, title, user1, user2, message, timestamp, user1read, user2read) VALUES ("'.$id.'", "1", "'.$title.'", "'.$log_user_id.'", "'.$recipid_q.'", "'.$message.'", "'.time().'", "yes", "no")');
+                            $insert = mysql_query('INSERT INTO pm (id, id2, title, user1, user2, message, timestamp, user1read, user2read) VALUES ("'.$id.'", "1", "'.$title.'", "'.$log_user_id.'", "'.$recipid_q.'", "'.$message.'", "'.time().'", "yes", "no")');
                                 if($insert)
                                 {
 ?>
@@ -105,12 +105,13 @@ if($form)
                 <div class="menu_content">
                     <div class="menu_items">
                         <a href="index.php">HOME</a> |
-                        <a href="signup.php">SIGN UP</a> |
-                        <a href="report.php" class="activ">REPORT</a> |
-                        <a href="my_profile.php">MY PROFILE</a> |
-                        <?php if($user_role == true) : ?>
-                        <a href="admin_panel.php">ADMIN PANEL</a> |
-                        <?php endif; ?>
+                        <?php if(isset($_SESSION['username'])){
+    echo '<a href="my_profile.php">MY PROFILE</a> |';
+    if($user_role == true) : 
+                echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
+    endif;
+    echo '<a href="report.php">REPORT</a> |';
+} else { echo '<a href="signup.php">SIGN UP</a> |'; }; ?>
                         <a href="contact_us.php">CONTACT US</a>
                     </div>
 
