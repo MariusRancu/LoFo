@@ -39,18 +39,17 @@ include_once("php_includes/login.php");
 <body>
     <div class="header_menu">
         <div class="menu_content">
-            <div class="menu_items">
-                <a href="index.php">HOME</a> |
-                <a href="signup.php">SIGN UP</a> |
-                <a href="report.php">REPORT</a> |
-                <?php if($user_ok == true) : ?>
-                    <a href="my_profile.php">MY PROFILE</a> |
-                <?php endif; ?>
-                <?php if($user_role == true) : ?>
-                    <a href="admin_panel.php">ADMIN PANEL</a> |
-                <?php endif; ?>
-                <a href="contact_us.php" class="activ">CONTACT US</a>
-            </div>
+                    <div class="menu_items">
+                        <a href="index.php">HOME</a> |
+                        <?php if(isset($_SESSION['username'])){
+    echo '<a href="my_profile.php" class="activ">MY PROFILE</a> |';
+    if($user_role == true) : 
+                echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
+    endif;
+    echo '<a href="report.php">REPORT</a> |';
+} else { echo '<a href="signup.php">SIGN UP</a> |'; }; ?>
+                        <a href="contact_us.php">CONTACT US</a>
+                    </div>
 
         </div>
     </div>
