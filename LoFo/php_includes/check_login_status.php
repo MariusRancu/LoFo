@@ -35,8 +35,6 @@ $log_user_id = "";
 
 if(isset($_SESSION["user_token"]) && isset($_SESSION["username"])){
 	// Verify the user
-	echo $_SESSION["user_token"];
-	echo $_SESSION["username"];
 	$log_username = $_SESSION["username"];
 	$user_ok = evalLoggedUser($db_con, $log_username, $_SESSION["user_token"]);
 } else if(isset($_COOKIE["user_token"]) && isset($_COOKIE["username"])){
