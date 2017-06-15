@@ -18,7 +18,7 @@ if(isset($_POST["u"])){
 		$user_id = $row[0];
         $db_pass_str = $row[1];
 		if(!password_verify($p, $db_pass_str)){
-			echo "Wrong username or password";
+			echo 'Wrong username or password';
             exit();
 		} else {
 			// CREATE THEIR SESSIONS AND COOKIES
@@ -34,7 +34,7 @@ if(isset($_POST["u"])){
 				setcookie("user_token", $user_token, strtotime( '+5 days' ), "/", "", "", TRUE);
 				setcookie("username", $u, strtotime( '+5 days' ), "/", "", "", TRUE);
 			}
-			echo "user_logged";
+			echo "logged_in";
 		    exit();
 		}
 	}

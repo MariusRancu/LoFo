@@ -1,6 +1,5 @@
 <?php
 include_once("php_includes/check_login_status.php");
-include_once("php_includes/db_con.php");
 include_once("php_includes/login.php");
 
 if($user_ok == false){
@@ -28,21 +27,21 @@ mysqli_stmt_close($sql2);
 		}else if (strlen($_POST["pass_check1"]) < 5){
 			echo '<strong style="color:#F00;">Parola prea ușoară !</strong>';
 		}else {
-            $pass_hash = md5($pass1);
-            $sql4 = mysqli_prepare($db_con, "UPDATE users SET pass=? WHERE username = ?");
-            mysqli_stmt_bind_param($sql4, 'ss', $pass_hash, $log_username);
+                $pass_hash = password_hash($pass1, PASSWORD_DEFAULT);
+                $sql4 = mysqli_prepare($db_con, "UPDATE users SET pass=? WHERE username = ?");
+                mysqli_stmt_bind_param($sql4, 'ss', $pass_hash, $log_username);
 
-            mysqli_stmt_execute($sql4);
+                mysqli_stmt_execute($sql4);
 
-            if(mysqli_stmt_affected_rows($sql4) == 1){
-        
-            echo 'Password changed';
-            mysqli_stmt_close($sql4);
-            }
-            else{
-                echo 'Paswword not changed';
-                mysqli_stmt_close($sql4);  
-            }
+                if(mysqli_stmt_affected_rows($sql4) == 1){
+            
+                echo 'Password changed';
+                mysqli_stmt_close($sql4);
+                }
+                else{
+                    echo 'Paswword not changed';
+                    mysqli_stmt_close($sql4);  
+                }
             }
             exit();
 }
@@ -127,6 +126,10 @@ mysqli_stmt_close($sql2);
                         ajax.onreadystatechange = function() {
                             if (ajaxReturn(ajax) == true) {
                                 _("pass_status").innerHTML = ajax.responseText;
+                                if(ajax.responseText == 'Password changed'){
+                                    alert("Your password has been changed, you will be logged out!");
+                                    window.location = "logout.php";
+                                }
                             }
                         }
                         ajax.send("pass_check1=" + p1 + "&pass_check2=" + p2);
@@ -178,7 +181,7 @@ mysqli_stmt_close($sql2);
                     <?php if($user_ok == true) : ?>
                     <div class="login">
                         <div class="login_items">
-                            <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                            <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
                             <span class="mini_menu">
                             <br>
                             &#9830; <a href="messages.php">My messages</a>

@@ -46,7 +46,7 @@ if($user_ok == false)
              <?php if($user_ok == true) : ?>
                 <div class="login">
                     <div class="login_items">
-                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
 
                     </div>

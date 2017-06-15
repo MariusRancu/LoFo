@@ -26,10 +26,14 @@ include_once("php_includes/login.php");
                     var ajax = ajaxObj("POST", "index.php");
                     ajax.onreadystatechange = function() {
                         if (ajaxReturn(ajax) == true) {
-                                if(ajax.responseText = "user_logged"){
-                                    location.reload();
+                            response =  ajax.responseText;
+                            if(response.indexOf('logged_in') > -1){
+                                _("status").innerHTML = response;
+                                location.reload();
                             }
-                            _("status").innerHTML = ajax.responseText;
+                            else{
+                                _("status").innerHTML = response;
+                            }
                         }
                     }
                     ajax.send("&u=" + u + "&p=" + p + "&remember=" + remember);
@@ -64,7 +68,7 @@ include_once("php_includes/login.php");
                 <?php if($user_ok == true) : ?>
                 <div class="login">
                     <div class="login_items">
-                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
 <!--<a href="test.php">go to refer</a>-->
                     </div>

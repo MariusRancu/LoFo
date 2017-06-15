@@ -80,7 +80,7 @@ $rowcount=mysqli_num_rows($result);
             <div class="menu_content">
                     <div class="menu_items">
                         <a href="index.php">HOME</a> |
-                        <?php if(isset($_SESSION['username'])){
+                        <?php if($user_ok){
     echo '<a href="my_profile.php">MY PROFILE</a> |';
     if($user_role == true) : 
                 echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
@@ -100,7 +100,7 @@ $rowcount=mysqli_num_rows($result);
                 </div>
                 <div class="login">
                     <div class="login_items">
-                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
                     </div>
                 </div>

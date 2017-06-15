@@ -27,10 +27,10 @@ if(isset($_POST["usernamecheck"])){
 	    exit();
     }
     if ($uname_check < 1) {
-	    echo '<strong style="color:#009900;">' . $username . ' acceptat !</strong>';
+	    echo '<strong style="color:#009900;">' . htmlspecialchars($username, ENT_QUOTES, 'UTF-8') . ' accepted !</strong>';
 	    exit();
     } else {
-	    echo '<strong style="color:#F00;">' . $username . ' există deja !</strong>';
+	    echo '<strong style="color:#F00;">' . htmlspecialchars($username, ENT_QUOTES, 'UTF-8') . ' already exists !</strong>';
 	    exit();
     }
 }
@@ -118,7 +118,7 @@ if(isset($_POST["username"])){
         echo "That email address is already in use in the system";
         exit();
 	} else if (strlen($username) < 3 || strlen($username) > 16) {
-        echo "Username must be between 3 and 16 characters " . $username . ".";
+        echo "Username must be between 3 and 16 characters " . htmlspecialchars($username, ENT_QUOTES, 'UTF-8') . ".";
         exit(); 
     } else if (is_numeric($username[0])) {
         echo 'Username cannot begin with a number';
@@ -177,9 +177,12 @@ if(isset($_POST["username"])){
             var ajax = ajaxObj("POST", "signup.php");
             ajax.onreadystatechange = function() {
                 if(ajaxReturn(ajax) == true) {
-                        _("login_status").innerHTML = ajax.responseText;
-                        if(ajax.responseText = "user_logged"){
+                    var response = ajax.responseText;
+                        if(response.indexOf('logged_in') > -1){
                             location.reload();
+                        }
+                        else{
+                            _("login_status").innerHTML = response;
                         }
                 }
             }
@@ -273,7 +276,7 @@ if(isset($_POST["username"])){
              <?php if($user_ok == true) : ?>
                 <div class="login">
                     <div class="login_items">
-                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
 
                     </div>

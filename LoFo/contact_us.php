@@ -8,7 +8,8 @@ include_once("php_includes/login.php");
 <head>
     <title>Lost and Found - Marius Râncu şi Nedelcu Răzvan</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-
+    <script src="js/main.js"></script>
+    <script src="js/ajax.js"></script>
     <script>
     function emptyElement(x){
         _(x).innerHTML = "";
@@ -18,16 +19,19 @@ include_once("php_includes/login.php");
         var p = _("password").value;
         var remember = _("remember").value;
         if(u == "" || p == ""){
-            _("status").innerHTML = "Fill out all of the form data";
+            _("login_status").innerHTML = "Fill out all of the form data";
         } else {
-            _("status").innerHTML = 'please wait ...';
-            var ajax = ajaxObj("POST", "index.php");
+            _("login_status").innerHTML = 'please wait ...';
+            var ajax = ajaxObj("POST", "signup.php");
             ajax.onreadystatechange = function() {
                 if(ajaxReturn(ajax) == true) {
-                    if(ajax.responseText == "login_failed"){
-                        _("status").innerHTML = "Combinație username parolă incorectă !";
-                    } else {
-                    }
+                    var response = ajax.responseText;
+                        if(response.indexOf('logged_in') > -1){
+                            location.reload();
+                        }
+                        else{
+                            _("login_status").innerHTML = response;
+                        }
                 }
             }
             ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
@@ -62,7 +66,7 @@ include_once("php_includes/login.php");
             <?php if($user_ok == true) : ?>
                 <div class="login">
                     <div class="login_items">
-                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
 
                     </div>
@@ -74,7 +78,7 @@ include_once("php_includes/login.php");
                         <input type="checkbox" checked="checked" id="remember"><span>Remember me?</span>
                         <input type="password" placeholder="Enter Password" id="password" size="18" required/>
                         <input type="submit" id="loginbtn" onclick="login()"></submit> 
-                        <p id="status"></p>
+                        <p id="login_status"></p>
                     </div>
             </div>
             <?php endif; ?>

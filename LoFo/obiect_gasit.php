@@ -50,7 +50,7 @@ if($user_ok == false)
              <?php if($user_ok == true) : ?>
             <div class="login">
                 <div class="login_items">
-                    <p class="login_items">Welcome, <?php echo $log_username; ?></p>
+                    <p class="login_items">Welcome, <?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></p>
                     <a href="logout.php">Logout</a>
                 </div>
             </div>
