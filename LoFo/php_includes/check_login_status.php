@@ -6,11 +6,6 @@ include_once("db_con.php");
 // Initialize some vars
 
 function evalLoggedUser($conx, $username, $t){
-	//$query = "SELECT * FROM users WHERE user_token=? AND username=? LIMIT 1";
-	//$stmt = $conx-> prepare($query);
-	//$stmt->bind_param('ss', $t, $log_username);
-	//$stmt->execute();
-	//$stmt->store_result();
 
 	$sql = mysqli_prepare($conx, "SELECT 1 FROM users WHERE user_token=? AND username=? LIMIT 1");
 	mysqli_stmt_bind_param($sql, "ss", $t, $username);
