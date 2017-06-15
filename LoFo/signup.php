@@ -1,17 +1,15 @@
 <?php
 include_once("php_includes/check_login_status.php");
 include_once("php_includes/login.php");
-include_once("php_includes/db_con.php");
 
-if(isset($_SESSION["username"])){
+if($user_ok){
 	header("location:index.php");
     exit();
 }
-?><?php
 
 if(isset($_POST["usernamecheck"])){
-	$sql = mysqli_prepare($db_con,"SELECT username FROM users WHERE username=? LIMIT 1");
-	mysqli_stmt_bind_param($sql,'s',$username);
+	$sql = mysqli_prepare($db_con,"SELECT * FROM users WHERE username=? LIMIT 1");
+	mysqli_stmt_bind_param($sql, 's' ,$username);
 	
 	$username = $_POST['usernamecheck'];
 	
@@ -40,7 +38,7 @@ if(isset($_POST["usernamecheck"])){
     if(isset($_POST["email_check"])){
         $email_check = $_POST["email_check"];
 
-        $sql = mysqli_prepare($db_con, "SELECT email FROM users WHERE email=? LIMIT 1");
+        $sql = mysqli_prepare($db_con, "SELECT 1 FROM users WHERE email=? LIMIT 1");
        
         mysqli_stmt_bind_param($sql, 's', $email_check);
         mysqli_stmt_execute($sql);
@@ -75,18 +73,16 @@ if(isset($_POST["usernamecheck"])){
 		}
 	exit();
 }
-?>
-<?php
+
+
 // Ajax calls this REGISTRATION code to execute
 if(isset($_POST["username"])){
-	// CONNECT TO THE DATABASE
-	include_once("php_includes/db_con.php");
 	// GATHER THE POSTED DATA INTO LOCAL VARIABLES
 	$username =  $_POST['username'];
-	$nume =$_POST['nume'];
-	$prenume =$_POST['prenume'];
+	$nume = $_POST['nume'];
+	$prenume = $_POST['prenume'];
 	$email = $_POST['email'];
-	$parola = $_POST['parola'];
+	$pass_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	$adresa = $_POST['adresa'];
 	$telefon = $_POST['telefon'];
     $role = 0;
@@ -104,7 +100,7 @@ if(isset($_POST["username"])){
 	// Verificare email
 	
 	$sql = mysqli_prepare($db_con,"SELECT email FROM users WHERE email=? LIMIT 1");
-	mysqli_stmt_bind_param($sql,'s',$email);
+	mysqli_stmt_bind_param($sql, 's', $email);
 	mysqli_stmt_execute($sql);
 	mysqli_stmt_store_result($sql);
     $email_check = mysqli_stmt_num_rows($sql);
@@ -127,20 +123,16 @@ if(isset($_POST["username"])){
     } else if (is_numeric($username[0])) {
         echo 'Username cannot begin with a number';
         exit();
+        // End error check
     } else {
-	// Sfarsit formular erori
-	    // Criptare parola si inserare cont in tabel
-		$pass_hash = md5($parola);
-		
-		$sql = mysqli_prepare($db_con, "INSERT INTO users (username, last_name, first_name, email, pass, address, phone_number, role)       
-		        VALUES(?,?,?,?,?,?,?,?)");
-	mysqli_stmt_bind_param($sql,'sssssssi', $username, $nume, $prenume, $email, $pass_hash, $adresa, $telefon, $role);
-	mysqli_stmt_execute($sql);
-	$sql -> close(); 
-		
+        //Insert account to database
+            
+            $sql = mysqli_prepare($db_con, "INSERT INTO users (username, last_name, first_name, email, pass, address, phone_number, role)       
+                    VALUES(?,?,?,?,?,?,?,?)");
+            mysqli_stmt_bind_param($sql, 'sssssssi', $username, $nume, $prenume, $email, $pass_hash, $adresa, $telefon, $role);
+            mysqli_stmt_execute($sql);
+            $sql -> close();    
 		}
-	
-	
 	exit();
 }
 ?>
@@ -175,20 +167,20 @@ if(isset($_POST["username"])){
     }
 
     function login(){
-        var u = _("username").value;
+        var u = _("l_username").value;
         var p = _("password").value;
         var remember = _("remember").value;
         if(u == "" || p == ""){
-            _("status").innerHTML = "Fill out all of the form data";
+            _("login_status").innerHTML = "Fill out all of the form data";
         } else {
-            _("status").innerHTML = 'please wait ...';
+            _("login_status").innerHTML = 'please wait ...';
             var ajax = ajaxObj("POST", "signup.php");
             ajax.onreadystatechange = function() {
                 if(ajaxReturn(ajax) == true) {
-                    if(ajax.responseText == "login_failed"){
-                        _("status").innerHTML = "Combinație username parolă incorectă !";
-                    } else {
-                    }
+                        _("login_status").innerHTML = ajax.responseText;
+                        if(ajax.responseText = "user_logged"){
+                            location.reload();
+                        }
                 }
             }
             ajax.send("&u="+ u +"&p="+ p + "&remember=" + remember);
@@ -240,17 +232,15 @@ if(isset($_POST["username"])){
         } else if(p1 != p2){
             status.innerHTML = "Parolele nu se potrivesc ";
         } else {
-            
             var ajax = ajaxObj("POST", "signup.php");
             ajax.onreadystatechange = function() {
                 if(ajaxReturn(ajax) == true) {
                         status.innerHTML = ajax.responseText;
                         alert("Your account has been created. You may login now!");
                         window.location = "index.php";
-                    
                 }
             }
-            ajax.send("username=" + username + "&nume=" + nume + "&prenume=" + prenume + "&email=" + email + "&adresa=" + adresa + "&parola=" + p1 + "&telefon=" + telefon);
+            ajax.send("username=" + username + "&nume=" + nume + "&prenume=" + prenume + "&email=" + email + "&adresa=" + adresa + "&password=" + p1 + "&telefon=" + telefon);
         }
     }
 
@@ -291,11 +281,11 @@ if(isset($_POST["username"])){
             <?php else : ?>
                 <div class="login">
                     <div class="login_items">
-                        <input type="text" placeholder="Enter Username" id="username" size="18" required/>
+                        <input type="text" placeholder="Enter Username" id="l_username" size="18" required/>
                         <input type="checkbox" checked="checked" id="remember"><span>Remember me?</span>
                         <input type="password" placeholder="Enter Password" id="password" size="18" required/>
                         <input type="submit" id="loginbtn" onclick="login()"></submit> 
-                        <p id="status"></p>
+                        <p id="login_status"></p>
                     </div>
             </div>
             <?php endif; ?>
@@ -305,35 +295,35 @@ if(isset($_POST["username"])){
         <div class="form">
             <h1>Sign UP</h1>
             <form name="signupform" id="signupform" onsubmit="return false;">
-                        <span>Username: </span> 
-                        <input type="text" id="username" maxlength="16" onblur="checkusername()" placeholder="Enter your desired username" name="uname" size="55" required>
+                <span>Username: </span> 
+                <input type="text" id="username" maxlength="16" onblur="checkusername()" placeholder="Enter your desired username" size="55" required/>
                 <span id="unamestatus" style="float: right;top: 0px;bottom: 0px;"></span>
                 <br><br><br>
-                        <span>Password: </span>
-                        <input id="p1" type="password" onfocus="emptyElement('status')" placeholder="Enter your desired password" name="uname" size="55" required>
+                <span>Password: </span>
+                <input id="p1" type="password" onfocus="emptyElement('status')" placeholder="Enter your desired password" name="uname" size="55" required/>
                 <br><br>
-                        <span>Repeat Password: </span>
-                        <input id="p2" type="password" onblur="checkpassword()" placeholder="Enter you desired password, again" name="uname" size="55" required>
-                        <span id="password_status" style="float: right;top: 0px;bottom: 0px;"></span>
+                <span>Repeat Password: </span>
+                <input id="p2" type="password" onblur="checkpassword()" placeholder="Enter you desired password, again" name="uname" size="55" required/>
+                <span id="password_status" style="float: right;top: 0px;bottom: 0px;"></span>
                 <br><br><br>
-                        <span>First Name: </span>
-                        <input id="firstname" type="text" onfocus="emptyElement('status')" placeholder="Enter your first name" name="uname" size="55" required>
+                <span>First Name: </span>
+                <input id="firstname" type="text" onfocus="emptyElement('status')" placeholder="Enter your first name" name="uname" size="55" required/>
                 <br><br>
-                        <span>Last Name: </span>
-                        <input input id="lastname" type="text" onfocus="emptyElement('status')" placeholder="Enter your last name" name="uname" size="55" required>
+                <span>Last Name: </span>
+                <input id="lastname" type="text" onfocus="emptyElement('status')" placeholder="Enter your last name" name="uname" size="55" required/>
                 <br><br>
-                        <span>E-mail: </span>
-                        <input id="email" onblur="emailCheck()" type="text" placeholder="Enter your e-mail address" size="55" required>
-                        <span id="email_status"></span>
+                <span>E-mail: </span>
+                <input id="email" onblur="emailCheck()" type="text" placeholder="Enter your e-mail address" size="55" required/>
+                <span id="email_status"></span>
                 <br><br>
-                        <span>Address: </span>
-                        <input id="address" type="text" onfocus="emptyElement('status')" placeholder="Enter your home address" name="uname" size="55" required>
+                <span>Address: </span>
+                <input id="address" type="text" onfocus="emptyElement('status')" placeholder="Enter your home address" name="uname" size="55" required/>
                 <br><br>
-                        <span>Phone No: </span>
-                        <input id="phone" type="text" onfocus="emptyElement('status')" placeholder="Enter your phone no. -- it will not be made public" name="uname" size="55" required>
-                <br><br><br>
+                <span>Phone No: </span>
+                <input id="phone" type="text" onfocus="emptyElement('status')" placeholder="Enter your phone no. -- it will not be made public" name="uname" size="55" required/>
+                <br/><br/><br/>
                 <button id="signupbtn" onclick="signup()">Sign Up</button>
-                <br>
+                <br/>
                 <span id="status"></span>
             </form>
     </div></div>

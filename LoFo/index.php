@@ -26,11 +26,10 @@ include_once("php_includes/login.php");
                     var ajax = ajaxObj("POST", "index.php");
                     ajax.onreadystatechange = function() {
                         if (ajaxReturn(ajax) == true) {
-                            if (ajax.responseText == "login_failed") {
-                                _("status").innerHTML = "Combinație username parolă incorectă !";
-                            } else {
-                                window.location = "index.php";
+                                if(ajax.responseText = "user_logged"){
+                                    location.reload();
                             }
+                            _("status").innerHTML = ajax.responseText;
                         }
                     }
                     ajax.send("&u=" + u + "&p=" + p + "&remember=" + remember);
@@ -44,7 +43,7 @@ include_once("php_includes/login.php");
             <div class="menu_content">
                     <div class="menu_items">
                         <a href="index.php" class="activ">HOME</a> |
-                        <?php if(isset($_SESSION['username'])){
+                        <?php if($user_ok == true){
     echo '<a href="my_profile.php">MY PROFILE</a> |';
     if($user_role == true) : 
                 echo '<a href="admin_panel.php">ADMIN PANEL</a> |';

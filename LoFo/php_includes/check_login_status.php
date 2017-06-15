@@ -5,14 +5,27 @@ include_once("db_con.php");
 // connection to database or session_start(), be careful.
 // Initialize some vars
 
-function evalLoggedUser($conx,$u,$p){
-	$sql = "SELECT username FROM users WHERE username='$u' AND pass='$p'LIMIT 1";
-    $query = mysqli_query($conx, $sql);
-    $numrows = mysqli_num_rows($query);
+function evalLoggedUser($conx, $username, $t){
+	//$query = "SELECT * FROM users WHERE user_token=? AND username=? LIMIT 1";
+	//$stmt = $conx-> prepare($query);
+	//$stmt->bind_param('ss', $t, $log_username);
+	//$stmt->execute();
+	//$stmt->store_result();
+
+	$sql = mysqli_prepare($conx, "SELECT 1 FROM users WHERE user_token=? AND username=? LIMIT 1");
+	mysqli_stmt_bind_param($sql, "ss", $t, $username);
+    mysqli_stmt_execute($sql);
+    mysqli_stmt_store_result($sql);
+    
+    $numrows = mysqli_stmt_num_rows($sql);
 
 	if($numrows > 0){
+		$sql -> close();
 		return true;
 	}
+
+	$sql -> close();
+	return false;
 }
 
 $user_ok = false;
@@ -20,15 +33,15 @@ $log_username = "";
 $user_role = "";
 $log_user_id = "";
 
-if(isset($_SESSION["username"]) && isset($_SESSION["password"])) {
+if(isset($_SESSION["user_token"]) && isset($_SESSION["username"])){
 	// Verify the user
+	echo $_SESSION["user_token"];
+	echo $_SESSION["username"];
 	$log_username = $_SESSION["username"];
-	$log_password = $_SESSION["password"];
-	$user_ok = evalLoggedUser($db_con, $log_username, $log_password);
-} else if(isset($_COOKIE["user"]) && isset($_COOKIE["pass"])){
-  	$log_username = $_COOKIE["user"];
-	$log_password = $_COOKIE["pass"];
-	$user_ok = evalLoggedUser($db_con, $log_username, $log_password);
+	$user_ok = evalLoggedUser($db_con, $log_username, $_SESSION["user_token"]);
+} else if(isset($_COOKIE["user_token"]) && isset($_COOKIE["username"])){
+  	$log_username = $_COOKIE["username"];
+	$user_ok = evalLoggedUser($db_con, $log_username, $_COOKIE["user_token"]);
 	
 }
 
@@ -40,3 +53,4 @@ if($user_ok == true){
 	$user_role = $row[1];
 }
 ?>
+
