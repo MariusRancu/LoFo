@@ -20,6 +20,20 @@ if($user_ok == false)
 	_(x).innerHTML = "";
 }
 
+function tagsDisplay(e){
+         var tags = _("tagsInput").value.split(" ");
+         var tagsCount = 0;
+         var selectedCategory = _("categ").value;
+         filteredTags = tags.filter(tag=>tag.length > 1 &&(tag !="sau" || tag != "cum" || tag != "pai" || tag != "sunt"));
+         tagsCount = filteredTags.length
+        _("tags_status").textContent = tagsCount;
+
+        if(tagsCount > 2 && selectedCategory != "" )
+            _("foundSubmit").disabled=false;
+        else
+            _("foundSubmit").disabled=true;    
+    }
+
     
 </script>
 </head>
@@ -70,10 +84,8 @@ if($user_ok == false)
     <div class="container">
         <form action="afisare_obiect.php" enctype="multipart/form-data"  method="post">
          <div class="form" >
-            <h1>Obiect Gasit</h1>
-            <span>Object Name: </span> <input type="text" id="name" name="name" placeholder="Enter the name of the found object" size="55" required>
-            <br><br>
-            <span>Category: </span> <select name="category">
+            <h1>Found object</h1>
+            <span>Category: </span> <select id="categ" name="category">
                 <option value="">Please select the category of the object</option>
                 <option value="Phone">Phone</option>
                 <option value="Accesories">Accesories</option>
@@ -82,30 +94,12 @@ if($user_ok == false)
                 <option value="Keys">Keys</option>
             </select>
             <br><br>
-            <span>Producer: </span><input name="producer" type="text" placeholder="Enter the object's producer (if it has any)" size="55">
+            <span>Object description: </span> <input type="text" onkeypress="return tagsDisplay(event)" id="tagsInput" name="description" placeholder="Enter the name of the found object" size="55" required>
+             <span>Valid tags(min 3):</span><span id="tags_status"></span>
             <br><br>
-            <span>Model: </span><input name="model" type="text" placeholder="Enter the object's model (if it has any)" size="55">
-            <br><br>
-            <span>Color: </span><input name="color" type="text" placeholder="Enter your object's color" size="55" required>
-            <br><br>
-<!--
-            <span>Picture: </span><input type="text" placeholder="<HERE SHOULD BE AN UPLOAD FUNCTION>" name="uname" size="55" required>
-            <br><br>
--->
-            <input id="file" name="file" type="file" 
-            <span>Lost Location: </span>
-            <select name="location">
-                <option value="">Please select the location where you lost the object</option>
-                <option value="Copou">Copou</option>
-                <option value="Tatarasi">Tatarasi</option>
-                <option value="Alexandru">Alexandru</option>
-                <option value="Baza III">Baza III</option>
-                <option value="Nicolina">Nicolina</option>
-            </select>
-                <br><br>
-                <span>Found Date: </span><input name="date" type="date" placeholder="Enter your phone no. -- it will not be made public" size="55" required>
-                <br><br><br>
-                <button name="foundSubmit" type="submit" value="foundSubmit">Send</button>
+            <input id="file" name="file" type="file"/>
+                <br/><br/><br/>
+                <button id="foundSubmit" name="foundSubmit" disabled type="submit" value="foundSubmit">Send</button>
             </div>
         </form>
         <span id="status"></span>
