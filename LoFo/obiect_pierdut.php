@@ -86,7 +86,7 @@ if($user_ok == false)
         <form action="afisare_obiect.php" enctype="multipart/form-data"  method="post">
          <div class="form" >
             <h1>Lost object</h1>
-             <span>Category: </span> <select id="categ"name="category">
+             <span>Category: </span> <select id="categ" name="category">
                 <option value="">Please select the category of the object</option>
                 <option value="Phone">Phone</option>
                 <option value="Accesories">Accesories</option>
@@ -95,10 +95,10 @@ if($user_ok == false)
                 <option value="Keys">Keys</option>
             </select>
             <br/><br/>
-            <span>Object description: </span> <input id="tagsInput" type="text" onkeypress="return tagsDisplay(event)" name="description" placeholder="Enter the name of the found object" size="55" required>
+            <span>Object Description: </span> <input id="tagsInput" type="text" onkeypress="return tagsDisplay(event)" name="description" placeholder="Enter the name of the found object" size="55" required>
             <span>Valid tags(min 3):</span><span id="tags_status"></span>
             <br/><br/>            
-            <input id="file" name="file" type="file" </input>
+            <input id="file" name="file" type="file" />
                 <br/><br/><br/>
                 <button id="lostSubmit" name="lostSubmit" disabled type="submit" value="lostSubmit">Send</button>
             </div>

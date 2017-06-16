@@ -12,7 +12,7 @@ if($user_ok == false)
     <html>
 
     <head>
-        <title>Lost and Found - Marius Râncu şi Nedelcu Răzvan</title>
+        <title>Results</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/main.js"></script>
         <script src="js/ajax.js"></script>
@@ -80,160 +80,148 @@ if($user_ok == false)
     $category = $_POST['category']; 
     $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
     $tags = array_filter(explode(" ", $description), "filter_tags");
+    $tags = array_map("sanitize_tag", $tags);
+    $picture_location = "";
 
+    if(!empty($_FILES)){
+        $filename = $_FILES["file"]["name"];
+        $file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
+        $file_ext = substr($filename, strripos($filename, '.')); // get file name
+        $filesize = $_FILES["file"]["size"];
+        $allowed_file_types = array('.jpg', '.png');	
+        $newfilename = "";
 
-    $filename = $_FILES["file"]["name"];
-    $file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
-    $file_ext = substr($filename, strripos($filename, '.')); // get file name
-    $filesize = $_FILES["file"]["size"];
-    $allowed_file_types = array('.jpg', '.png');	
-
-
-    //Prepare query depending on the page that sends the data
-    if(isset($_POST['foundSubmit'])){
         if (in_array($file_ext,$allowed_file_types) && ($filesize < 200000000))
-	        {	
-                // Rename file
-                $newfilename = bin2hex(random_bytes(16)) . $file_ext;
-                if (file_exists("upload/" . $newfilename))
-                {
-                    // file already exists error
-                    echo "You have already uploaded this file.";
+        {	
+            // Rename file
+            $newfilename = bin2hex(random_bytes(16)) . $file_ext;
+            if (file_exists("upload/" . $newfilename))
+            {
+                // file already exists error
+                echo "You have already uploaded this file.";
+            }
+            else
+            {		
+                move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
+                echo "File uploaded successfully.";
+
+                //$null = NULL;
+                $picture_location = "upload/" . $newfilename;
+                
+            }
+        }
+                elseif ($filesize > 2000000)
+                {	
+                    // file size error
+                    echo "The file you are trying to upload is too large.";
                 }
                 else
-                {		
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
-                    echo "File uploaded successfully.";
-
-                    //$null = NULL;
-                    $picture_location = "upload/" . $newfilename;
-                    //insert description and category to lost objects
-                    $sql = mysqli_prepare($db_con, "INSERT INTO found_objects (username, category, description, picture_location) VALUES (?, ?, ?, ?)");
-                    mysqli_stmt_bind_param($sql, 'ssss', $log_username, $category, $description, $picture_location);
-
-                    mysqli_stmt_execute($sql);
-
-                    $obj_id = mysqli_insert_id($db_con);
-
-                    foreach($tags as $tag){
-                        $s_tag = sanitize_tag($tag);
-                        $sql = mysqli_prepare($db_con, "INSERT INTO found_ob_tags (obj_id, tag) VALUES(?, ?)");
-
-                        mysqli_stmt_bind_param($sql, 'is', $obj_id, $s_tag);
-                        mysqli_stmt_execute($sql);
-                    }
-
-                    mysqli_stmt_close($sql);
+                {
+                    // file type error
+                    echo "Only these file typs are allowed for upload: " . implode(', ', $allowed_file_types);
+                    unlink($_FILES["file"]["tmp_name"]);
                 }
-            }
-                    elseif ($filesize > 2000000)
-                    {	
-                        // file size error
-                        echo "The file you are trying to upload is too large.";
-                    }
-                    else
-                    {
-                        // file type error
-                        echo "Only these file typs are allowed for upload: " . implode(', ', $allowed_file_types);
-                        unlink($_FILES["file"]["tmp_name"]);
-                    }  
+    }
+    
+    //Prepare query depending on the page that sends the data
+    if(isset($_POST['foundSubmit'])){
+        
+        //insert description and category to lost objects
+        $sql = mysqli_prepare($db_con, "INSERT INTO found_objects (username, category, description, picture_location) VALUES (?, ?, ?, ?)");
+        mysqli_stmt_bind_param($sql, 'ssss', $log_username, $category, $description, $picture_location);
+
+        mysqli_stmt_execute($sql);
+
+        $obj_id = mysqli_insert_id($db_con);
+
+        mysqli_stmt_close($sql); 
+
+        foreach($tags as $tag){
+            $sql1 = mysqli_prepare($db_con, "INSERT INTO found_ob_tags (obj_id, tag) VALUES(?, ?)");
+            mysqli_stmt_bind_param($sql1, 'is', $obj_id, $tag);
+            mysqli_stmt_execute($sql1);
+        }
+
+        mysqli_stmt_close($sql1);        
+
+        //prepare query for results
+        $regex_tags = implode('|', $tags);
+
+        $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id) 
+            FROM lost_objects lo JOIN lost_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
+            WHERE ltags.tag REGEXP ? GROUP BY ltags.obj_id";
+
+        $sql = mysqli_prepare($db_con, $query);
+	    mysqli_stmt_bind_param($sql, 's', $regex_tags);          
     }
 
      if(isset($_POST['lostSubmit'])){
-             //update object picture
-            if (in_array($file_ext,$allowed_file_types) && ($filesize < 200000000))
-	        {	
-                // Rename file
-                $newfilename = bin2hex(random_bytes(16)) . $file_ext;
-                if (file_exists("upload/" . $newfilename))
-                {
-                    // file already exists error
-                    echo "You have already uploaded this file.";
-                }
-                else
-                {		
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
-                    echo "File uploaded successfully.";
+        //insert description and category to lost objects
+        $sql = mysqli_prepare($db_con, "INSERT INTO lost_objects (username, category, description, picture_location) VALUES (?, ?, ?, ?)");
+        mysqli_stmt_bind_param($sql, 'ssss', $log_username, $category, $description, $picture_location);
 
-                    //$null = NULL;
-                    $picture_location = "upload/" . $newfilename;
-                    //insert description and category to lost objects
-                    $sql = mysqli_prepare($db_con, "INSERT INTO lost_objects (username, category, description, picture_location) VALUES (?, ?, ?, ?)");
-                    mysqli_stmt_bind_param($sql, 'ssss', $log_username, $category, $description, $picture_location);
+        mysqli_stmt_execute($sql);
 
-                    mysqli_stmt_execute($sql);
+        $obj_id = mysqli_insert_id($db_con);
 
-                    $obj_id = mysqli_insert_id($db_con);
+        mysqli_stmt_close($sql); 
 
-                    foreach($tags as $tag){
-                        $s_tag = sanitize_tag($tag);
-                        $sql = mysqli_prepare($db_con, "INSERT INTO lost_ob_tags (obj_id, tag) VALUES(?, ?)");
+        foreach($tags as $tag){
+            $sql1 = mysqli_prepare($db_con, "INSERT INTO lost_ob_tags (obj_id, tag) VALUES(?, ?)");
+            mysqli_stmt_bind_param($sql1, 'is', $obj_id, $tag);
+            mysqli_stmt_execute($sql1);
+        }
 
-                        mysqli_stmt_bind_param($sql, 'is', $obj_id, $s_tag);
-                        mysqli_stmt_execute($sql);
-                    }
+        mysqli_stmt_close($sql1);        
 
-                    mysqli_stmt_close($sql);
-                        }
-                    }
-                    elseif ($filesize > 2000000)
-                    {	
-                        // file size error
-                        echo "The file you are trying to upload is too large.";
-                    }
-                    else
-                    {
-                        // file type error
-                        echo "Only these file typs are allowed for upload: " . implode(', ', $allowed_file_types);
-                        unlink($_FILES["file"]["tmp_name"]);
-                    }  
+        //prepare query for results
+        $regex_tags = implode('|', $tags);
+
+        $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id) 
+            FROM found_objects lo JOIN found_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
+            WHERE ltags.tag REGEXP ? GROUP BY ltags.obj_id";
+
+        $sql = mysqli_prepare($db_con, $query);
+	    mysqli_stmt_bind_param($sql, 's', $regex_tags);  
+             
     }
 
+        mysqli_stmt_execute($sql);
+        mysqli_stmt_bind_result($sql, $d_username,$phone, $email, $d_id, $obj_id, $description, $d_pic_location, $matched_tags);
 
+        $something_found = false;
 
-     $sql2 = mysqli_prepare($db_con,"SELECT last_name, first_name, email, phone_number FROM users WHERE username = ?");
-     mysqli_stmt_bind_param($sql2,'s',$username);
-     mysqli_stmt_execute($sql2);
-     $sql2->bind_result($last_name, $first_name, $email, $phone);
-     $sql2->fetch();
-     mysqli_stmt_close($sql2);
-
-
-
-     if($nr_rezultate > 0){
-        $sql5->bind_result($d_id, $d_username, $d_category, $d_name, $d_producer, $d_model, $color, $d_pic, $d_pic_location, $d_loc, $d_date);
-        
-        while ($sql5->fetch()) {
-            echo"
-            <div class=\"search_container\">
-            <div class=\"search_left\">
-                        <img src=". $d_pic_location ." height=\"150\" />   
+        while (mysqli_stmt_fetch($sql)){
+            if($matched_tags > 2){
+                $something_found = true;
+                ?>
+            <div class="search_container">
+            <div class="search_left">
+                        <img src= "<?php echo $d_pic_location ?>"height="150" />   
                         </div>
-                        <div class=\"search_right\">
-                            <div class=\"search_ob_details\">
-                                <br><span class=\"ob_field\">Object Name:</span><span class=\"ob_field\"> ". $d_name ."</span>
-                                <br><span class=\"ob_field\">Category:</span><span class=\"ob_field\"> ". $d_category ."</span>
-                                <br><span class=\"ob_field\">Producer:</span><span class=\"ob_field\"> ". $d_producer ."</span>
-                                <br><span class=\"ob_field\">Model:</span><span class=\"ob_field\"> ". $d_model ."</span>
-                                <br><span class=\"ob_field\">Color:</span><span class=\"ob_field\"> ". $color ."</span>
-                                <br><span class=\"ob_field\">Found location:</span><span class=\"ob_field\"> ". $d_loc ."</span>
-                                <br><span class=\"ob_field\">Found Date:</span><span class=\"ob_field\"> ". $d_date ."</span>
+                        <div class="search_right">
+                            <div class="search_ob_details">
+                                <br><span class="ob_field">Object description:</span><span class="ob_field"><?php echo $description ?></span>
                             </div>
                             <span>
-                            <div class=\"search_ob_contact\">
+                            <div class="search_ob_contact">
                                 <br>
-                                    <div class=\"ob_contact\">
-                                    <span id=\"spoiler\" style=\"display:none\">".$phone."</span>
-                                    <input type=\"submit\" title=\"Click to show/hide content\" type=\"button\" onclick=\"if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}\" value=\"Show phone number\"></input>
+                                    <div class="ob_contact">
+                                    <span id="spoiler" style="display:none"><?php echo $phone ?></span>
+                                    <input type="submit" title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}" value="Show phone number"></input>
                                     </div>
                                 <br>
-                                    <button class=\"ob_contact_username\" onclick=\"sendMessage($d_id)\">Send: ".$d_username." a private message</button>
+                                    <button class="ob_contact_username" onclick="sendMessage(<?php echo $d_id ?>)">Send: <?php echo $d_username ?> a private message</button>
                         </div>
-            ";
-        } 
-        }else 
-            echo "Nu a fost gasit nici un obiect";
-        $sql5->close();
+            <?php
+            }
+        }
+
+        if($something_found = false){
+            echo "No object found matching the description";
+        }
+
+        mysqli_stmt_close($sql);
 ?>
                 
 
