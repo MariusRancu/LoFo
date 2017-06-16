@@ -35,7 +35,7 @@ mysqli_stmt_close($sql2);
 
                 if(mysqli_stmt_affected_rows($sql4) == 1){
             
-                echo 'Password changed';
+                echo 'pass_changed';
                 mysqli_stmt_close($sql4);
                 }
                 else{
@@ -125,8 +125,7 @@ mysqli_stmt_close($sql2);
                     if (p1 != "" && p2 != "") {
                         ajax.onreadystatechange = function() {
                             if (ajaxReturn(ajax) == true) {
-                                _("pass_status").innerHTML = ajax.responseText;
-                                if(ajax.responseText == 'Password changed'){
+                                if(ajax.responseText.indexOf('pass_changed') > -1){
                                     alert("Your password has been changed, you will be logged out!");
                                     window.location = "logout.php";
                                 }
