@@ -189,7 +189,7 @@ if($user_ok == false)
         mysqli_stmt_bind_result($sql, $d_username,$phone, $email, $d_id, $obj_id, $description, $d_pic_location, $matched_tags);
 
         $something_found = false;
-
+            
         while (mysqli_stmt_fetch($sql)){
             if($matched_tags > 2){
                 $something_found = true;
