@@ -100,11 +100,13 @@ if($user_ok == false)
                 <option value="Electronics">Electronics</option>
                 <option value="Papers">Papers</option>
                 <option value="Keys">Keys</option>
+                <option value="Animals">Animals</option>
+                <option value="Others">Others</option>
             </select>
             <br/><br/>
-            <span>Object Description: </span> <input id="tagsInput" type="text" onblur="tagsDisplay()" onkeypress="tagsDisplay()" name="description" placeholder="Enter the name of the found object" size="55" required>
+            <span>Object Description: </span> <input id="tagsInput" type="text" onblur="tagsDisplay()" onkeypress="tagsDisplay()" name="description" placeholder="Enter some keywords that best describes the object" size="55" required>
             <span>Valid tags(min 3):</span><span id="tags_status"></span>
-            <br/><br/>            
+            <br/><br/>  
             <input id="file" name="file" type="file" />
                 <br/><br/><br/>
                 <button id="lostSubmit" name="lostSubmit" disabled type="submit" value="lostSubmit">Send</button>

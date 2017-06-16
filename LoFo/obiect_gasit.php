@@ -92,7 +92,7 @@ function tagsDisplay(e){
     <div class="container">
         <form action="afisare_obiect.php" enctype="multipart/form-data"  method="post">
          <div class="form" >
-            <h1>Lost object</h1>
+            <h1>Found object</h1>
              <span>Category: </span> <select id="categ"name="category" onblur="tagsDisplay()">
                 <option value="">Please select the category of the object</option>
                 <option value="Phone">Phone</option>
@@ -100,11 +100,17 @@ function tagsDisplay(e){
                 <option value="Electronics">Electronics</option>
                 <option value="Papers">Papers</option>
                 <option value="Keys">Keys</option>
+                <option value="Animals">Animals</option>
+                <option value="Others">Others</option>
             </select>
             <br/><br/>
-            <span>Object Description: </span> <input id="tagsInput" type="text" onblur="tagsDisplay()" onkeypress="tagsDisplay()" name="description" placeholder="Enter the name of the found object" size="55" required>
+            <span>Object Description: </span> <input id="tagsInput" type="text" onblur="tagsDisplay()" onkeypress="tagsDisplay()" name="description" placeholder="Enter some keywords that best describes the object" size="55" required>
             <span>Valid tags(min 3):</span><span id="tags_status"></span>
-            <br/><br/>            
+            <br/><br/>
+            <span>Found location: </span> <input id="locationInput" type="text" name="location" placeholder="Enter where you found the object" size="55">            
+            <br/><br/>
+            <span>Found date</span> <input id="dateInput" type="date" name="date" />
+            <br/><br/>
             <input id="file" name="file" type="file" />
                 <br/><br/><br/>
                 <button id="foundSubmit" name="foundSubmit" disabled type="submit" value="foundSubmit">Send</button>
