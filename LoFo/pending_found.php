@@ -124,14 +124,10 @@ $rowcount=mysqli_num_rows($result);
 <table border="3">
   <tr>
     <th>User</th>
-    <th>Object Name</th>
+    <th>Description</th>
     <th>Category</th>
-    <th>Producer</th>
-    <th>Model</th>
-    <th>Color</th>
-    <th>Location</th>
-    <th>Date</th>
-    <th>Verify</th>
+    <th>Picture</th>
+    <th>Action</th>
   </tr>
 <?php
 while($row = mysqli_fetch_array($result))
@@ -139,13 +135,9 @@ while($row = mysqli_fetch_array($result))
 ?>
   <tr>
     <td><?php  echo $row['username'] ?></td>
+    <td><?php  echo $row['description'] ?></td>
     <td><?php  echo $row['category'] ?></td>
-    <td><?php  echo $row['obj_name'] ?></td>
-    <td><?php  echo $row['producer'] ?></td>
-    <td><?php  echo $row['model'] ?></td>
-    <td><?php  echo $row['color'] ?></td>
-    <td><?php  echo $row['location'] ?></td>
-    <td><?php  echo $row['data'] ?></td>
+    <td><img src="./<?php  echo $row['picture_location'] ?>" width="60px"/></td>
     <td>
         <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">&#10004;</a>
         <button onclick="refuse(<?php echo $row['id']?>)" alt="Nefondat" style="color: green;margin: auto;">&#10006;</a>

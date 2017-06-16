@@ -8,7 +8,7 @@ if($user_ok == false || $user_role == 0)
 
 if(isset($_POST["acceptId"])){
     $accId =  $_POST["acceptId"];    
-    $sql = mysqli_prepare($db_con, "UPDATE objects SET is_verified=1 WHERE id=?");
+    $sql = mysqli_prepare($db_con, "UPDATE lost_objects SET is_verified=1 WHERE id=?");
     mysqli_stmt_bind_param($sql,'i', $accId);
     mysqli_stmt_execute($sql);
 
@@ -19,7 +19,7 @@ if(isset($_POST["acceptId"])){
 
 if(isset($_POST["refuseId"])){
     $refuseId =  $_POST["refuseId"];    
-    $sql = mysqli_prepare($db_con, "UPDATE objects SET is_verified=2 WHERE id=?");
+    $sql = mysqli_prepare($db_con, "UPDATE lost_objects SET is_verified=2 WHERE id=?");
     mysqli_stmt_bind_param($sql,'i', $refuseId);
     mysqli_stmt_execute($sql);
 
@@ -35,7 +35,7 @@ if (mysqli_connect_errno())
     die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-if (!$result = mysqli_query($db_con,"SELECT * FROM objects WHERE is_verified = 0 ORDER BY data ASC"))
+if (!$result = mysqli_query($db_con,"SELECT * FROM lost_objects WHERE is_verified = 0 ORDER BY data ASC"))
 {
     die("Error: " . mysqli_error($db_con));
 }
@@ -124,15 +124,10 @@ $rowcount=mysqli_num_rows($result);
 <table border="3">
   <tr>
     <th>User</th>
-    <th>Object Name</th>
-    <th>Category</th>
-    <th>Producer</th>
-    <th>Model</th>
-    <th>Color</th>
-    <th>Location</th>
+    <th>Category Name</th>
+    <th>Description</th>
     <th>Picture</th>
-    <th>Date</th>
-    <th>Verify</th>
+    <th>Action</th>
   </tr>
 <?php
 while($row = mysqli_fetch_array($result))
@@ -141,13 +136,8 @@ while($row = mysqli_fetch_array($result))
   <tr>
     <td><?php  echo $row['username'] ?></td>
     <td><?php  echo $row['category'] ?></td>
-    <td><?php  echo $row['obj_name'] ?></td>
-    <td><?php  echo $row['producer'] ?></td>
-    <td><?php  echo $row['model'] ?></td>
-    <td><?php  echo $row['color'] ?></td>
-    <td><?php  echo $row['location'] ?></td>
+    <td><?php  echo $row['description'] ?></td>
     <td><img src="./<?php  echo $row['picture_location'] ?>" width="60px"/></td>
-    <td><?php  echo $row['data'] ?></td>
     <td>
         <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">&#10004;</a>
         <button onclick="refuse(<?php echo $row['id']?>)" alt="Nefondat" style="color: green;margin: auto;">&#10006;</a>

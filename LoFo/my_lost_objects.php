@@ -12,14 +12,14 @@ if (mysqli_connect_errno())
     die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-if (!$result = mysqli_query($db_con, 'SELECT * FROM objects WHERE username="'.$log_username.'" AND status=0 ORDER BY data ASC'))
+if (!$result = mysqli_query($db_con, 'SELECT * FROM lost_objects WHERE username="'.$log_username.'" AND status=0 ORDER BY data ASC'))
 {
     die("Error: " . mysqli_error($db_con));
 }
 
 if(isset($_POST["acceptId"])){
     $accId =  $_POST["acceptId"];    
-    $sql = mysqli_prepare($db_con, "UPDATE objects SET status=1 WHERE id=?");
+    $sql = mysqli_prepare($db_con, "UPDATE lost_objects SET status=1 WHERE id=?");
     mysqli_stmt_bind_param($sql,'i', $accId);
     mysqli_stmt_execute($sql);
 
@@ -51,14 +51,21 @@ if(isset($_POST["acceptId"])){
         <body>
         <div class="header_menu">
             <div class="menu_content">
+                <div class="header_menu">
+            <div class="menu_content">
                 <div class="menu_items">
-                    <a href="index.php">HOME</a> |
-                    <a href="signup.php">SIGN UP</a> |
-                    <a href="report.php">REPORT</a> |
-                    <a href="my_profile.php">MY PROFILE</a> |
-                    <a href="admin_panel.php" class="activ">ADMIN PANEL</a> |
-                    <a href="contact_us.php">CONTACT US</a>
-                </div>
+                        <a href="index.php" class="activ">HOME</a> |
+                        <?php if($user_ok == true){
+    echo '<a href="my_profile.php">MY PROFILE</a> |';
+    if($user_role == true) : 
+                echo '<a href="admin_panel.php">ADMIN PANEL</a> |';
+    endif;
+    echo '<a href="report.php">REPORT</a> |';
+} else { echo '<a href="signup.php">SIGN UP</a> |'; }; ?>
+                        <a href="contact_us.php">CONTACT US</a>
+                    </div>
+
+            </div>
 
             </div>
         </div>
@@ -70,8 +77,16 @@ if(isset($_POST["acceptId"])){
                 </div>
                 <div class="login">
                     <div class="login_items">
-                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
-                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
+                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
+                        <span class="mini_menu">
+                            <br>
+                            &#9830; <a href="messages.php">My messages</a>
+                            <br>
+                            &#9830; <a href="my_lost_objects.php">My lost objects</a>
+                            <br>
+                            &#9830; <a href="my_found_objects.php">My found objects</a>
+                        </span>
+                        <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 0x;">Logout</a></span>
                     </div>
                 </div>
                
@@ -83,15 +98,9 @@ if(isset($_POST["acceptId"])){
 <table border="3">
   <tr>
     <th>User</th>
-    <th>Object Name</th>
     <th>Category</th>
-    <th>Producer</th>
-    <th>Model</th>
-    <th>Color</th>
-    <th>Location</th>
-    <th>Date</th>
-    <th>Verify</th>
-  </tr>
+    <th>Description</th>
+    <th>Action</th>
 <?php
 while($row = mysqli_fetch_array($result))
 {
@@ -99,12 +108,7 @@ while($row = mysqli_fetch_array($result))
   <tr>
     <td><?php  echo $row['username'] ?></td>
     <td><?php  echo $row['category'] ?></td>
-    <td><?php  echo $row['obj_name'] ?></td>
-    <td><?php  echo $row['producer'] ?></td>
-    <td><?php  echo $row['model'] ?></td>
-    <td><?php  echo $row['color'] ?></td>
-    <td><?php  echo $row['location'] ?></td>
-    <td><?php  echo $row['data'] ?></td>
+    <td><?php  echo $row['description'] ?></td>
     <td>
         <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">I've found it</a>
     </td>

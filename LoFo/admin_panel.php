@@ -17,7 +17,7 @@ if (!$reports = mysqli_query($db_con,"SELECT * FROM reported_by WHERE SOLVED IS 
     die("Error: " . mysqli_error($db_con));
 }
 
-$lost_objects = mysqli_query($db_con,"SELECT * FROM objects WHERE is_verified = 0");
+$lost_objects = mysqli_query($db_con,"SELECT * FROM lost_objects WHERE is_verified = 0");
 $found_objects = mysqli_query($db_con,"SELECT * FROM found_objects WHERE is_verified = 0");
 $reg_users = mysqli_query($db_con,"SELECT * FROM users");
 

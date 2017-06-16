@@ -102,32 +102,24 @@ if($user_ok == false)
         {	
             // Rename file
             $newfilename = bin2hex(random_bytes(16)) . $file_ext;
-            if (file_exists("upload/" . $newfilename))
-            {
-                // file already exists error
-                echo "You have already uploaded this file.";
-            }
-            else
-            {		
-                move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
-                echo "File uploaded successfully.";
+           
+           //upload file
+            move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
 
-                //$null = NULL;
-                $picture_location = "upload/" . $newfilename;
+            $picture_location = "upload/" . $newfilename;
                 
-            }
         }
-                elseif ($filesize > 2000000)
-                {	
-                    // file size error
-                    echo "The file you are trying to upload is too large.";
-                }
-                else
-                {
-                    // file type error
-                    echo "Only these file typs are allowed for upload: " . implode(', ', $allowed_file_types);
-                    unlink($_FILES["file"]["tmp_name"]);
-                }
+        elseif ($filesize > 2000000)
+        {	
+            // file size error
+            echo "The file you are trying to upload is too large.";
+        }
+        else
+        {
+            // file type error
+            echo "Only these file typs are allowed for upload: " . implode(', ', $allowed_file_types);
+            unlink($_FILES["file"]["tmp_name"]);
+        }
     }
     
     //Prepare query depending on the page that sends the data
@@ -156,10 +148,10 @@ if($user_ok == false)
 
         $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id) 
             FROM lost_objects lo JOIN lost_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
-            WHERE ltags.tag REGEXP ? GROUP BY ltags.obj_id";
+            WHERE lo.description=?, ltags.tag REGEXP ? GROUP BY ltags.obj_id";
 
         $sql = mysqli_prepare($db_con, $query);
-	    mysqli_stmt_bind_param($sql, 's', $regex_tags);          
+	    mysqli_stmt_bind_param($sql, 'ss',$description, $regex_tags);          
     }
 
      if(isset($_POST['lostSubmit'])){
@@ -186,10 +178,10 @@ if($user_ok == false)
 
         $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id) 
             FROM found_objects lo JOIN found_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
-            WHERE ltags.tag REGEXP ? GROUP BY ltags.obj_id";
+            WHERE lo.description=?, ltags.tag REGEXP ? GROUP BY ltags.obj_id";
 
         $sql = mysqli_prepare($db_con, $query);
-	    mysqli_stmt_bind_param($sql, 's', $regex_tags);  
+	    mysqli_stmt_bind_param($sql, 'ss', $description, $regex_tags);  
              
     }
 

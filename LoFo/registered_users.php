@@ -43,12 +43,6 @@ if($user_ok == false)
                     <div class="little_text">Lost & Found V4.0.1 BETA</div>
                 </div>
                 <div class="login">
-<<<<<<< HEAD
-                    <div class="login_items">
-                        <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
-                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
-                    </div>
-=======
                         <div class="login_items">
                             <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
                             <span class="mini_menu">
@@ -61,7 +55,6 @@ if($user_ok == false)
                             </span>
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 0x;">Logout</a></span>
                         </div>
->>>>>>> 39f2d360c568341f40794cd8b5d1a8149083adab
                 </div>
                
             </div>
