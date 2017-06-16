@@ -1,5 +1,6 @@
 <?php
 include_once("php_includes/db_con.php");
+
 if(isset($_POST["u"])){
 	
 	// GATHER THE POSTED DATA INTO LOCAL VARIABLES AND SANITIZE

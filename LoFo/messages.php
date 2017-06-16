@@ -1,5 +1,7 @@
 <?php
 include_once("php_includes/check_login_status.php");
+include_once("php_includes/db_con.php");
+include_once("php_includes/check_login_status.php");
 if($user_ok == false)
     {
         header("location: signup.php");
@@ -11,7 +13,6 @@ if($user_ok == false)
 // Apel Ajax
 if(isset($_POST["reported_username"])){
     // Conecatere la BD
-	include_once("php_includes/db_con_pm.php");
     
     //Inserare obiect in tabel
 $reported_username = $_POST['reported_username']; //$numeOb
@@ -135,10 +136,6 @@ $report_time = date("Y/m/d"); // date
             <div class="container">
                 <form class="form" onsubmit="return false;">
                     <h1>INBOX</h1>
-                    <?php
-include_once("php_includes/check_login_status.php");
-include_once("php_includes/db_con.php");
-?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -173,7 +170,7 @@ if (!$result1 = mysqli_query($db_con,'select m1.id, m1.title, m1.timestamp, coun
 $result1_count = mysqli_num_rows($result1);
     
 //$req2 = mysql_query($db_con, 'select m1.id, m1.title, m1.timestamp, count(m2.id) as reps, users.user_id as userid, users.username from pm as m1, pm as m2,users where ((m1.user1="2" and m1.user1read="yes" and users.user_id=m1.user2) or (m1.user2="2" and m1.user2read="yes" and users.user_id=m1.user1)) and m1.id2="1" and m2.id=m1.id group by m1.id order by m1.id desc');
-    if (!$result2 = mysqli_query($db_con,'select m1.id, m1.title, m1.timestamp, count(m2.id) as reps, users.user_id as userid, users.username from pm as m1, pm as m2,users where ((m1.user1="2" and m1.user1read="yes" and users.user_id=m1.user2) or (m1.user2="2" and m1.user2read="yes" and users.user_id=m1.user1)) and m1.id2="1" and m2.id=m1.id group by m1.id order by m1.id desc'))
+    if (!$result2 = mysqli_query($db_con,'select m1.id, m1.title, m1.timestamp, count(m2.id) as reps, users.user_id as userid, users.username from pm as m1, pm as m2,users where ((m1.user1="'.$log_user_id.'" and m1.user1read="yes" and users.user_id=m1.user2) or (m1.user2="'.$log_user_id.'" and m1.user2read="yes" and users.user_id=m1.user1)) and m1.id2="1" and m2.id=m1.id group by m1.id order by m1.id desc'))
 {
     die("Error" . mysqli_error($db_con));
 }
@@ -205,9 +202,7 @@ while($row = mysqli_fetch_array($result1))
     </tr>
 <?php
 }
-//If there is no unread message we notice it
-    echo $row;
-if( $row == 0 )
+if( $rowcount1 == 0 )
 {
 ?>
         <tr>

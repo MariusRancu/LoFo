@@ -17,14 +17,14 @@ if($user_ok == false)
         <script src="js/main.js"></script>
         <script src="js/ajax.js"></script>
         <script>
-            function sendMessage(objId){
+            function sendMessage(userId){
                     var ajax = ajaxObj("POST", "new_message.php");
                     ajax.onreadystatechange = function() {
                         if(ajaxReturn(ajax) == true) {
                             window.location="new_message.php";
                         }
                     }
-                    ajax.send("useridToSend=" + objId);
+                    ajax.send("useridToSend=" + userId);
         }
         </script>
     </head>
@@ -86,6 +86,19 @@ if($user_ok == false)
 
     $category = $_POST['category']; 
     $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
+
+    if(isset($_POST['location'])){
+        $found_location = $_POST['location'];
+    }else{
+        $found_location = "";
+    }
+
+    if(isset($_POST['date'])){
+        $found_date = $_POST['date'];
+    }else{
+        $found_date = "";
+    }
+
     $tags = array_filter(explode(" ", $description), "filter_tags");
     $tags = array_map("sanitize_tag", $tags);
     $picture_location = "";
@@ -109,25 +122,14 @@ if($user_ok == false)
             $picture_location = "upload/" . $newfilename;
                 
         }
-        elseif ($filesize > 2000000)
-        {	
-            // file size error
-            echo "The file you are trying to upload is too large.";
-        }
-        else
-        {
-            // file type error
-            echo "Only these file typs are allowed for upload: " . implode(', ', $allowed_file_types);
-            unlink($_FILES["file"]["tmp_name"]);
-        }
     }
     
     //Prepare query depending on the page that sends the data
     if(isset($_POST['foundSubmit'])){
         
         //insert description and category to lost objects
-        $sql = mysqli_prepare($db_con, "INSERT INTO found_objects (username, category, description, picture_location) VALUES (?, ?, ?, ?)");
-        mysqli_stmt_bind_param($sql, 'ssss', $log_username, $category, $description, $picture_location);
+        $sql = mysqli_prepare($db_con, "INSERT INTO found_objects (username, category, description, picture_location, location, data) VALUES (?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($sql, 'ssssss', $log_username, $category, $description, $picture_location, $found_location, $found_date);
 
         mysqli_stmt_execute($sql);
 
@@ -146,47 +148,15 @@ if($user_ok == false)
         //prepare query for results
         $regex_tags = implode('|', $tags);
 
-        $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id) 
+        $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id)
             FROM lost_objects lo JOIN lost_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
             WHERE ltags.tag REGEXP ? GROUP BY ltags.obj_id";
 
         $sql = mysqli_prepare($db_con, $query);
-	    mysqli_stmt_bind_param($sql, 's', $regex_tags);          
-    }
-
-     if(isset($_POST['lostSubmit'])){
-        //insert description and category to lost objects
-        $sql = mysqli_prepare($db_con, "INSERT INTO lost_objects (username, category, description, picture_location) VALUES (?, ?, ?, ?)");
-        mysqli_stmt_bind_param($sql, 'ssss', $log_username, $category, $description, $picture_location);
+	    mysqli_stmt_bind_param($sql, 's', $regex_tags);     
 
         mysqli_stmt_execute($sql);
-
-        $obj_id = mysqli_insert_id($db_con);
-
-        mysqli_stmt_close($sql); 
-
-        foreach($tags as $tag){
-            $sql1 = mysqli_prepare($db_con, "INSERT INTO lost_ob_tags (obj_id, tag) VALUES(?, ?)");
-            mysqli_stmt_bind_param($sql1, 'is', $obj_id, $tag);
-            mysqli_stmt_execute($sql1);
-        }
-
-        mysqli_stmt_close($sql1);        
-
-        //prepare query for results
-        $regex_tags = implode('|', $tags);
-
-        $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id) 
-            FROM found_objects lo JOIN found_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
-            WHERE ltags.tag REGEXP ? GROUP BY ltags.obj_id";
-
-        $sql = mysqli_prepare($db_con, $query);
-	    mysqli_stmt_bind_param($sql, 's', $regex_tags);  
-             
-    }
-
-        mysqli_stmt_execute($sql);
-        mysqli_stmt_bind_result($sql, $d_username,$phone, $email, $d_id, $obj_id, $description, $d_pic_location, $matched_tags);
+        mysqli_stmt_bind_result($sql, $d_username, $phone, $email, $d_id, $obj_id, $description, $d_pic_location, $matched_tags);
 
         $something_found = false;
             
@@ -214,7 +184,80 @@ if($user_ok == false)
                         </div>
             <?php
             }
+        }     
+    }
+
+     if(isset($_POST['lostSubmit'])){
+        //insert description and category to lost objects
+        $sql = mysqli_prepare($db_con, "INSERT INTO lost_objects (username, category, description, picture_location) VALUES (?, ?, ?, ?)");
+        mysqli_stmt_bind_param($sql, 'ssss', $log_username, $category, $description, $picture_location);
+
+        mysqli_stmt_execute($sql);
+
+        $obj_id = mysqli_insert_id($db_con);
+
+        mysqli_stmt_close($sql); 
+
+        foreach($tags as $tag){
+            $sql1 = mysqli_prepare($db_con, "INSERT INTO lost_ob_tags (obj_id, tag) VALUES(?, ?)");
+            mysqli_stmt_bind_param($sql1, 'is', $obj_id, $tag);
+            mysqli_stmt_execute($sql1);
         }
+
+        mysqli_stmt_close($sql1);        
+
+        //prepare query for results
+        $regex_tags = implode('|', $tags);
+
+        $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id), lo.location, lo.data 
+            FROM found_objects lo JOIN found_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
+            WHERE  ltags.tag REGEXP ? GROUP BY ltags.obj_id";
+
+        $sql = mysqli_prepare($db_con, $query);
+	    mysqli_stmt_bind_param($sql, 's', $regex_tags); 
+
+        mysqli_stmt_execute($sql);
+        mysqli_stmt_bind_result($sql, $d_username, $phone, $email, $d_id, $obj_id, $description, $d_pic_location, $matched_tags, $d_location, $d_date);
+
+        $something_found = false;
+            
+        while (mysqli_stmt_fetch($sql)){
+            if($matched_tags > 2){
+                $something_found = true;
+                ?>
+            <div class="search_container">
+            <div class="search_left">
+                        <img src= "<?php echo $d_pic_location ?>"height="150" />   
+                        </div>
+                        <div class="search_right">
+                            <div class="search_ob_details">
+                                <br>
+                                <span class="ob_field">Object description:</span><span class="ob_field"><?php echo $description ?></span>
+                                <br>
+                                <?php if($d_location != "") : ?>
+                                    <span class="ob_field">Found location:</span><span class="ob_field"><?php echo $d_location ?></span>
+                                <?php endif; ?>
+                                <br>
+                                <?php if($d_date != "") : ?>
+                                    <span class="ob_field">Found date:</span><span class="ob_field"><?php echo $d_date ?></span>
+                                <?php endif; ?>
+                                <br>
+                            </div>
+                            <span>
+                            <div class="search_ob_contact">
+                                <br>
+                                    <div class="ob_contact">
+                                    <span id="spoiler" style="display:none"><?php echo $phone ?></span>
+                                    <input type="submit" title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}" value="Show phone number"></input>
+                                    </div>
+                                <br>
+                                    <button class="ob_contact_username" onclick="sendMessage(<?php echo $d_id ?>)">Send: <?php echo $d_username ?> a private message</button>
+                        </div>
+            <?php
+            }
+        } 
+             
+    }
 
         if($something_found = false){
             echo "No object found matching the description";
