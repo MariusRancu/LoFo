@@ -43,10 +43,25 @@ if($user_ok == false)
                     <div class="little_text">Lost & Found V4.0.1 BETA</div>
                 </div>
                 <div class="login">
+<<<<<<< HEAD
                     <div class="login_items">
                         <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></a>!
                             <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 45px;">Logout</a></span>
                     </div>
+=======
+                        <div class="login_items">
+                            <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                            <span class="mini_menu">
+                            <br>
+                            &#9830; <a href="messages.php">My messages</a>
+                            <br>
+                            &#9830; <a href="my_lost_objects.php">My lost objects</a>
+                            <br>
+                            &#9830; <a href="my_found_objects.php">My found objects</a>
+                            </span>
+                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 0x;">Logout</a></span>
+                        </div>
+>>>>>>> 39f2d360c568341f40794cd8b5d1a8149083adab
                 </div>
                
             </div>
@@ -67,6 +82,7 @@ if($user_ok == false)
     <th>Address</th>
     <th>Phone Number</th>
     <th>Role</th>
+      <th>Change </th>
   </tr>
 <?php
 while($row = mysqli_fetch_array($result))
@@ -81,6 +97,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  echo $row['address'] ?></td>
     <td><?php  echo $row['phone_number'] ?></td>
     <td><?php if($row['role'] == 0) echo "User"; else echo "Admin"; ?></td>
+    <td><?php if($row['role'] == 0) { ?><a href="up_admin.php?id=<?php echo $row['user_id']; ?>" alt="Admin" style="color: green;margin: auto;">&#9899;</a><?php } else { ?> <a href="up_user.php?id=<?php echo $row['user_id']; ?>" alt="Fondat" style="color: green;margin: auto;">&#9898;</a> <?Php } ?> </td>
   </tr>
 <?php
 }

@@ -1,332 +1,454 @@
 <!DOCTYPE html>
 <!-- saved from url=(0065) -->
-<html lang="en-GB"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en-GB">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <meta name="viewport" content="width=device-width">
     <title>Raport Tehnic</title>
     <link rel="stylesheet" href="./rt_files/scholarly.css">
     <link rel="stylesheet" href="/rt_files/prism-coy.css">
     <script src="./rt_files/prism.js.download" defer=""></script>
-  </head>
-  <body prefix="prefix">
+</head>
+
+<body prefix="prefix">
     <header>
-      <p class="title">Raport Tehnic</p>
-      <p class="subtitle">LoFo</p>
+        <p class="title">Raport Tehnic</p>
+        <p class="subtitle">LoFo</p>
     </header>
 
-<article id="what" typeof="schema:ScholarlyArticle" resource="#">
+    <article id="what" typeof="schema:ScholarlyArticle" resource="#">
 
 
-      <section>
-        <ol>
-          <li property="schema:author" typeof="sa:ContributorRole">
-            <a property="schema:author" typeof="schema:Person">
-              <span property="schema:givenName">Nedelcu</span>
-              <span property="schema:familyName">Răzvan-Cornel</span>
-            </a>              
-          </li>           
-          <li property="schema:author" typeof="sa:ContributorRole">
-            <a property="schema:author" typeof="schema:Person">
-              <span property="schema:givenName">Râncu</span>
-              <span property="schema:familyName">Marius-Gheorghiţă</span>
-            </a>              
-          </li>              
-        </ol>
-      </section>
+        <section>
+            <ol>
+                <li property="schema:author" typeof="sa:ContributorRole">
+                    <a property="schema:author" typeof="schema:Person">
+                        <span property="schema:givenName">Nedelcu</span>
+                        <span property="schema:familyName">Răzvan-Cornel</span>
+                    </a>
+                </li>
+                <li property="schema:author" typeof="sa:ContributorRole">
+                    <a property="schema:author" typeof="schema:Person">
+                        <span property="schema:givenName">Râncu</span>
+                        <span property="schema:familyName">Marius-Gheorghiţă</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
 
-<h1 style="padding-top:15%;">Index</h1>
-
-
-      <section style="font-size:120%;" typeof="sa:ReferenceList" id="index">
-      
-      <ol type="1">
-      <li><a href="#introducere">Introducere</a></li><a href="#introducere">                 
-      </a><li><a href="#introducere"></a><a href="#detalii">Detalii despre proiect</a></li><a href="#detalii">       
-      </a><li><a href="#detalii"></a><a href="#tehnologii">Tehnologii utilizate</a></li><a href="#tehnologii">
-      </a><li><a href="#tehnologii"></a><a href="#arhitectura">Arhitectura aplicației</a></li><a href="#arhitectura">       
-      </a><li><a href="#arhitectura"></a><a href="#tehnice">Detalii de implementare</a></li><a href="#tehnice">
-      </a><li><a href="#tehnice"></a><a href="#workflow">Workflow</a></li><a href="#workflow">
-    </a></ol><a href="#workflow">
-    </a></section><a href="#workflow">
- </a><section typeof="sa:Abstract" id="introducere"><a href="#workflow">
-        <h2>Introducere</h2>
-        </a><p><a href="#workflow">
-          </a><a href="http://profs.info.uaic.ro/~busaco/teach/courses/web/projects/xml-transform.php?pag=projects">
-          <project>LoFo<sup>38</sup></project></a> este o aplicație disponibilă <web>Web</web> care permite utilizatorilor înregistraţi să îşi caute un obiect pierdut în speranţă recuperării lui sau să raporteze găsirea unui obiect necunoscut cu scopul de a-i fi înmânat înapoi posesorul. Şi totodată oferă acestora o modalitate de comunicare între ei, astfel obiectul pierdut poate ajunge înapoi în posesia deţinătorului de drept.<br>
-		  <b>Scopul aplicaţiei: </b> localizarea posesorului de drept al unui obiect pierdut, utilizând metoda de comunitare prin mesaje, sau telefonul mobil.</p>
-      </section>
-
-<section typeof="sa:Abstract" id="detalii">
-        <h2>Detalii despre aplicație</h2>
-        <p>
-        
-        </p><ul>
-
-        <li> <strong id="detaliu">Reprezentare utilizator:</strong> 
-          Un cont de utilizator, creat în cadrul site-ului, prin metoda de înregistrare user/pass.</li>
-        <li><strong id="detaliu">Reprezentare obiectelor pierdute:</strong> Pagina ce curpinde funcţionalitatea principală a aplicaţiei în care utilizatorul va putea alege categoria din care face parte obiectul pierdut (printr-o listă dropdown) şi alege semnele distincte prin input-uri, adăugarea unei poze după care poate fi localizat obiectul respectiv.</li>
-            <li> <strong id="detaliu">Reprezentare obiectelor gasite:</strong> 
-                Pagina ce curpinde funcţionalitatea principală a aplicaţiei în care utilizatorul va putea alege categoria din care face parte obiectul pierdut (printr-o listă dropdown) şi alege semnele distincte prin input-uri, adăugarea unei poze după care poate fi localizat obiectul respectiv.
-    </li>
-                <li> <strong id="detaliu">Reprezentare sistemului de mesaje:</strong> 
-                Pagina noastră cuprinde şi un sistem de mesaje între utilizatori, de tipul "Send/Reply" unde un utilizator care a pierdut un obiect îl poate contacta pe cel care l-a pierdut în vederea recuperării obiectului.
-    </li>
-        </ul>
-
-        <p></p>
-</section>
+        <h1 style="padding-top:15%;">Index</h1>
 
 
+        <section style="font-size:120%;" typeof="sa:ReferenceList" id="index">
 
+            <ol type="1">
+                <li><a href="#introducere">Introducere</a></li>
+                <a href="#introducere">
+                </a>
+                <li>
+                    <a href="#introducere"></a><a href="#detalii">Detalii despre proiect</a></li>
+                <a href="#detalii">
+                </a>
+                <li>
+                    <a href="#detalii"></a><a href="#tehnologii">Tehnologii utilizate</a></li>
+                <a href="#tehnologii">
+                </a>
+                <li>
+                    <a href="#tehnologii"></a><a href="#arhitectura">Arhitectura aplicației</a></li>
+                <a href="#arhitectura">
+                </a>
+                <li>
+                    <a href="#arhitectura"></a><a href="#tehnice">Detalii de implementare</a></li>
+                <a href="#tehnice">
+                </a>
+                <li>
+                    <a href="#tehnice"></a><a href="#workflow">Workflow</a></li>
+                <a href="#workflow">
+                </a>
+            </ol>
+            <a href="#workflow">
+            </a>
+        </section>
+        <a href="#workflow">
+        </a>
+        <section typeof="sa:Abstract" id="introducere">
+            <a href="#workflow">
+                <h2>Introducere</h2>
+            </a>
+            <p>
+                <a href="#workflow">
+                </a>
+                <a href="http://profs.info.uaic.ro/~busaco/teach/courses/web/projects/xml-transform.php?pag=projects">
+                    <project>LoFo<sup>38</sup></project>
+                </a> este o aplicație disponibilă
+                <web>Web</web> care permite utilizatorilor înregistraţi să îşi caute un obiect pierdut în speranţă recuperării lui sau să raporteze găsirea unui obiect necunoscut cu scopul de a-i fi înmânat înapoi posesorul. Şi totodată oferă acestora o modalitate de comunicare între ei, astfel obiectul pierdut poate ajunge înapoi în posesia deţinătorului de drept.<br>
+                <b>Scopul aplicaţiei: </b> localizarea posesorului de drept al unui obiect pierdut, utilizând metoda de comunitare prin mesaje, sau telefonul mobil.</p>
+        </section>
 
-<section typeof="sa:MaterialsAndMethods" id="tehnologii">
-        <h2>Tehnologii Utilizate</h2>   
-</section>
+        <section typeof="sa:Abstract" id="detalii">
+            <h2>Detalii despre aplicație</h2>
+            <p>
 
+            </p>
+            <ul>
 
+                <li> <strong id="detaliu">Reprezentare utilizator:</strong> Un cont de utilizator, creat în cadrul site-ului, prin metoda de înregistrare user/pass.</li>
+                <li><strong id="detaliu">Reprezentare obiectelor pierdute:</strong> Pagina ce curpinde funcţionalitatea principală a aplicaţiei în care utilizatorul va putea alege categoria din care face parte obiectul pierdut (printr-o listă dropdown) şi alege semnele distincte prin input-uri, adăugarea unei poze după care poate fi localizat obiectul respectiv.</li>
+                <li> <strong id="detaliu">Reprezentare obiectelor gasite:</strong> Pagina ce curpinde funcţionalitatea principală a aplicaţiei în care utilizatorul va putea alege categoria din care face parte obiectul pierdut (printr-o listă dropdown) şi alege semnele distincte prin input-uri, adăugarea unei poze după care poate fi localizat obiectul respectiv.
+                </li>
+                <li> <strong id="detaliu">Reprezentare sistemului de mesaje:</strong> Pagina noastră cuprinde şi un sistem de mesaje între utilizatori, de tipul "Send/Reply" unde un utilizator care a pierdut un obiect îl poate contacta pe cel care l-a pierdut în vederea recuperării obiectului.
+                </li>
+            </ul>
 
-<section>
-     <strong>PHP:</strong>
-  Folosirea PHP-ul este necesara pentru manipularea informaţiilor primite din baza de date MySQL într-un mod dinamic.
-    <hr>
-              <b>PHP</b> este un limbaj de programare. Numele PHP provine din limba engleză și este un acronim recursiv : Php: Hypertext Preprocessor. Folosit inițial pentru a produce pagini web dinamice, este folosit pe scară largă în dezvoltarea paginilor și aplicațiilor web. Se folosește în principal înglobat în codul HTML, dar începând de la versiunea 4.3.0 se poate folosi și în mod „linie de comandă” (CLI), permițând crearea de aplicații independente. Este unul din cele mai importante limbaje de programare web open-source și server-side, existând versiuni disponibile pentru majoritatea web serverelor și pentru toate sistemele de operare. Conform statisticilor este instalat pe 20 de milioane de site-uri web și pe 1 milion de servere web. Este disponibil sub Licenṭa PHP ṣi Free Software Foundation îl consideră a fi un software liber.
-<figure typeof="sa:Image">
-            <img src="./rt_files/php.png" width="630" height="275">
-            <figcaption>
-              <i>Informaţii standard referitoare la PHP.</i>
-            </figcaption>
-          </figure>
-    
-         <strong>HTML:</strong>
-  Avem nevoie de HTML pentru a structura aspectul paginii.
-    <hr>
-              <b>HTML</b> sau HyperText Markup Language este un limbaj de marcare utilizat pentru crearea paginilor web ce pot fi afișate într-un browser (sau navigator). Scopul HTML este mai degrabă prezentarea informațiilor – paragrafe, fonturi, tabele ș.a.m.d. – decât descrierea semanticii documentului.
-<figure typeof="sa:Image">
-            <img src="./rt_files/html.png" width="630" height="275">
-            <figcaption>
-              <i>Informaţii standard referitoare la HTML.</i>
-            </figcaption>
-          </figure>
-
-    
-         <strong>CSS:</strong>
-  Este necesar pentru a da un aspect placut structurii paginii
-    <hr>
-              <b>CSS</b> (Cascading Style Sheets) este un standard pentru formatarea elementelor unui document HTML. Stilurile se pot atașa elementelor HTML prin intermediul unor fișiere externe sau în cadrul documentului, prin elementul <strong>style</strong> și/sau atributul style. CSS se poate utiliza și pentru formatarea elementelor XHTML, XML și SVGL.
-<figure typeof="sa:Image">
-            <img src="./rt_files/css.png" width="630" height="275">
-            <figcaption>
-              <i>Informaţii standard referitoare la CSS.</i>
-            </figcaption>
-          </figure>
-
-    
-         <strong>MySQL:</strong>
-  Avem nevoie de un mediu de stocare a datelor inserate de utilizatori.
-    <hr>
-              <b>MySQL</b> este un sistem de gestiune a bazelor de date relaționale, produs de compania suedeza MySQL AB și distribuit sub Licența Publică Generală GNU. Este cel mai popular SGBD open-source la ora actuală[6], fiind o componentă cheie a stivei LAMP (Linux, Apache, MySQL, PHP).
-<figure typeof="sa:Image">
-            <img src="./rt_files/sql.png" width="630" height="275">
-            <figcaption>
-              <i>Informaţii standard referitoare la.</i>
-            </figcaption>
-          </figure>
-
-
-    
- <strong>JSON:</strong>
-  Avem nevoie de folosirea JSON-ului pentru exportarea unui raport cu privire la obiectul gasit prin intermediul site-ului nostru web.
-    <hr>
-    <b>JSON</b> is an open-standard format that uses human-readable text to transmit data objects consisting of attribute–value pairs. It is the most common data format used for asynchronous browser/server communication (AJAJ), largely replacing XML which is used by AJAX.
-<figure typeof="sa:Image">
-            <img src="./rt_files/json.png" width="630" height="275">
-            <figcaption>
-              <i>Informaţii standard referitoare la JSON.</i>
-            </figcaption>
-    </figure>
-		  
- <strong>CSV:</strong>
- De asemenea, a doua varianta de exportare de raportului de returnare obiect gasit ar fi CSV-ul.
-    <hr>
-              In computing, a <b>comma-separated values (CSV)</b> file stores tabular data (numbers and text) in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. The use of the comma as a field separator is the source of the name for this file format.
-<figure typeof="sa:Image">
-            <img src="./rt_files/csv.png" width="630" height="275">
-            <figcaption>
-              <i>Informaţii standard referitoare la CSV.</i>
-            </figcaption>
-    </figure>
-    
-<h3>Server-ul de baze de date utilizat (mySQL)</h3>
-
-        Pentru a reține toți utilizatorii înregistraţi și datele introduse de aceştia în aplicaţia web vom avea nevoie de o bază de date <strong>MySQL</strong>:
-        
-        <p>
-        </p><ul>
-        <li>Tabela <b>found_objects</b>: va conține următoarele atribute: <code>username<sup>(PK)</sup></code>, <code></code>, <code>prenume</code>, <code>email</code>, <code>parola</code>, <code>adresa</code>, <code>nr_telefon</code>, <code>CNP</code> asociate fiecărui utilizator care se înregistrează.</li>
-        <li>Tabela <b>objects</b>: va conține următoarele atribute: <code>id_obiect<sup>(PK)</sup></code>, <code>categorie</code>, <code>producator</code>, <code>model</code>, <code>culoare</code>, <code>revendicat</code>, <code>poza</code>, <code>data</code>, <code>loc_gasire</code>, <code>nume_obiect</code>.</li>
-        <li>Tabela <b>pm</b>: va conține atributele:<code>id_anunt<sub>(FK)</sub></code>, <code>id_frauda<sup>(PK)</sup></code>, <code>dovada</code>, <code>comentariu</code> .</li>
-        <li>Tabela <b>reported_by</b>: va conține atributele: <code>id_recenzie<sup>(PK)</sup></code>, <code>id_anunt<sub>(FK)</sub></code>, <code>rating</code>, <code>comentariu</code> .</li>
-		<li>Tabela <b>users</b>: va conține atributele: <code>username<sub>(FK)</sub></code>, <code>id_obiect<sub>(FK)</sub></code>, <code>id_anunt<sup>(PK)</sup></code> care va face legătura între toate cele 4 tabele menţionate mai sus.</li>
-		</ul>
+            <p></p>
+        </section>
 
 
 
 
-
-          <figure typeof="sa:Image">
-            <img src="./Raport Tehnic_files/tabel.png" width="644" height="668">
-            <figcaption>
-              <i>Diagrama UML a structurii tabelelor</i>
-            </figcaption>
-          </figure>
-
-        <p></p>
-        <h3>Limbaje de programare utilizate</h3>
-
-        <p>
-        </p><ol>
-        <li>Pentru interfața grafică: se va utiliza <strong>HTML</strong>, <strong>CSS</strong> şi <b>JS</b>.</li>
-        <li>Pentru interogarea bazei de date se va utiliza <strong>SQL.</strong></li>
-        <li>Pentru exportarea rapoartelor cu privire la returnarea obiectelor proprietarilor se va folosi <b>JSON</b>, <b>PDF</b>, <b>CSV</b> şi <b>HTML</b>. </li>
-        </ol>
-        <p></p>
-</section>
+        <section typeof="sa:MaterialsAndMethods" id="tehnologii">
+            <h2>Tehnologii Utilizate</h2>
+        </section>
 
 
 
+        <section>
+            <strong>PHP:</strong> Folosirea PHP-ul este necesara pentru manipularea informaţiilor primite din baza de date MySQL într-un mod dinamic.
+            <hr>
+            <b>PHP</b> este un limbaj de programare. Numele PHP provine din limba engleză și este un acronim recursiv : Php: Hypertext Preprocessor. Folosit inițial pentru a produce pagini web dinamice, este folosit pe scară largă în dezvoltarea paginilor și aplicațiilor web. Se folosește în principal înglobat în codul HTML, dar începând de la versiunea 4.3.0 se poate folosi și în mod „linie de comandă” (CLI), permițând crearea de aplicații independente. Este unul din cele mai importante limbaje de programare web open-source și server-side, existând versiuni disponibile pentru majoritatea web serverelor și pentru toate sistemele de operare. Conform statisticilor este instalat pe 20 de milioane de site-uri web și pe 1 milion de servere web. Este disponibil sub Licenṭa PHP ṣi Free Software Foundation îl consideră a fi un software liber.
+            <figure typeof="sa:Image">
+                <img src="./rt_files/php.png" width="630" height="275">
+                <figcaption>
+                    <i>Informaţii standard referitoare la PHP.</i>
+                </figcaption>
+            </figure>
 
-<section typeof="sa:MaterialsAndMethods" id="arhitectura">
+            <strong>HTML:</strong> Avem nevoie de HTML pentru a structura aspectul paginii.
+            <hr>
+            <b>HTML</b> sau HyperText Markup Language este un limbaj de marcare utilizat pentru crearea paginilor web ce pot fi afișate într-un browser (sau navigator). Scopul HTML este mai degrabă prezentarea informațiilor – paragrafe, fonturi, tabele ș.a.m.d. – decât descrierea semanticii documentului.
+            <figure typeof="sa:Image">
+                <img src="./rt_files/html.png" width="630" height="275">
+                <figcaption>
+                    <i>Informaţii standard referitoare la HTML.</i>
+                </figcaption>
+            </figure>
 
-      <h2> Arhitectura aplicației </h2>
-      <li>
-        Aplicaţia noastră "simulează" un departament de lucruri pierdute, lucrurile fiind introduse într-o bază de date de tip mySQL care va fi interogată de către membri ce urmează a-şi căuta obiectele pierdute.
-      </li>
-        Aplicația noastră are 7 pagini:
-        <li>
-          pagina de <strong>pornire</strong> - unde vizitatorul alege dacă se poate loga, înregistra apoi poate alege dacă a pierdut/ găsit un obiect.
-        </li>		
-        <li>
-          pagina de <strong>înregistrare</strong>, în care utilizatorul introduce datele cu care doreşte să-şi facă cont.
+
+            <strong>CSS:</strong> Este necesar pentru a da un aspect placut structurii paginii
+            <hr>
+            <b>CSS</b> (Cascading Style Sheets) este un standard pentru formatarea elementelor unui document HTML. Stilurile se pot atașa elementelor HTML prin intermediul unor fișiere externe sau în cadrul documentului, prin elementul <strong>style</strong> și/sau atributul style. CSS se poate utiliza și pentru formatarea elementelor XHTML, XML și SVGL.
+            <figure typeof="sa:Image">
+                <img src="./rt_files/css.png" width="630" height="275">
+                <figcaption>
+                    <i>Informaţii standard referitoare la CSS.</i>
+                </figcaption>
+            </figure>
+
+
+            <strong>MySQL:</strong> Avem nevoie de un mediu de stocare a datelor inserate de utilizatori.
+            <hr>
+            <b>MySQL</b> este un sistem de gestiune a bazelor de date relaționale, produs de compania suedeza MySQL AB și distribuit sub Licența Publică Generală GNU. Este cel mai popular SGBD open-source la ora actuală[6], fiind o componentă cheie a stivei LAMP (Linux, Apache, MySQL, PHP).
+            <figure typeof="sa:Image">
+                <img src="./rt_files/sql.png" width="630" height="275">
+                <figcaption>
+                    <i>Informaţii standard referitoare la mySQL.</i>
+                </figcaption>
+            </figure>
+
+
+
+            <strong>JSON:</strong> Avem nevoie de folosirea JSON-ului pentru exportarea unui raport cu privire la obiectul gasit prin intermediul site-ului nostru web.
+            <hr>
+            <b>JSON</b> is an open-standard format that uses human-readable text to transmit data objects consisting of attribute–value pairs. It is the most common data format used for asynchronous browser/server communication (AJAJ), largely replacing XML which is used by AJAX.
+            <figure typeof="sa:Image">
+                <img src="./rt_files/json.png" width="630" height="275">
+                <figcaption>
+                    <i>Informaţii standard referitoare la JSON.</i>
+                </figcaption>
+            </figure>
+
+            <strong>CSV:</strong> De asemenea, a doua varianta de exportare de raportului de returnare obiect gasit ar fi CSV-ul.
+            <hr> In computing, a <b>comma-separated values (CSV)</b> file stores tabular data (numbers and text) in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. The use of the comma as a field separator is the source of the name for this file format.
+            <figure typeof="sa:Image">
+                <img src="./rt_files/csv.png" width="630" height="275">
+                <figcaption>
+                    <i>Informaţii standard referitoare la CSV.</i>
+                </figcaption>
+            </figure>
+
+            <h3>Server-ul de baze de date utilizat (mySQL)</h3>
+
+            Pentru a reține toți utilizatorii înregistraţi și datele introduse de aceştia în aplicaţia web vom avea nevoie de o bază de date <strong>MySQL</strong>:
+
+            <p>
+            </p>
+            <ul>
+                <li>Tabela <b>found_objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>obj_name</code>, <code>producer</code>, <code>model</code>, <code>color</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept găsit de un username.</li>
+                <li>Tabela <b>objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>obj_name</code>, <code>producer</code>, <code>model</code>, <code>color</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept pierdut de un username.</li>
+                <li>Tabela <b>pm</b>: va conține atributele: <code>msg_id<sup>(PK, A_I)</sup></code>, <code>id</code>, <code>id2</code>, <code>title</code>, <code>user1</code>, <code>user2</code>, <code>message</code>, <code>timestamp</code>, <code>user1read</code>, <code>user2read</code> ascociate fiecărui mesaj trimis de useri prin intermediul sistemului de mesaje.</li>
+                <li>Tabela <b>reported_by</b>: va conține atributele: <code>report_id<sup>(PK, A_I)</sup></code>, <code>reported_username</code>, <code>reason</code>, <code>described_report</code>, <code>reported_by</code>, <code>report_time</code>, <code>solved</code> asociate fiecărui report trimis de câtre un user.</li>
+                <li>Tabela <b>users</b>: va conține atributele: <code>user_id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>last_name</code>, <code>first_name</code>, <code>email</code>, , <code>pass</code>, , <code>address</code>, <code>phone_number</code>, <code>role</code> care va face legătura între toate cele 4 tabele menţionate mai sus.</li>
+            </ul>
+
+            <p></p>
+            <h3>Limbaje de programare utilizate</h3>
+
+            <p>
+            </p>
+            <ol>
+                <li>Pentru interfața grafică: se va utiliza <strong>HTML</strong>, <strong>CSS</strong> şi <strong>JS</strong>.</li>
+                <li>Pentru interogarea bazei de date se va utiliza <strong>SQL.</strong></li>
+                <li>Pentru exportarea rapoartelor cu privire la returnarea obiectelor proprietarilor se va folosi <b>JSON</b>, <b>PDF</b>, <b>CSV</b> şi <b>HTML</b>. </li>
+            </ol>
+            <p></p>
+        </section>
+
+
+
+
+        <section typeof="sa:MaterialsAndMethods" id="arhitectura">
+
+            <h2> Arhitectura aplicației </h2>
+            <li>
+                Aplicaţia noastră "simulează" un departament de lucruri pierdute, lucrurile fiind introduse într-o bază de date de tip mySQL care va fi interogată de către membri ce urmează a-şi căuta obiectele pierdute.
+            </li>
+            Aplicația noastră are următoarele pagini publice:
+            <li>
+                pagina de <strong>pornire</strong> - unde vizitatorul alege dacă se poate loga, înregistra apoi poate alege dacă a pierdut/ găsit un obiect.
+            </li>
+            <li>
+                pagina de <strong>înregistrare</strong>, în care utilizatorul introduce datele cu care doreşte să-şi facă cont.
+            </li>
+            <li>
+                pagina de <strong>profil personal</strong>, în care utilizatorul îşi poate modificare informaţiile profilului.
+            </li>
+            <li>
+                pagina de <strong>căutare/adăugare obiecte pierdute</strong> - unde utilizatorul specifică detalii legate de obiectul pe care l-a pierdut.
+            </li>
+            <li>
+                pagina de <strong>adăugare obiect pierdute</strong> - unde utilizatorul ce a găsit un obiect străin poate specifica detaliile acestuia.
+            </li>
+            <li>
+                pagina de <strong>afişare a obiectului</strong> - unde utilizatorul poate afla informaţii despre obiectul care pare a fi similar informaţiilor introduse în pagina de căutare obiect.
+            </li>
+            <li>
+                pagina de <strong> report</strong> - unde orice utilizator poate raporta un abuz referitor la un obiect ce este postat/pierdut/găsit şi faţă de care poate face dovadă proprităţii.
+            </li>
+            <li>
+                pagina de <strong> contact us</strong> - unde orice utilizator poate intra în contact cu noi, printr-un form de contactare.
+            </li>
+
+            <li>
+                pagina de <strong> mesaje personale</strong> - unde orice utilizator poate vedea mesajele lui.
+            </li>
+            <li>
+          pagina de <strong> obiecte personale</strong> - unde orice utilizator poate vedea obiectele pierudte/găsite de el.
         </li>
-        <li>
-          pagina de <strong>căutare obiecte pierdute</strong> - unde utilizatorul specifică detalii legate de obiectul pe care l-a pierdut.
+            </li>
+            De asemenea următoarele pagini sunt disponibile pentru admin:
+                    <li>
+          pagina de <strong> aprobat obiecte pierdute</strong> - unde admin-ul poate aproba obiectele pierdute înainte ca acestea să apară pe pagină.
         </li>
-		        <li>
-          pagina de <strong>adăugare obiect pierdute</strong> - unde utilizatorul ce a găsit un obiect străin poate specifica detaliile acestuia.
+                    <li>
+          pagina de <strong> aprobat obiecte găsite</strong> - unde admin-ul poate aproba obiectele găsite înainte ca acestea să apară pe pagină.
         </li>
-		        <li>
-          pagina de <strong>prezentare a obiectului</strong> - unde utilizatorul poate afla informaţii despre obiectul care pare a fi similar informaţiilor introduse în pagina de căutare obiect.
+                    <li>
+          pagina de <strong> utilizatori</strong> - unde adimn-ul poate vedea informaţii despre alţi utilizatori şi le poate modifica rank-ul.
         </li>
-		        <li>
-          pagina de <strong> recenzii</strong> - unde utilizatorii după ce-au fost satisfăcuţi/ sau nu de către servicii oferite de aplicaţia noastr web pot să-şi lase părerea.
+                    <li>
+          pagina de <strong> consultat report-uri</strong> - unde admin-ul poate vedea ce report-uri s-au dat pe site.
         </li>
-		        <li>
-          pagina de <strong>raportare abuz</strong> - unde orice utilizator poate raporta un abuz referitor la un obiect ce este postat/pierdut/găsit şi faţă de care poate face dovadă proprităţii.
-        </li>
-        <strong>Modul de funcţionare: </strong>vizitatorul acceasză pagina de pornire a aplicaţiei unde se poate loga sau înregistra. Dacă informaţiile introduse în câmpurile de login corespund cu informaţiile prezente în baza de date atunci login-ul are succes. Dacă nu atunci acesta este atenţionat şi i se pune la dispoziţie crearea de cont sau recuperarea parolei contului. Dacă utilizatorul alege să se înregistreze atunci este nevoit să introducă informaţiile pe care doreşte să le aibă contul său. După verificarea cu succes a informaţiilor introduse, contul este creat şi este permisă logarea.
-		După logare, utilizatorul poate specifica informaţii legate despre obiectul pierdut accesând ramura de "obiecte pierdute" a aplicaţiei web, iar aceste informaţii vor fi comparate cu cele prezente în baza de date, iar dacă există similarităţi cu privire la informaţiile introduse şi cele prezente în baza de date obiectul este prezentat utilizatorului.</section>
+            <li>
+                <strong>Modul de funcţionare: </strong>vizitatorul acceasză pagina de pornire a aplicaţiei unde se poate loga sau înregistra. Dacă informaţiile introduse în câmpurile de login corespund cu informaţiile prezente în baza de date atunci login-ul are succes. Dacă nu atunci acesta este atenţionat şi i se pune la dispoziţie crearea de cont sau recuperarea parolei contului. Dacă utilizatorul alege să se înregistreze atunci este nevoit să introducă informaţiile pe care doreşte să le aibă contul său. După verificarea cu succes a informaţiilor introduse, contul este creat şi este permisă logarea. După logare, utilizatorul poate specifica informaţii legate despre obiectul pierdut accesând ramura de "obiecte pierdute" a aplicaţiei web, iar aceste informaţii vor fi comparate cu cele prezente în baza de date, iar dacă există similarităţi cu privire la informaţiile introduse şi cele prezente în baza de date obiectul este prezentat utilizatorului.</section>
 
 
 
-<section typeof="sa:MaterialsAndMethods" id="tehnice">
-   <h3>Arhitectura de ansamblu</h3>
+        <section typeof="sa:MaterialsAndMethods" id="tehnice">
+            <h3>Arhitectura de ansamblu</h3>
 
-      <strong>Interfața Grafică:</strong>
+            <strong>Interfața Grafică:</strong>
 
-      <ul style="list-style-type:square">
+            <ul style="list-style-type:square">
 
-<li>
-Pe pagina de pornire a aplicaţiei web nu avem un loc speifici pentru <b>login</b> acesta fiind implementat în bannerul prezentat în partea de header a aplicaţiei.
-</li>
-<p> 
-        </p><li>
-          Dacă vizitatorul încearcă să acceseze pagini care necesită un cont, va primi un <strong>mesaj de eroare</strong> ce-i va atrage atenţia asupra faptului ca trebuie să fie logat.
-        </li>
-<p></p>
-        <li>
-          Între meniu şi body-ul aplicaţiei web, vom avea <strong>mai multe bannere</strong> generate random printr-un script java care va încuraja utilizatorii să apeleze la noi, exploatând recenziile şi nu numai.
-        </li>
-</ul>
-</section>
+                <li>
+                    Pe pagina de pornire a aplicaţiei web nu avem un loc specifici pentru <b>login</b> acesta fiind implementat în bannerul prezentat în partea de header a aplicaţiei.
+                </li>
+                <p>
+                </p>
+                <li>
+                    Dacă vizitatorul încearcă să acceseze pagini care necesită un cont, va primi un <strong>mesaj de eroare</strong> ce-i va atrage atenţia asupra faptului ca trebuie să fie logat.
+                </li>
+                <p></p>
+                <li>
+                După logare, meniul este "deschis" total funcţiilor de membri şi nu numai. Utilizatorul poate folosi funcţia de mesaje, de report şi îşi poate vedea obiectele adăugate.</li>
+            </ul>
+        </section>
 
 
-<section typeof="sa:MaterialsAndMethods" id="workflow">
-    <h2> Workflow </h2>
-    <figure typeof="schema:Table">
-      <table>
-              <thead>
-                <tr>
-                  <td>Stagiu proiect</td>
-                  <td>Sarcina</td>
-                  <td>Dată</td>
-                  <td>Responsabil</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Stabilire design</td>
-                  <td>01/04/2016</td>
-                  <td>Nedelcu Răzvan şi Râncu Marius</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Creat wireframe pentru prima pagină</td>
-                  <td>03/04/2016</td>
-                  <td>Nedelcu Răzvan şi Râncu Marius</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Documentare asupra Scholary HTML</td>
-                  <td>06/04/2016</td>
-                  <td>Nedelcu Răzvan şi Râncu Marius</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Crearea raportului tehnic</td>
-                  <td>08/04/2016</td>
-                  <td>Nedelcu Răzvan</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Documentat asupra JavaScript, PHP, JSON etc.</td>
-                  <td>09/04/2016</td>
-                  <td>Nedelcu Răzvan şi Râncu Marius</td>
-                </tr><tr>
-                  <td>6</td>
-                  <td>Stabilire structura bazei de date</td>
-                  <td>14/04/2016</td>
-                  <td>Râncu Marius</td>
-                </tr><tr>
-                  <td>7</td>
-                  <td>Creare model bază de date</td>
-                  <td>15/04/2016</td>
-                  <td>Râncu Marius</td>
-                </tr><tr>
-                  <td>8</td>
-                  <td>Stabilire structură login/register</td>
-                  <td>15/04/2016</td>
-                  <td>Nedelcu Răzvan şi Râncu Marius</td>
-                </tr><tr>
-                  <td>9</td>
-                  <td>Stabilire format pagină principală</td>
-                  <td>15/04/2016</td>
-                  <td>Nedelcu Răzvan</td>
-                </tr>
-				<tr>
-                  <td>10</td>
-                  <td>Crearea wireframe-urilor pentru toate paginile</td>
-                  <td>15/04/2016</td>
-                  <td>Nedelcu Răzvan</td>
-                </tr><tr>
-                  <td>11</td>
-                  <td>Crearea diagrame use-case</td>
-                  <td>15/04/2016</td>
-                  <td>Râncu Marius</td>
-                </tr><tr>
-                  <td>12+</td>
-                  <td>---</td>
-                  <td>---</td>
-                  <td>---</td>    
-                </tr></tbody></table>
-</figure></section></article></body></html>
+        <section typeof="sa:MaterialsAndMethods" id="workflow">
+            <h2> Workflow </h2>
+            <figure typeof="schema:Table">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Stagiu proiect</td>
+                            <td>Sarcina</td>
+                            <td>Dată</td>
+                            <td>Responsabil</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Stabilire design</td>
+                            <td>01/04/2016</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Creat wireframe pentru prima pagină</td>
+                            <td>03/04/2016</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Documentare asupra Scholary HTML</td>
+                            <td>06/04/2016</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Crearea raportului tehnic</td>
+                            <td>08/04/2016</td>
+                            <td>Nedelcu Răzvan</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Documentat asupra JavaScript, PHP, JSON etc.</td>
+                            <td>09/04/2016</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Stabilire structura bazei de date</td>
+                            <td>14/04/2016</td>
+                            <td>Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Creare model bază de date</td>
+                            <td>15/04/2016</td>
+                            <td>Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Stabilire structură login/register</td>
+                            <td>15/04/2016</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Stabilire format pagină principală</td>
+                            <td>15/04/2016</td>
+                            <td>Nedelcu Răzvan</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Crearea wireframe-urilor pentru toate paginile</td>
+                            <td>15/04/2016</td>
+                            <td>Nedelcu Răzvan</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Crearea diagrame use-case</td>
+                            <td>15/04/2016</td>
+                            <td>Râncu Marius</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Picat sesiune 2016 :(</td>
+                            <td>07/06/2016</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                                                <tr>
+                            <td>14</td>
+                            <td>Design nou, LOFO</td>
+                            <td>28/04/2017</td>
+                            <td>Nedelcu Răzvan</td>
+                        </tr>
+                                                                        <tr>
+                            <td>15</td>
+                            <td>Intalnire pentru a creat o diagramata a site-ului</td>
+                            <td>12/05/2017</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                                                <tr>
+                            <td>16</td>
+                            <td>Creating login/signup</td>
+                            <td>30/05/2017</td>
+                            <td>Râncu Marius</td>
+                        </tr>
+                                                <tr>
+                            <td>17</td>
+                            <td>UserRoles and users registration done</td>
+                            <td>01/06/2017</td>
+                            <td>Râncu Marius</td>
+                        </tr>
+                                                <tr>
+                            <td>18</td>
+                            <td>Adding lostObj and foundObj</td>
+                            <td>03/06/2017</td>
+                            <td>Râncu Marius</td>
+                        </tr>
+                                                <tr>
+                            <td>19</td>
+                            <td>PeopleRegisterd/Upload picture/My Profile functionality</td>
+                            <td>08/06/2017</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                                                                        <tr>
+                            <td>20</td>
+                            <td>Creating PM system</td>
+                            <td>10/06/2017</td>
+                            <td>Nedelcu Răzvan</td>
+                        </tr>
+                                                <tr>
+                            <td>21</td>
+                            <td>MyLostObjects/MyFoundObjects</td>
+                            <td>10/06/2017</td>
+                            <td>Râncu Marius</td>
+                        </tr>
+                                                                        <tr>
+                            <td>22</td>
+                            <td>Modificari la sistemul de PM</td>
+                            <td>10/06/2017</td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                                                                        <tr>
+                            <td>23</td>
+                            <td></td>
+                            <td></td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                                                                        <tr>
+                            <td>24</td>
+                            <td></td>
+                            <td></td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                                                                        <tr>
+                            <td>25</td>
+                            <td></td>
+                            <td></td>
+                            <td>Nedelcu Răzvan şi Râncu Marius</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </figure>
+        </section>
+    </article>
+</body>
+
+</html>

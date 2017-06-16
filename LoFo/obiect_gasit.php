@@ -63,10 +63,18 @@ function tagsDisplay(e){
             </div>
              <?php if($user_ok == true) : ?>
             <div class="login">
-                <div class="login_items">
-                    <p class="login_items">Welcome, <?php echo htmlspecialchars($log_username, ENT_QUOTES, 'UTF-8'); ?></p>
-                    <a href="logout.php">Logout</a>
-                </div>
+                        <div class="login_items">
+                            <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
+                            <span class="mini_menu">
+                            <br>
+                            &#9830; <a href="messages.php">My messages</a>
+                            <br>
+                            &#9830; <a href="my_lost_objects.php">My lost objects</a>
+                            <br>
+                            &#9830; <a href="my_found_objects.php">My found objects</a>
+                            </span>
+                            <a href="logout.php" style="color: red; position: relative; float: right; right: 10px;top: 0x;">Logout</a></span>
+                        </div>
             </div>
             <?php else : ?>
                 <div class="login">
