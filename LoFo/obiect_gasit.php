@@ -93,7 +93,7 @@ function tagsDisplay(e){
         <form action="afisare_obiect.php" enctype="multipart/form-data"  method="post">
          <div class="form" >
             <h1>Lost object</h1>
-             <span>Category: </span> <select id="categ"name="category">
+             <span>Category: </span> <select id="categ"name="category" onblur="tagsDisplay()">
                 <option value="">Please select the category of the object</option>
                 <option value="Phone">Phone</option>
                 <option value="Accesories">Accesories</option>
@@ -102,7 +102,7 @@ function tagsDisplay(e){
                 <option value="Keys">Keys</option>
             </select>
             <br/><br/>
-            <span>Object Description: </span> <input id="tagsInput" type="text" onkeypress="return tagsDisplay(event)" name="description" placeholder="Enter the name of the found object" size="55" required>
+            <span>Object Description: </span> <input id="tagsInput" type="text" onblur="tagsDisplay()" onkeypress="tagsDisplay()" name="description" placeholder="Enter the name of the found object" size="55" required>
             <span>Valid tags(min 3):</span><span id="tags_status"></span>
             <br/><br/>            
             <input id="file" name="file" type="file" />

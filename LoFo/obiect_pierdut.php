@@ -102,7 +102,7 @@ if($user_ok == false)
                 <option value="Keys">Keys</option>
             </select>
             <br/><br/>
-            <span>Object Description: </span> <input id="tagsInput" type="text" onkeypress="return tagsDisplay(event)" name="description" placeholder="Enter the name of the found object" size="55" required>
+            <span>Object Description: </span> <input id="tagsInput" type="text" onblur="tagsDisplay()" onkeypress="tagsDisplay()" name="description" placeholder="Enter the name of the found object" size="55" required>
             <span>Valid tags(min 3):</span><span id="tags_status"></span>
             <br/><br/>            
             <input id="file" name="file" type="file" />
