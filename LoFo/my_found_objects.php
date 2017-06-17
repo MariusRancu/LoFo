@@ -3,19 +3,16 @@ include_once("php_includes/check_login_status.php");
 if($user_ok == false)
     {
         header("location: signup.php");
-    exit();
+        exit();
     }
 
-include_once("php_includes/db_con.php");
-if (mysqli_connect_errno())
-{
-    die("Failed to connect to MySQL: " . mysqli_connect_error());
-}
+$stmt = mysqli_prepare($db_con, 'SELECT id, username, category, description, is_verified FROM found_objects WHERE username=? AND status=0 ORDER BY data ASC');
 
-if (!$result = mysqli_query($db_con, 'SELECT * FROM found_objects WHERE username="'.$log_username.'" AND status=0 ORDER BY data ASC'))
-{
-    die("Error: " . mysqli_error($db_con));
-}
+mysqli_stmt_bind_param($stmt, "s", $log_username);
+
+mysqli_stmt_execute($stmt);
+
+mysqli_stmt_bind_result($stmt, $id, $user, $category, $description, $is_verified);
 
 if(isset($_POST["acceptId"])){
     $accId =  $_POST["acceptId"];    
@@ -102,17 +99,17 @@ if(isset($_POST["acceptId"])){
     <th>Action</th>
   </tr>
 <?php
-while($row = mysqli_fetch_array($result))
+while(mysqli_stmt_fetch($stmt))
 {
 ?>
   <tr>
-    <td><?php  echo $row['username'] ?></td>
-    <td><?php  echo $row['category'] ?></td>
-    <td><?php  echo $row['description'] ?></td>
-    <td><?php  if($row['is_verified'] == 0) echo "Unverified"; if($row['is_verified'] == 1) echo "Accepted"; if($row['is_verified'] == 2) echo "Refused";?></td>
-    <?php if($row['is_verified'] == 1) : ?>
+    <td><?php  echo $user ?></td>
+    <td><?php  echo $category ?></td>
+    <td><?php  echo $description ?></td>
+    <td><?php  if($is_verified == 0) echo "Unverified"; if($is_verified == 1) echo "Accepted"; if($is_verified == 2) echo "Refused";?></td>
+    <?php if($is_verified == 1) : ?>
     <td>
-        <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">I've returned it</a>
+        <button onclick="accept(<?php echo $id?>)" alt="Fondat" style="color: green;margin: auto;">I've returned it</a>
     </td>
     <?php endif; ?>
     
