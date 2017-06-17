@@ -1,6 +1,7 @@
 <?php
 include_once("php_includes/check_login_status.php");
 include_once("php_includes/login.php");
+include_once("php_includes/chat_notif.php");
 ?>
     <html>
 
@@ -71,7 +72,7 @@ include_once("php_includes/login.php");
                             <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
                             <span class="mini_menu">
                             <br>
-                            &#9830; <a href="messages.php">My messages</a>
+                            &#9830; <a href="messages.php">My messages( <?php unread_messages(); ?> )</a>
                             <br>
                             &#9830; <a href="my_lost_objects.php">My lost objects</a>
                             <br>

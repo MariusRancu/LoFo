@@ -2,6 +2,7 @@
 include_once("php_includes/check_login_status.php");
 include_once("php_includes/db_con.php");
 include_once("php_includes/check_login_status.php");
+include_once("php_includes/chat_notif.php");
 if($user_ok == false)
     {
         header("location: signup.php");
