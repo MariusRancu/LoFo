@@ -150,7 +150,7 @@ if($user_ok == false)
 
         $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id)
             FROM lost_objects lo JOIN lost_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
-            WHERE ltags.tag REGEXP ? GROUP BY ltags.obj_id";
+            WHERE lo.is_verified=1 AND ltags.tag REGEXP ? GROUP BY ltags.obj_id";
 
         $sql = mysqli_prepare($db_con, $query);
 	    mysqli_stmt_bind_param($sql, 's', $regex_tags);     
@@ -211,7 +211,7 @@ if($user_ok == false)
 
         $query = "SELECT lo.username, users.phone_number, users.email, users.user_id, ltags.obj_id, lo.description,  lo.picture_location, COUNT(ltags.obj_id), lo.location, lo.data 
             FROM found_objects lo JOIN found_ob_tags ltags on lo.id = ltags.obj_id JOIN users ON lo.username = users.username
-            WHERE  ltags.tag REGEXP ? GROUP BY ltags.obj_id";
+            WHERE  lo.is_verified=1 AND ltags.tag REGEXP ? GROUP BY ltags.obj_id";
 
         $sql = mysqli_prepare($db_con, $query);
 	    mysqli_stmt_bind_param($sql, 's', $regex_tags); 

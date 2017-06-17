@@ -100,6 +100,7 @@ if(isset($_POST["acceptId"])){
     <th>User</th>
     <th>Category</th>
     <th>Description</th>
+    <th>Verification status</th>
     <th>Action</th>
 <?php
 while($row = mysqli_fetch_array($result))
@@ -109,6 +110,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  echo $row['username'] ?></td>
     <td><?php  echo $row['category'] ?></td>
     <td><?php  echo $row['description'] ?></td>
+    <td><?php  if($row['is_verified'] == 0) echo "Unverified"; if($row['is_verified'] == 1) echo "Accepted"; if($row['is_verified'] == 2) echo "Refused";?></td>
     <td>
         <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">I've found it</a>
     </td>

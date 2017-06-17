@@ -13,10 +13,6 @@ $otitle = '';
 $orecip = '';
 $omessage = '';
 
-if(isset($_POST['useridToSend'])){
-    $orecip = $_POST['useridToSend'];
-}
-
 //We check if the form has been sent
 if(isset($_POST['title'], $_POST['recip'], $_POST['message']))
 {
