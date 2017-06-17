@@ -169,14 +169,8 @@
                 </figcaption>
             </figure>
 
-            <strong>CSV:</strong> De asemenea, a doua varianta de exportare de raportului de returnare obiect gasit ar fi CSV-ul.
-            <hr> In computing, a <b>comma-separated values (CSV)</b> file stores tabular data (numbers and text) in plain text. Each line of the file is a data record. Each record consists of one or more fields, separated by commas. The use of the comma as a field separator is the source of the name for this file format.
-            <figure typeof="sa:Image">
-                <img src="./rt_files/csv.png" width="630" height="275">
-                <figcaption>
-                    <i>Informaţii standard referitoare la CSV.</i>
-                </figcaption>
-            </figure>
+            <strong>AJAX:</strong> De asemenea, a doua varianta de exportare de raportului de returnare obiect gasit ar fi AJAX-ul.
+            <hr><strong>AJAX</strong> is a set of Web development techniques using many Web technologies on the client side to create asynchronous Web applications. With Ajax, Web applications can send data to and retrieve from a server asynchronously (in the background) without interfering with the display and behavior of the existing page. By decoupling the data interchange layer from the presentation layer, Ajax allows for Web pages, and by extension Web applications, to change content dynamically without the need to reload the entire page. In practice, modern implementations commonly substitute JSON for XML due to the advantages of being native to JavaScript.
 
             <h3>Server-ul de baze de date utilizat (mySQL)</h3>
 
@@ -185,11 +179,13 @@
             <p>
             </p>
             <ul>
-                <li>Tabela <b>found_objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>obj_name</code>, <code>producer</code>, <code>model</code>, <code>color</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept găsit de un username.</li>
-                <li>Tabela <b>objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>obj_name</code>, <code>producer</code>, <code>model</code>, <code>color</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept pierdut de un username.</li>
+                <li>Tabela <b>found_objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>description</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept găsit de un username.</li>
+                <li>Tabela <b>found_ob_tags</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>obj_id</code>, <code>tag</code> asociate descrierii fiecărui obiect care a fost raportat drept pierdut de un username.</li>
+                <li>Tabela <b>lost_objects</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>category</code>, <code>description</code>, <code>picture_location</code>, <code>location</code>, <code>data</code>, <code>is_verified</code>, <code>status</code> asociate fiecărui obiect care a fost raportat drept gasit de un username.</li>
+                <li>Tabela <b>lost_ob_tags</b>: va conține următoarele atribute: <code>id<sup>(PK, A_I)</sup></code>, <code>obj_id</code>, <code>tag</code> asociate descrierii fiecărui obiect care a fost raportat drept pierdut de un username.</li>
                 <li>Tabela <b>pm</b>: va conține atributele: <code>msg_id<sup>(PK, A_I)</sup></code>, <code>id</code>, <code>id2</code>, <code>title</code>, <code>user1</code>, <code>user2</code>, <code>message</code>, <code>timestamp</code>, <code>user1read</code>, <code>user2read</code> ascociate fiecărui mesaj trimis de useri prin intermediul sistemului de mesaje.</li>
                 <li>Tabela <b>reported_by</b>: va conține atributele: <code>report_id<sup>(PK, A_I)</sup></code>, <code>reported_username</code>, <code>reason</code>, <code>described_report</code>, <code>reported_by</code>, <code>report_time</code>, <code>solved</code> asociate fiecărui report trimis de câtre un user.</li>
-                <li>Tabela <b>users</b>: va conține atributele: <code>user_id<sup>(PK, A_I)</sup></code>, <code>username</code>, <code>last_name</code>, <code>first_name</code>, <code>email</code>, , <code>pass</code>, , <code>address</code>, <code>phone_number</code>, <code>role</code> care va face legătura între toate cele 4 tabele menţionate mai sus.</li>
+                <li>Tabela <b>users</b>: va conține atributele: <code>user_id<sup>(PK, A_I)</sup></code>, <code>user_token</code>, <code>username</code>, <code>last_name</code>, <code>first_name</code>, <code>email</code>, , <code>pass</code>, , <code>address</code>, <code>phone_number</code>, <code>role</code> care va face legătura între toate cele 4 tabele menţionate mai sus.</li>
             </ul>
 
             <p></p>
@@ -428,20 +424,20 @@
                         </tr>
                                                                         <tr>
                             <td>23</td>
-                            <td></td>
-                            <td></td>
+                            <td>Intrunire la camin pentru a face login-ul cu tokeni si stabilirea unui search</td>
+                            <td>14/06/2017</td>
                             <td>Nedelcu Răzvan şi Râncu Marius</td>
                         </tr>
                                                                         <tr>
                             <td>24</td>
-                            <td></td>
-                            <td></td>
+                            <td>Crearea functiei de cautare si perfectionare aceseteia</td>
+                            <td>15/06/2017</td>
                             <td>Nedelcu Răzvan şi Râncu Marius</td>
                         </tr>
                                                                         <tr>
                             <td>25</td>
-                            <td></td>
-                            <td></td>
+                            <td>Ultimele modificari minore adaugate website-ului</td>
+                            <td>17/06/2017</td>
                             <td>Nedelcu Răzvan şi Râncu Marius</td>
                         </tr>
                     </tbody>
