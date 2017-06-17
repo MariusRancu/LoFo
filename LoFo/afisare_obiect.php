@@ -225,35 +225,19 @@ if($user_ok == false)
             if($matched_tags > 2){
                 $something_found = true;
                 ?>
-            <div class="search_container">
-            <div class="search_left">
-                        <img src= "<?php echo $d_pic_location ?>"height="150" />   
-                        </div>
-                        <div class="search_right">
-                            <div class="search_ob_details">
-                                <br>
-                                <span class="ob_field">Object description:</span><span class="ob_field"><?php echo $description ?></span>
-                                <br>
-                                <?php if($d_location != "") : ?>
-                                    <span class="ob_field">Found location:</span><span class="ob_field"><?php echo $d_location ?></span>
-                                <?php endif; ?>
-                                <br>
-                                <?php if($d_date != "") : ?>
-                                    <span class="ob_field">Found date:</span><span class="ob_field"><?php echo $d_date ?></span>
-                                <?php endif; ?>
-                                <br>
-                            </div>
-                            <span>
-                            <div class="search_ob_contact">
-                                <br>
-                                    <div class="ob_contact">
-                                    <span id="spoiler" style="display:none"><?php echo $phone ?></span>
-                                    <input type="submit" title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}" value="Show phone number"></input>
-                                    </div>
-                                <br>
-                                    <button class="ob_contact_username" onclick="sendMessage(<?php echo $d_id ?>)">Send: <?php echo $d_username ?> a private message</button>
-                        </div>
-                        
+<div class="search_container">
+                <div class="search_img"><span id="spoiler" style="display:none"><span>Phone No:</span> <?php echo $phone ?></span><img class="search_img" src= "<?php echo $d_pic_location ?>"/>
+    </div>
+                
+                <div class="search_infos">
+                    <?php if($d_location != "") : ?><span>Found location:</span><?php echo $d_location ?><?php endif; ?><br>
+                    <?php if($d_date != "") : ?><span>Found date:</span><?php echo $d_date ?><?php endif; ?>
+                    <br>
+                    <span>Tags: </span><?php echo $description ?><br>
+                </div> 
+                <div class="search_left"><input type="submit" title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}" value="Phone number"></input></div>
+                <div class="search_right"><a href="new_message.php?username=<?php echo $d_username; ?>" >Send message</a></div>
+                            </div>       
             <?php
             }
         } 
@@ -268,7 +252,6 @@ if($user_ok == false)
                             <span> No object found matching your description</span>
                         <?php endif; ?>
                 </div>
-            </div>
         </div>
         </div>
     </body>

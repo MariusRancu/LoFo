@@ -330,7 +330,7 @@ a{
 }
 
 .search_container{
-    background-color: yellow;
+/*    background-color: yellow;*/
     border-style: solid;
     border-width: 2px;
     height: 280px;
@@ -346,13 +346,17 @@ a{
 }
 
 .search_infos{
-    background-color: pink;
+/*    background-color: pink;*/
     width: 100%;
-    height: 100px;
+    height: 95px;
+    font-size: 15px;
+    padding-top: 5px;
+    margin-left: 5px;
 }
 
 .search_infos span{
     margin: 0px;
+    font-weight: bold;
 }
 
 .search_left{
@@ -362,11 +366,30 @@ a{
     background-color: aqua;
 }
 
+
+.search_left input[type=submit] {
+    width: 100%;
+    height: 30px;
+    padding:5px 15px; 
+    color: white;
+    background:#5e2323; 
+    border:0 none;
+    cursor: pointer;
+}
+
 .search_right{
     width: 50%;
     float: right;
     height: 30px;
-    background-color: aqua;
+    background-color: brown; 
+    color: white;
+}
+
+.search_right a{
+    font-size: 14px;
+    position: relative;
+    top: 7px;
+    left: 10px;
 }
 
 .ob_field{
@@ -538,4 +561,16 @@ tr:nth-child(even) {
     position: relative;
     float: right;
     color: gray;
+}
+
+#spoiler{
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    float: right;
+}
+
+#spoiler span{
+    font-weight: bold;
 }

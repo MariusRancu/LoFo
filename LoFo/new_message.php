@@ -218,7 +218,7 @@ if($form)
         echo '<div class="message_eroare">'.$error.'</div>';
 }
  ?>
-                    <span>Titlu </span><input type="text" value="<?php echo htmlentities($otitle, ENT_QUOTES, 'UTF-8'); ?>" id="title" name="title" size="55"  /><br><br>
+                    <span>Titlu </span><input type="text" value="<?php echo $_GET['username']?>" id="title" name="title" size="55" value=""  /><br><br>
                     <span>Username: </span><input type="text" value="<?php
                          if(isset($_POST['useridToSend'])){
                             echo $_POST['useridToSend'];
