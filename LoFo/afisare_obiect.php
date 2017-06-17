@@ -102,7 +102,7 @@ if($user_ok == false)
     $tags = array_filter(explode(" ", $description), "filter_tags");
     $tags = array_map("sanitize_tag", $tags);
     $picture_location = "";
-
+    
     if(!empty($_FILES)){
         $filename = $_FILES["file"]["name"];
         $file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
@@ -253,21 +253,20 @@ if($user_ok == false)
                                 <br>
                                     <button class="ob_contact_username" onclick="sendMessage(<?php echo $d_id ?>)">Send: <?php echo $d_username ?> a private message</button>
                         </div>
+                        
             <?php
             }
         } 
              
     }
+    
 
-        if($something_found = false){
-            echo "No object found matching the description";
-        }
 
         mysqli_stmt_close($sql);
 ?>
-                
-
-                    </span>
+                <?php if($something_found == false) : ?>
+                            <span> No object found matching your description</span>
+                        <?php endif; ?>
                 </div>
             </div>
         </div>
