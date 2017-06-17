@@ -65,7 +65,7 @@ $reg_users_count = mysqli_num_rows($reg_users);
                             <span class="login_items">Welcome, <a href="./my_profile.php"><?php echo $log_username; ?></a>!
                             <span class="mini_menu">
                             <br>
-                            &#9830; <a href="messages.php">My messages</a>
+                            &#9830; <a href="messages.php">My messages ( <?php echo $rowcount1; ?> )</a>
                             <br>
                             &#9830; <a href="my_lost_objects.php">My lost objects</a>
                             <br>
