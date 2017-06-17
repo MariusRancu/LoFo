@@ -13,16 +13,15 @@ if (!isset($_GET['id']))
     exit;
 }
 
-$con = new mysqli($db_host, $db_user, $db_pass, $db_name);
-if ($con->connect_error)
+if ($db_con->connect_error)
 {
-    die('Connect Error (' . $con->connect_errno . ') ' . $con->connect_error);
+    die('Connect Error (' . $db_con->connect_errno . ') ' . $db_con->connect_error);
 }
 
 $sql = "UPDATE users SET role='1' WHERE user_id = ?";
-if (!$result = $con->prepare($sql))
+if (!$result = $db_con->prepare($sql))
 {
-    die('Query failed: (' . $con->errno . ') ' . $con->error);
+    die('Query failed: (' . $db_con->errno . ') ' . $db_con->error);
 }
 
 if (!$result->bind_param('i', $_GET['id']))
@@ -44,5 +43,5 @@ else
     echo "Couldn't delete the ID.";
 }
 $result->close();
-$con->close();
+$db_con->close();
 ?>

@@ -195,7 +195,7 @@ while($dn2 = mysqli_fetch_array($req2))
         <tr>
         <td class="author center"><?php
 ?><br /><?php echo $dn2['username']; ?></td>
-        <td class="left"><div class="date">Sent: <?php echo date('m/d/Y H:i:s' ,$dn2['timestamp']); ?></div>
+        <td class="left"><div class="date">Sent: <?php echo date('m/d/Y H:i:s' ,$dn2['timestamp']); ?><font color="red"></font></div>
         <?php echo $dn2['message']; ?></td>
     </tr>
 <?php
