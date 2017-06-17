@@ -16,17 +16,6 @@ if($user_ok == false)
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/main.js"></script>
         <script src="js/ajax.js"></script>
-        <script>
-            function sendMessage(userId){
-                    var ajax = ajaxObj("POST", "new_message.php");
-                    ajax.onreadystatechange = function() {
-                        if(ajaxReturn(ajax) == true) {
-                            window.location="new_message.php";
-                        }
-                    }
-                    ajax.send("useridToSend=" + userId);
-        }
-        </script>
     </head>
 
     <body>
@@ -249,7 +238,7 @@ if($user_ok == false)
         mysqli_stmt_close($sql);
 ?>
                 <?php if($something_found == false) : ?>
-                            <span> No object found matching your description</span>
+                            <span style="position: relative; top: 50px;"> No object found matching your description. <br> Your object has been sent to approvement. <br> You can check it's status anytime using your personal pages for lost/found objects.</span>
                         <?php endif; ?>
                 </div>
         </div>

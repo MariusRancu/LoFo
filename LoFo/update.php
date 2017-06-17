@@ -1,8 +1,4 @@
-    <script type="text/javascript">
-    <!--
-        window.location = 'admin_reports.php';
-    -->
-    </script>
+
 <?php
 // Your database info
 include_once("php_includes/db_con.php");
@@ -12,17 +8,15 @@ if (!isset($_GET['id']))
     echo 'No ID was given...';
     exit;
 }
-
-$con = new mysqli($db_host, $db_user, $db_pass, $db_name);
-if ($con->connect_error)
+if ($db_con->connect_error)
 {
-    die('Connect Error (' . $con->connect_errno . ') ' . $con->connect_error);
+    die('Connect Error (' . $db_con->connect_errno . ') ' . $db_con->connect_error);
 }
 
 $sql = "UPDATE reported_by SET solved='1' WHERE report_id = ?";
-if (!$result = $con->prepare($sql))
+if (!$result = $db_con->prepare($sql))
 {
-    die('Query failed: (' . $con->errno . ') ' . $con->error);
+    die('Query failed: (' . $db_con->errno . ') ' . $db_con->error);
 }
 
 if (!$result->bind_param('i', $_GET['id']))
@@ -37,12 +31,12 @@ if (!$result->execute())
 
 if ($result->affected_rows > 0)
 {
-    echo "The ID was deleted with success.";
+    echo "The ID was modified with success.";
 }
 else
 {
-    echo "Couldn't delete the ID.";
+    echo "Couldn't modify the ID.";
 }
 $result->close();
-$con->close();
+$db_con->close();
 ?>

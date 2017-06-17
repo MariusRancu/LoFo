@@ -66,7 +66,7 @@ if(isset($_POST["acceptId"])){
                     </div>
 
             </div>
-
+                </div>
             </div>
         </div>
         <div class="banner_bg">
@@ -113,7 +113,7 @@ while($row = mysqli_fetch_array($result))
     <td><?php  if($row['is_verified'] == 0) echo "Unverified"; if($row['is_verified'] == 1) echo "Accepted"; if($row['is_verified'] == 2) echo "Refused";?></td>
     <?php if($row['is_verified'] == 1) : ?>
     <td>
-        <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">I've returned it</a>
+        <button onclick="accept(<?php echo $row['id']?>)" alt="Fondat" style="color: green;margin: auto;">It was returned to me</a>
     </td>
     <?php endif; ?>
   </tr>

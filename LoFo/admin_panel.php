@@ -83,8 +83,6 @@ $reg_users_count = mysqli_num_rows($reg_users);
                         <?php echo $log_username; ?>
                     </a>!</h1>
             </div>
-            <a href="json_raport.php"> Generate lost objects raport</a>
-            <a href="json_found_raport.php"> Generate found objects raport</a>
             <div class="admin_container">
                 <a href="./pending_lost.php">
                     <div class="admin_button_one">
@@ -110,7 +108,18 @@ $reg_users_count = mysqli_num_rows($reg_users);
                 <a href="./pending_found.php">
                     <div class="admin_button_four">
                         <div class="admin_upside">Pending found objects</div>
-                        <div class="admin_downside_s"><?php echo "$found_pending_count"; ?></div>
+                        <div class="admin_downside"><?php echo "$found_pending_count"; ?></div>
+                    </div>
+                </a>
+                <br><br>
+                <a href="./json_raport.php">
+                    <div class="admin_generate_one">
+                        <div class="admin_upside">Lost objects raport</div>
+                    </div>
+                </a>
+                <a href="./json_found_raport.php">
+                    <div class="admin_generate_two">
+                        <div class="admin_upside"> Found objects raport</div>
                     </div>
                 </a>
             </div>

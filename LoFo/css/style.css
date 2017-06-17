@@ -454,6 +454,28 @@ a{
     
 }
 
+.admin_generate_one{
+    background-color: deepskyblue;
+    float: left;
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    border: 1px;
+    margin-top: 20px;
+    
+}
+
+.admin_generate_two{
+    background-color: skyblue;
+    float: right;
+    width: 50%;
+    margin: auto;
+    border-style: solid;
+    border: 1px;
+    margin-top: 20px;
+    
+}
+
 .admin_button_two{
     background-color: burlywood;
     float: right;
