@@ -83,8 +83,9 @@ $reg_users_count = mysqli_num_rows($reg_users);
                         <?php echo $log_username; ?>
                     </a>!</h1>
             </div>
+            <a href="json_raport.php"> Generate lost objects raport</a>
+            <a href="json_found_raport.php"> Generate found objects raport</a>
             <div class="admin_container">
-                
                 <a href="./pending_lost.php">
                     <div class="admin_button_one">
                         <div class="admin_upside">Pending lost objects</div>
